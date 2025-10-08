@@ -1,0 +1,169 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #111;
+  color: #fff;
+  overflow-x: hidden;
+}
+
+/* Background Animation */
+.background-animation img {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  opacity: 0.3;
+  z-index: -1;
+}
+.sidebar {
+  position: fixed;
+  top: 100px;
+  left: 20px;
+  z-index: 999;
+}
+
+.menu-toggle {
+  background-color: orange;
+  color: black;
+  padding: 10px 15px;
+  font-size: 18px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.dropdown {
+  display: none;
+  flex-direction: column;
+  background-color: #333;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 6px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.dropdown a {
+  color: white;
+  text-decoration: none;
+  padding: 8px 0;
+  border-bottom: 1px solid #444;
+}
+
+.dropdown a:last-child {
+  border-bottom: none;
+}
+/* Top Navigation Bar */
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #222;
+  padding: 15px 30px;
+  position: sticky;
+  top: 0;
+  z-index: 5;
+}
+
+.topbar .logo {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.main-nav a {
+  color: #fff;
+  text-decoration: none;
+  margin-left: 20px;
+  font-weight: 500;
+}
+
+.main-nav a:hover {
+  color: orange;
+}
+
+/* Sidebar */
+/* Sidebar */
+.sidebar {
+  position: fixed;
+  top: 80px;
+  left: 10px;
+  z-index: 10;
+}
+
+.menu-toggle {
+  background: orange;
+  color: black;
+  border: none;
+  padding: 10px 20px;
+  font-size: 18px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.dropdown {
+  display: none;
+  flex-direction: column;
+  margin-top: 10px;
+  background-color: #222;
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  width: 200px;
+}
+
+.dropdown a {
+  color: white;
+  text-decoration: none;
+  padding: 10px 0;
+  border-bottom: 1px solid #333;
+}
+
+.dropdown a:last-child {
+  border-bottom: none;
+}
+
+}
+
+.menu-toggle {
+  background: orange;
+  color: #000;
+  border: none;
+  padding: 10px;
+  font-size: 18px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.dropdown {
+  display: none;
+  flex-direction: column;
+  margin-top: 10px;
+  background: #222;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.dropdown a {
+  text-decoration: none;
+  color: #fff;
+  padding: 8px 0;
+  border-bottom: 1px solid #333;
+}
+
+.dropdown a:last-child {
+  border-bottom: none;
+}
+
+/* Main Content */
+.content {
+  margin-top: 100px;
+  padding: 20px;
+  text-align: center;
+}

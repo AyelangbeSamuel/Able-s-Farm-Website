@@ -1,0 +1,49 @@
+.body, html { margin:0; padding:0; font-family:'Orbitron',sans-serif; background:#0a0f29; color:#e0f7fa; }
+a { color:#76ff03; text-decoration:none; }
+
+.hero { position:relative; height:100vh; overflow:hidden; display:flex; align-items:center; justify-content:center; text-align:center; }
+.hero-bg { position:absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; }
+.overlay { position:absolute; top:0; bottom:0; left:0; right:0; background:rgba(10,20,40,0.6); }
+
+.hero-content { position:relative; z-index:2; }
+.typing { font-size:2.5rem; white-space:nowrap; overflow:hidden; border-right:3px solid #76ff03; animation:typing 4s steps(30) forwards; }
+@keyframes typing { from{width:0} to{width:100%;} }
+
+.cta { display:inline-block; margin-top:20px; padding:12px 30px; background:#76ff03; color:#000; border-radius:25px; transition:0.3s; }
+.cta:hover { background:#5fcc00; }
+
+section { padding:60px 20px; text-align:center; }
+.projects h2, .team h2, .contact h2 { margin-bottom:40px; font-size:2rem; }
+
+.cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:30px; }
+.card { background:rgba(255,255,255,0.05); backdrop-filter:blur(10px); padding:20px; border-radius:12px; transition:0.3s; }
+.card:hover { transform:translateY(-10px); box-shadow:0 10px 30px rgba(0,0,0,0.3); }
+.profiles { display:flex; justify-content:center; flex-wrap:wrap; gap:30px; }
+.profile { background:rgba(255,255,255,0.05); backdrop-filter:blur(10px); padding:15px; border-radius:12px; width:200px; }
+.profile img { width:100%; height:200px; object-fit:cover; border-radius:50%; margin-bottom:10px; }
+
+.contact form { max-width:500px; margin:0 auto; display:flex; flex-direction:column; gap:15px; }
+.contact input, .contact textarea { padding:12px; border:none; background:rgba(255,255,255,0.1); color:#e0f7fa; border-radius:6px; }
+.contact button { padding:12px; border:none; background:#76ff03; color:#000; border-radius:6px; cursor:pointer; transition:0.3s; }
+.contact button:hover { background:#5fcc00; }
+
+footer { padding:20px; text-align:center; background:rgba(255,255,255,0.05); }
+.org-card img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 45px;
+}
+
+.org-card:hover {
+  transform: scale(1.2);
+.video-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+    

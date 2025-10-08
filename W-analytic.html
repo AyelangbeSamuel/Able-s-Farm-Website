@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Analytics - Wholesaler</title>
+  <link rel="stylesheet" href="css/shared.css">
+  <link rel="icon" type="image/jpeg" href="images/Farm-logo.jpeg" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<header>
+  <div class="logo">ABLE'S FARM</div>
+  <nav>
+    <a href="Wdash.html">Dashboard</a>
+    <a href="W-order.html">Orders</a>
+    <a href="Wdelivery.html">Delivery</a>
+    <a href="W-inventory.html">Inventory</a>
+  </nav>
+</header>
+
+<main>
+  <h1>Sales Analytics</h1>
+  <div class="panel">
+    <canvas id="salesChart"></canvas>
+  </div>
+
+  <button class="button" onclick="window.location.href='../index.html'">Back to Dashboard</button>
+  <div class="back-buttons">
+    <button onclick="location.href='index.html'">Return to Home</button>
+    <button onclick="window.scrollTo({ top: 0, behavior: 'smooth' })">Back to Top</button>
+  </div>
+</main>
+
+<footer>
+  &copy; 2025 ABLE'S FARM
+</footer>
+
+<script>
+  const ctx = document.getElementById('salesChart').getContext('2d');
+  new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
+      datasets: [{
+        label: 'Monthly Sales (₦)',
+        data: [50000, 70000, 65000, 85000, 90000],
+        borderColor: '#00f7ff',
+        borderWidth: 2,
+        fill: false,
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { labels: { color: 'white' } }
+      },
+      scales: {
+        x: { ticks: { color: 'white' } },
+        y: { ticks: { color: 'white' } }
+      }
+    }
+  });
+</script>
+
+</body>
+</html>

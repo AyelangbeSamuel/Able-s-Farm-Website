@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Careers – ABFET</title>
+  <link rel="stylesheet" href="Abc/careers.css">
+  <script src="Abj/careers.js" defer></script>
+</head>
+<body>
+  <header class="hero">
+    <video class="bg-video" autoplay muted loop>
+      <source src="AbfetVid.mp4" type="video/mp4">
+    </video>
+    <div class="overlay"></div>
+    <div class="hero-content">
+      <h1>Join ABFET Careers</h1>
+      <button onclick="showDepartments()">View Open Roles</button>
+    </div>
+  </header>
+
+  <section id="departments" class="departments"></section>
+
+  <section id="application-form" class="application hidden">
+    <h2>Apply for <span id="dept-selected"></span></h2>
+    <form id="job-app-form">
+      <!-- Fields from previous implementation -->
+    </form>
+  </section>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Payment | ABFET</title>
+  <link rel="stylesheet" href="Abc/payment.css">
+</head>
+<body>
+  <div class="payment-container">
+    <h2>Confirm Your Subscription</h2>
+    <div id="order-summary" class="summary"></div>
+    <form id="payment-form">
+      <label>Card Number </label><input type="text" placeholder="•••• •••• •••• ••••" required><br>
+    <br><label>Expiry Date </label><input type="month" required><br>
+     <br><label>CVV</label> <input type="text" placeholder="•••" required><br>
+      <br><button>Pay Now </button><br>
+    </form>
+  </div>
+
+  <script>
+    const order = JSON.parse(localStorage.getItem('lastOrder'));
+    if (!order) {
+      window.location.href = 'drones.html';
+    } else {
+      document.getElementById('order-summary').innerHTML = `
+        <p><strong>Drone:</strong> ${order.drone.name}</p>
+        <p><strong>Qty:</strong> ${order.qty}</p>
+        <p><strong>Total:</strong> ₦${order.total.toLocaleString()}</p>
+      `;
+      document.getElementById('payment-form').addEventListener('submit', e => {
+        e.preventDefault();
+        alert('Payment successful! Thank you.');
+        localStorage.removeItem('lastOrder');
+        window.location.href = 'drones.html';
+      });
+    }
+  </script>
+</body>
+</html>

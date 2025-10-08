@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ABLE'S FARM - Product Details</title>
+  <link rel="stylesheet" href="css/product.css" />
+  <script defer src="js/product.js"></script>
+  <style>
+    footer {
+            background: linear-gradient(135deg, var(--primary-dark), #143d18);
+            color: white;
+            padding: 70px 0 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.4rem;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: var(--secondary);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--secondary);
+            padding-left: 5px;
+        }
+
+        .footer-contact p {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .footer-contact i {
+            color: var(--secondary);
+            margin-top: 5px;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-icon:hover {
+            background-color: var(--secondary);
+            color: var(--dark);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.95rem;
+        }
+ 
+  </style>
+</head>
+<body>
+  <header class="navbar">
+    <div class="logo">ABLE'S FARM</div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="birds.html">Birds</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <main class="product-detail">
+    <div class="product-image">
+      <img src="images/Broiler.jpeg" alt="Broiler Chicken" />
+    </div>
+    <div class="product-info">
+      <h1>Broiler Chicken</h1>
+      <p class="price">₦2,500</p>
+      <p class="description">
+        Our Broiler Chickens are raised in a healthy, organic environment, ensuring tender and flavorful meat. Ideal for family meals and special occasions.
+      </p>
+
+      <section class="farm-details">
+        <h3>Farm Details</h3>
+        <ul>
+          <li><strong>Farm Location:</strong> Lagos, Nigeria</li>
+          <li><strong>Farming Method:</strong> Organic, Free-range</li>
+          <li><strong>Feed:</strong> Non-GMO grains and natural supplements</li>
+        </ul>
+      </section>
+
+      <section class="delivery-info">
+        <h3>Delivery Information</h3>
+        <ul>
+          <li><strong>Delivery Areas:</strong> Lagos and surrounding regions</li>
+          <li><strong>Delivery Time:</strong> Within 24–48 hours after order confirmation</li>
+          <li><strong>Delivery Method:</strong> Refrigerated transport to ensure freshness</li>
+        </ul>
+      </section>
+
+     <a> <button class="add-to-cart">Add to Cart</button></a>
+    </div>
+  </main>
+
+ <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Able's Farm</h3>
+                    <p>Providing natural, effective solutions to agricultural development since 2015.</p>
+                    <div class="footer-social">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="products.html">Products</a></li>
+                        <li><a href="about-us.html">About Us</a></li>
+                        <li><a href="contact-us.html">Contact</a></li>
+                        <li><a href="Abfet/abfet.html"> Visit Abfet</a></li>
+
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Categories</h3>
+                    <ul class="footer-links">
+                        <li><a href="livestock.html">Livestocks</a></li>
+                        <li><a href="eggs.html">Eggs</a></li>
+                        <li><a href="birds.html">Birds</a></li>
+                        <li><a href="fish.html">Fishes</a></li>
+                        <li><a href="farm-product.html">Farm Products</a></li>
+                        <li><a href="dayold.html">Hatchlings</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <div class="footer-contact">
+                        <p><i class="fas fa-map-marker-alt"></i> 123 Herbal Way, Ikeja, Lagos, Nigeria</p>
+                        <p><i class="fas fa-phone"></i> +234 812 345 6789</p>
+                        <p><i class="fas fa-envelope"></i>ablesfarm3000@gmail.com</p>
+                        <p><i class="fas fa-clock"></i> Mon-Sat: 9:00 AM - 6:00 PM</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 Ables Farm. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

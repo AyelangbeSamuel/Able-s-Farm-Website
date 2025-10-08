@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ABLE’S FARM - Orders</title>
+  <link rel="stylesheet" href="orders.css" />
+  <link rel="icon" type="image/jpeg" href="images/Farm-logo.jpeg" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+  <style>
+    body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Orbitron', sans-serif;
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  color: #e0f7fa;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 1rem 2rem;
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.logo {
+  font-size: 1.5rem;
+  color: #76ff03;
+}
+
+.nav-links a {
+  margin-left: 1.5rem;
+  text-decoration: none;
+  color: #00e5ff;
+  transition: 0.3s ease-in-out;
+}
+
+.nav-links a:hover {
+  color: #ffffff;
+}
+
+.orders-section {
+  padding: 2rem;
+}
+
+.orders-section h2 {
+  color: #ffffff;
+  margin-bottom: 1rem;
+}
+
+.table-container {
+  overflow-x: auto;
+}
+
+.glass-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(15px);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.glass-table th, .glass-table td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+.status {
+  padding: 5px 12px;
+  border-radius: 12px;
+  font-weight: bold;
+  font-size: 0.85rem;
+}
+
+.status.pending {
+  background: #fbc02d;
+  color: black;
+}
+
+.status.processing {
+  background: #29b6f6;
+  color: white;
+}
+
+.status.delivered {
+  background: #66bb6a;
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .nav-links {
+    display: flex;
+    flex-direction: column;
+  }
+  .nav-links a {
+    margin: 0.5rem 0;
+  }
+}
+
+  </style>
+</head>
+<body>
+  <ma>
+  <header>
+  <div class="logo">ABLE'S FARM</div>
+  <nav>
+    <a href="Rdash.html">Dashboard</a>
+    <a href="R-order.html">Order</a>
+    <a href="R-inventory.html">Inventory</a>
+    <a href="R-analytic.html">Analytics</a>
+     <a href="R-customer.html">Customer</a>
+    <a href="R-overview.html">Overview</a>
+    <a href="R-sales.html">Sales</a>
+    <a href="R-settings.html">Settings</a>
+  </nav>
+</header>
+  <section class="orders-section">
+    <h2>📦 Recent Orders</h2>
+    <div class="table-container">
+      <table class="glass-table">
+        <thead>
+          <tr>
+            <th>Order ID</th>
+            <th>👤 Customer</th>
+            <th>🐥 Product</th>
+            <th>📦 Qty</th>
+            <th>🚚 Status</th>
+            <th>🕒 Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>#1001</td>
+            <td>Jane Doe</td>
+            <td>Layer Chicken</td>
+            <td>10</td>
+            <td><span class="status pending">Pending</span></td>
+            <td>2025-05-21</td>
+          </tr>
+          <tr>
+            <td>#1000</td>
+            <td>Samuel Okoro</td>
+            <td>Egg Crate</td>
+            <td>5</td>
+            <td><span class="status delivered">Delivered</span></td>
+            <td>2025-05-19</td>
+          </tr>
+          <tr>
+            <td>#0999</td>
+            <td>Amina Yusuf</td>
+            <td>Broiler</td>
+            <td>3</td>
+            <td><span class="status processing">Processing</span></td>
+            <td>2025-05-18</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</body>
+</html>

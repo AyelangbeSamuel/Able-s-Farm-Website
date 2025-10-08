@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ABLE'S FARM - Birds</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f8f9fa;
+      margin: 0;
+      padding: 0;
+    }
+
+    h2 {
+      text-align: center;
+      margin: 30px 0 10px;
+      font-size: 30px;
+      color: #ffa726;
+      font-weight: 600;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 20px;
+      padding: 30px;
+    }
+
+    
+    .card {
+      perspective: 1000px;
+      height: 430px;
+      position: relative;
+    }
+
+    .card-inner {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transition: transform 0.8s;
+      transform-style: preserve-3d;
+    }
+
+    .card.flipped .card-inner {
+      transform: rotateY(180deg);
+    }
+
+    .card-front, .card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-color: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      padding: 15px;
+      box-sizing: border-box;
+      backface-visibility: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+    }
+
+    .card-front img, .card-back img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    .card h3 {
+      margin: 10px 0 5px;
+      font-size: 20px;
+      color: #444;
+    }
+
+    .card p {
+      margin: 5px 0;
+      color: #666;
+    }
+
+    .card button {
+      margin-top: auto;
+      padding: 10px 15px;
+      background-color: #ffa726;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .card button:hover {
+      background-color: #fb8c00;
+    }
+
+    .card-back {
+      transform: rotateY(180deg);
+    }
+
+    .card-back p {
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>OUR LIVESTOCKS</h2>
+
+  <div class="product-grid">
+    <!-- Card 1 -->
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-front">
+          <img src="images/Bull4.jpg" alt="Belgium Bull" />
+          <h3>Belgium Bull</h3>
+          <p>₦2,500,000</p>
+          <button onclick="flipCard(this)">🔍 View Details</button>
+        </div>
+        <div class="card-back">
+          <h3>Belgium Bull</h3>
+          <p>Breed: Belgian Blue</p>
+          <p>Weight: 1200kg</p>
+          <p>Age: 2 Years</p>
+          <button onclick="flipCard(this)">🔙 Back</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-front">
+          <img src="images/Bull.jpg" alt="Belgium Bull" />
+          <h3>Belgium Bull</h3>
+          <p>₦2,000,000</p>
+          <button onclick="flipCard(this)">🔍 View Details</button>
+        </div>
+        <div class="card-back">
+          <h3>Belgium Bull</h3>
+          <p>Breed: Belgian Red</p>
+          <p>Weight: 1100kg</p>
+          <p>Age: 1.8 Years</p>
+          <button onclick="flipCard(this)">🔙 Back</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Add more cards here following the same structure -->
+  </div>
+
+  <script>
+    function flipCard(button) {
+      const card = button.closest('.card');
+      card.classList.toggle('flipped');
+    }
+  </script>
+
+</body>
+</html>

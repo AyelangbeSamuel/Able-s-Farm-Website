@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login Page</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #1e1e2f;
+      font-family: Arial, sans-serif;
+      overflow: hidden;
+    }
+
+    .box {
+      position: relative;
+      width: 320px;
+      height: 450px;
+      padding: 20px;
+      z-index: 1;
+      border-radius: 20px;
+    }
+
+    /* Visible rotating glow effect */
+    .box::before {
+      content: "";
+      position: absolute;
+      top: -5%;
+      left: -5%;
+      width: 110%;
+      height: 110%;
+      background: conic-gradient(from 0deg, #ff5722, #ff9800, #ff5722);
+      filter: drop-shadow(0 15px 50px #000);
+      border-radius: 20px;
+      animation: rotating 4s linear infinite;
+      z-index: -2;
+    }
+
+    /* Inner box */
+    .box::after {
+      content: "";
+      position: absolute;
+      top: 4px;
+      left: 4px;
+      right: 4px;
+      bottom: 4px;
+      background: #2d2d39;
+      border-radius: 15px;
+      border: 8px solid #25252b;
+      z-index: -1;
+    }
+
+    @keyframes rotating {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .form-content {
+      position: relative;
+      z-index: 10;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-top: 40px;
+    }
+
+    .form-content h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .form-content input {
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      outline: none;
+    }
+
+    .form-content button {
+      padding: 10px;
+      background-color: #ff5722;
+      border: none;
+      color: white;
+      font-weight: bold;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .form-content button:hover {
+      background-color: #e64a19;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="box">
+    <form class="form-content" id="login-form">
+      <h2>Login</h2>
+      <input type="email" id="login-email" placeholder="Email" required />
+      <input type="password" id="login-password" placeholder="Password" required />
+      <button type="submit" id="login-btn">Login</button>
+    </form>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const loginBtn = document.querySelector("#login-btn");
+
+      loginBtn.addEventListener("click", (event) => {
+        event.preventDefault();
+        const email = document.querySelector("#login-email").value;
+        const password = document.querySelector("#login-password").value;
+
+        if (email.trim() === "" || password.trim() === "") {
+          alert("Please fill in all fields.");
+        } else {
+          alert("Login successful!");
+          window.location.href = "Wdash.html";
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>

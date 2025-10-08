@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>ABLE'S FARM - Home</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/jpeg" href="images/Farm-logo.jpeg" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body, html {
+      height: 100%;
+      font-family: Arial, sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* Video Background */
+    .video-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+
+    /* Dark Background */
+    .dark-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background: linear-gradient(135deg, #0f0f0f, #1a1a1a, #2c2c2c);
+      z-index: -2;
+      display: none;
+    }
+
+    header {
+      background-color: rgba(80, 82, 81, 0.801);
+      color: #fff;
+      padding: 10px;
+      text-align: center;
+    }
+
+    .head {
+      width: 150px;
+      height: auto;
+      border-radius: 8px;
+      padding: 5px;
+    }
+
+    .sidebar {
+      position: fixed;
+      top: 100px;
+      left: 20px;
+      z-index: 999;
+    }
+
+    .menu-toggle {
+      background-color: #00ffd0;
+      color: #000;
+      padding: 10px 15px;
+      font-size: 18px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .dropdown {
+  display: none;
+  flex-direction: column;
+  background-color: rgba(0, 0, 0, 0.8);
+  margin-top: 10px;
+  border-radius: 6px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  padding: 10px;
+  width: 200px;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+
+    .dropdown a {
+      color: #fff;
+      text-decoration: none;
+      padding: 10px;
+      border-bottom: 1px solid #85f881;
+    }
+
+    .dropdown a:last-child {
+      border-bottom: none;
+    }
+
+    .dropdown a:hover {
+      background-color: #f3f7ea;
+      color: black;
+    }
+
+    .top-right-buttons {
+      position: fixed;
+      top: 15px;
+      right: 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      z-index: 1000;
+    }
+
+    .top-right-buttons button, .top-right-buttons a {
+      padding: 10px 15px;
+      border: none;
+      border-radius: 6px;
+      font-size: 14px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .toggle-bg-btn {
+      background: #444;
+      color: #fff;
+    }
+
+    .toggle-bg-btn:hover {
+      background: #666;
+    }
+
+    .abfet-link {
+      background: #00ffd0;
+      color: #000;
+      text-decoration: none;
+      display: inline-block;
+      text-align: center;
+    }
+
+    .abfet-link:hover {
+      background: #00a387;
+    }
+
+    main {
+      color: white;
+      padding: 150px 20px;
+      text-align: center;
+      z-index: 2;
+      position: relative;
+    }
+
+    /* Typing Effect - Cursorless */
+    .wrapper {
+      display: inline-block;
+      white-space: nowrap;
+      overflow: hidden;
+      font-size: 1.5rem;
+      animation: typing 3s steps(40, end);
+    }
+
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+
+    .subtext {
+      margin-top: 1rem;
+      font-size: 1.2rem;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 600px) {
+      .menu-toggle {
+        font-size: 16px;
+        padding: 8px 12px;
+      }
+
+      .dropdown {
+        width: auto;
+      }
+
+      .top-right-buttons {
+        flex-direction: column;
+        top: 10px;
+        right: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background elements -->
+  <video class="video-bg" autoplay muted loop id="videoBackground">
+    <source src="video/ABLE'S FARM BACKGROUND.mp4" type="video/mp4" />
+    Your browser does not support HTML5 video.
+  </video>
+  <div class="dark-bg" id="darkBackground"></div>
+
+  <!-- Top Right Buttons -->
+  <div class="top-right-buttons">
+    <button class="toggle-bg-btn" onclick="toggleBackground()">Toggle Background</button>
+    <a class="abfet-link" href="Abfet/abfet.html">Visit ABFET</a>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <img class="head" src="images/Farm-logo.jpeg" alt="Able's Farm Logo" />
+    <h1>ABLE'S FARM</h1>
+  </header>
+
+  <!-- Sidebar Menu -->
+  <div class="sidebar">
+    <button class="menu-toggle" onclick="toggleMenu()"> ☰ Menu</button>
+    <nav class="dropdown" id="dropdownMenu">
+      <a href="index.html">🏠 Home</a>
+      <a href="birds.html">🐣Poultry Birds</a>
+      <a href="eggs.html">🥚 Eggs</a>
+      <a href="farm-product.html">🌾 Farm Products</a>
+       <a href="fish.html">🌓 Fishes</a>
+      <a href="livestock.html">🐤livestocks</a>
+      <a href="dayold.html">🐤 Hatchlings</a>
+      <a href="delivery.html">📦 Delivery</a>
+      <a href="about-us.html">Fishes</a>
+      <a href="retailer.html">🛒 Become a Retailer</a>
+      <a href="wholesaler.html">🚚 Become a Wholesaler</a>
+      <a href="#">📅 Down Booking</a>
+      <a href="about-us.html">📄 About Us</a>
+      <a href="contact-us.html">📞 Contact Us</a>
+      <a href="mailto:ablesfarm300@gmail.com">✉️ Message Us</a>
+     
+    </nav>
+  </div>
+
+  <!-- Main Content -->
+  <main>
+    <div class="wrapper">
+      WELCOME TO ABLE'S FARM
+      <p>Where futuristic farming meets fresh food.</p>
+      <p>Shop fresh, direct from the farm powered by next-gen agricultural technology!</p>
+    </div>
+    <div class="subtext"></div>
+  </main>
+
+  <!-- JavaScript -->
+  <script>
+    function toggleMenu() {
+      const menu = document.getElementById("dropdownMenu");
+      menu.style.display = menu.style.display === "flex" ? "none" : "flex";
+    }
+
+    function toggleTheme() {
+      document.body.classList.toggle("dark-theme");
+    }
+
+    function toggleBackground() {
+      const video = document.getElementById("videoBackground");
+      const darkBg = document.getElementById("darkBackground");
+      if (video.style.display === "none") {
+        video.style.display = "block";
+        darkBg.style.display = "none";
+      } else {
+        video.style.display = "none";
+        darkBg.style.display = "block";
+      }
+    }
+  </script>
+
+</body>
+</html>

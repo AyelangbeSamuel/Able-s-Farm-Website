@@ -1,0 +1,121 @@
+.wrapper {
+  display: inline-block;
+}
+
+.text {
+  font-size: 2rem;
+  width: 100ch;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: solid 3px black;
+  animation: typing 2s steps(100), cursor 0.5s step-end infinite alternate;
+}
+
+/* Typing effect */
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 22ch;
+  }
+}
+
+/* Blinking cursor effect */
+@keyframes cursor {
+  50% {
+    border-color: transparent;
+  }
+}
+
+
+
+
+
+.card:hover.wrapper::before,.wrapper::after{
+  opacity: 1;
+}
+.card:hover.wrapper::after{
+  height: 120px;
+}
+.title{
+  width: 100%;
+  transition: transform 0.5s;
+}
+.card:hover  .title {
+  transform: translate(0%, -50px, 100px);
+}
+
+.container img{
+  width: 10%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10%;
+  border: 2px solid rgb(255, 255,255,0.684);
+  transition: all 0.5s ease-in-out;
+}
+.container img:hover{
+width: 25%;  
+}
+
+.box::before{
+  content:"";
+  position:absolute;
+  width: 100%;
+  height:100%;
+  filter:drop-shadow(0 15px 50px #000);
+  border-radius: 20px;
+  animation: rotating 4s linear infinite;
+  animation-delay:-1s; 
+}
+.box::after{
+content: "";
+position:absolute;
+background: #2d2d39;
+border-radius: 15px;
+border: 8px solid #25252b;
+inset: 4px;
+}
+
+
+
+
+
+
+
+
+
+
+
+button {
+    width: 85%;
+    padding: 10px;
+    margin-top: 10px;
+    background: #ff5733;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #ff2a00;
+}
+
+/* Text and link */
+p {
+    color: white;
+    margin-top: 10px;
+}
+
+a {
+    color: #ff5733;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+    }

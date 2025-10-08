@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>ABLE'S FARM - Eggs</title>
+  <link rel="stylesheet" href="css/eggs.css" />
+  <style>
+    
+  </style>
+</head>
+<body>
+
+  <div class="cart" onclick="toggleCart()">🛒 Cart: <span id="cart-count">0</span></div>
+
+  <div id="cart-modal">
+    <h2>Your Cart</h2>
+    <ul id="cart-items"></ul>
+    <p><strong>Total: ₦<span id="cart-total">0</span></strong></p>
+  </div>
+
+  <main>
+    <h1>Available Eggs</h1>
+
+    <div class="product">
+      <img src="images/egg1.jpg" alt="Brown Eggs" />
+      <h3>Brown Eggs</h3>
+      <p>₦800</p>
+      <button onclick="addToCart('Brown Eggs', 800)">Add to Cart</button>
+    </div>
+
+    <div class="product">
+      <img src="images/egg2.jpg" alt="White Eggs" />
+      <h3>White Eggs</h3>
+      <p>₦750</p>
+      <button onclick="addToCart('White Eggs', 750)">Add to Cart</button>
+    </div>
+
+    <!-- Add more products as needed -->
+  </main>
+
+  <script src="js/eggs.js"></script>
+</body>
+</html>
