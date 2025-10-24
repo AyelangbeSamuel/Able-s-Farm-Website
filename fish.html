@@ -271,15 +271,99 @@
         }
 
         footer {
-            text-align: center;
-            padding: 1.5rem;
-            margin-top: 2rem;
-            background: rgba(0, 0, 0, 0.4);
+            background: linear-gradient(135deg, var(--primary-dark), #143d18);
+            color: white;
+            padding: 70px 0 30px;
         }
-        footer a {
-            color: #ffa726;
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.4rem;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: var(--secondary);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
             text-decoration: none;
+            transition: all 0.3s ease;
         }
+
+        .footer-links a:hover {
+            color: var(--secondary);
+            padding-left: 5px;
+        }
+
+        .footer-contact p {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .footer-contact i {
+            color: var(--secondary);
+            margin-top: 5px;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-icon:hover {
+            background-color: var(--secondary);
+            color: var(--dark);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.95rem;
+        }
+ 
     </style>
 </head>
 
@@ -457,7 +541,7 @@
                         </div>
                     </div>
                     <div class="product-card-back">
-                        <h3>Bighorn Ram</h3>
+                        <h3>TableSize Catfish</h3>
                         <p>A healthy and robust tablesize catfish. Fully vaccinated. Age: 8 months. <br><br> Price: ₦2000</p>
                         <button class="back-btn">⬅️ Back</button>
                     </div>
@@ -475,7 +559,7 @@
                         </div>
                     </div>
                     <div class="product-card-back">
-                        <h3>Bighorn Ram</h3>
+                        <h3>Melange</h3>
                         <p>A healthy and robust melange size catfish. Fully vaccinated. Age:5-6 months.   <br><br> Price: ₦1,500 per fish.</brM></p>
                         <button class="back-btn">⬅️ Back</button>
                     </div>
@@ -535,63 +619,6 @@
                     </div>
                 </div>
             </div>
-  <div class="product-card">
-                <div class="product-card-inner">
-                    <div class="product-card-front">
-                        <img src="images/" alt="Bighorn Ram" />
-                        <h3>Bighorn Ram</h3>
-                        <p>₦210,000</p>
-                        <div>
-                            <button class="add-to-cart-btn">Add to Cart</button>
-                            <button class="view-details-btn">🔍 View Details</button>
-                        </div>
-                    </div>
-                    <div class="product-card-back">
-                        <h3>Bighorn Ram</h3>
-                        <p>A healthy and robust Bighorn ram, perfect for breeding. Fully vaccinated. Age: 18 months.</p>
-                        <button class="back-btn">⬅️ Back</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="product-card">
-                <div class="product-card-inner">
-                    <div class="product-card-front">
-                        <img src="images/" alt="Boer Goat" />
-                        <h3>Boer Goat</h3>
-                        <p>₦90,000</p>
-                        <div>
-                           <button class="add-to-cart-btn">Add to Cart</button>
-                           <button class="view-details-btn">🔍 View Details</button>
-                        </div>
-                    </div>
-                    <div class="product-card-back">
-                        <h3>Boer Goat</h3>
-                        <p>High-quality Boer goat, ideal for meat production. Known for its hardiness and adaptability. Age: 1 year.</p>
-                        <button class="back-btn">⬅️ Back</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="product-card">
-                 <div class="product-card-inner">
-                    <div class="product-card-front">
-                        <img src="images/" alt="A Goat Kid" />
-                        <h3>Goat Kid</h3>
-                        <p>₦35,000</p>
-                         <div>
-                           <button class="add-to-cart-btn">Add to Cart</button>
-                           <button class="view-details-btn">🔍 View Details</button>
-                        </div>
-                    </div>
-                    <div class="product-card-back">
-                        <h3>Goat Kid</h3>
-                        <p>An energetic and healthy young goat kid. Perfect for raising on your farm. Weaned and ready. Age: 4 months.</p>
-                        <button class="back-btn">⬅️ Back</button>
-                    </div>
-                </div>
-            </div>
-
             </div>
     </main>
 
@@ -620,6 +647,8 @@
                         <li><a href="products.html">Products</a></li>
                         <li><a href="about-us.html">About Us</a></li>
                         <li><a href="contact-us.html">Contact</a></li>
+                        <li><a href="Abfet/abfet.html"> Visit Abfet</a></li>
+
                     </ul>
                 </div>
                 
@@ -638,8 +667,8 @@
                 <div class="footer-column">
                     <h3>Contact Us</h3>
                     <div class="footer-contact">
-                        <p><i class="fas fa-map-marker-alt"></i> 123 Herbal Way, Ikeja, Lagos, Nigeria</p>
-                        <p><i class="fas fa-phone"></i> +234 812 345 6789</p>
+                        <p><i class="fas fa-map-marker-alt"></i> 4,Adewale Anjorin Close,Alatishe Ibeju-Lekkki, Lagos, Nigeria</p>
+                        <p><i class="fas fa-phone"></i> +234 8121479874</p>
                         <p><i class="fas fa-envelope"></i>ablesfarm3000@gmail.com</p>
                         <p><i class="fas fa-clock"></i> Mon-Sat: 9:00 AM - 6:00 PM</p>
                     </div>
@@ -651,7 +680,7 @@
             </div>
         </div>
     </footer>
-    <script>
+       <script>
         document.addEventListener('DOMContentLoaded', () => {
 
             const productGrid = document.querySelector('.product-grid');
