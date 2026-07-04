@@ -1,129 +1,1019 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
+  <title>Contact Us — ABLE'S FARM</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Contact Us - ABLE'S FARM</title>
-  <link rel="stylesheet" href="css/contact-us.css" />
-  <link rel="stylesheet" href="css/about-us.css" />
-  <link rel="icon" type="image/jpeg" href="images/Farm-logo.jpeg" />
+  <link rel="icon" type="image/jpeg" href="images/Farm-logo.jpeg"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --gold: #e8a020;
+      --gold-light: #ffc95c;
+      --gold-dark: #b87800;
+      --green-deep: #0d2a14;
+      --green-mid: #1a4a24;
+      --green-light: #2e7d42;
+      --cream: #f5f0e8;
+      --text-on-dark: #f0ede6;
+      --text-muted: rgba(240,237,230,0.6);
+      --glass-border: rgba(232,160,32,0.25);
+      --danger: #e05252;
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 22px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Space Grotesk', sans-serif;
+      background: var(--green-deep);
+      color: var(--text-on-dark);
+      overflow-x: hidden;
+    }
+
+    /* ── VIDEO BG ── */
+    .bg-video {
+      position: fixed; inset: 0; width: 100%; height: 100%;
+      object-fit: cover; z-index: 0;
+    }
+
+    .bg-overlay {
+      position: fixed; inset: 0; z-index: 1;
+      background: linear-gradient(180deg, rgba(13,42,20,0.82) 0%, rgba(13,42,20,0.65) 50%, rgba(13,42,20,0.95) 100%);
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 500;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.2rem 2.5rem;
+      background: rgba(13,42,20,0.85);
+      border-bottom: 1px solid var(--glass-border);
+      backdrop-filter: blur(12px);
+    }
+
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .nav-logo img { width: 38px; height: 38px; border-radius: 50%; object-fit: cover; border: 2px solid var(--gold); }
+    .nav-logo span { font-family: 'Playfair Display', serif; font-size: 1.15rem; color: var(--gold-light); }
+
+    .nav-links { display: flex; list-style: none; gap: 0.2rem; }
+    .nav-links a {
+      color: var(--text-muted); text-decoration: none; padding: 7px 12px;
+      border-radius: var(--radius-sm); font-size: 0.85rem; font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--gold); }
+
+    .nav-right { display: flex; align-items: center; gap: 10px; }
+
+    .user-chip {
+      display: none; align-items: center; gap: 8px;
+      background: rgba(232,160,32,0.1); border: 1px solid var(--glass-border);
+      border-radius: 40px; padding: 5px 14px 5px 5px; cursor: pointer;
+    }
+    .user-chip .avatar {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: var(--gold); color: var(--green-deep);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 0.75rem;
+    }
+    .user-chip span { font-size: 0.8rem; font-weight: 500; }
+
+    .btn-auth { padding: 8px 16px; border-radius: var(--radius-sm); font-size: 0.82rem; font-weight: 600; cursor: pointer; font-family: 'Space Grotesk', sans-serif; }
+    .btn-login { background: transparent; border: 1px solid var(--glass-border); color: var(--text-on-dark); }
+    .btn-login:hover { border-color: var(--gold); color: var(--gold); }
+    .btn-signup { background: var(--gold); border: 1px solid var(--gold); color: var(--green-deep); }
+    .btn-signup:hover { background: var(--gold-light); }
+
+    @media (max-width: 860px) { .nav-links { display: none; } }
+
+    /* ── PAGE ── */
+    .page-content {
+      position: relative; z-index: 2;
+      max-width: 1100px; margin: 0 auto;
+      padding: 4rem 2rem 6rem;
+    }
+
+    /* ── HERO ── */
+    .page-hero { text-align: center; margin-bottom: 4rem; }
+
+    .breadcrumb {
+      display: flex; justify-content: center; gap: 8px;
+      font-size: 0.78rem; color: var(--text-muted); margin-bottom: 1.2rem;
+    }
+    .breadcrumb a { color: var(--gold); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    .eyebrow {
+      font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 0.8rem;
+    }
+
+    .page-hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      color: var(--cream); margin-bottom: 1rem; line-height: 1.2;
+    }
+
+    .page-hero p {
+      color: var(--text-muted); font-size: 1rem; line-height: 1.7;
+      max-width: 500px; margin: 0 auto;
+    }
+
+    /* ── GRID LAYOUT ── */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    @media (max-width: 768px) { .contact-grid { grid-template-columns: 1fr; } }
+
+    /* ── INFO COLUMN ── */
+    .info-col { display: flex; flex-direction: column; gap: 1.5rem; }
+
+    .info-card {
+      background: rgba(13,42,20,0.7);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      backdrop-filter: blur(10px);
+    }
+
+    .info-card h3 {
+      font-size: 0.8rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 1.2rem;
+    }
+
+    .info-item {
+      display: flex; gap: 14px; align-items: flex-start;
+      margin-bottom: 1.1rem;
+    }
+    .info-item:last-child { margin-bottom: 0; }
+
+    .info-icon {
+      width: 38px; height: 38px; border-radius: 10px; flex-shrink: 0;
+      background: rgba(232,160,32,0.1); border: 1px solid var(--glass-border);
+      display: flex; align-items: center; justify-content: center; font-size: 1rem;
+    }
+
+    .info-text h4 { font-size: 0.85rem; font-weight: 600; color: var(--cream); margin-bottom: 2px; }
+    .info-text p { font-size: 0.8rem; color: var(--text-muted); line-height: 1.55; }
+    .info-text a { color: var(--gold); text-decoration: none; }
+    .info-text a:hover { text-decoration: underline; }
+
+    /* Social row */
+    .social-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 1rem; }
+
+    .social-btn {
+      display: flex; align-items: center; gap: 8px;
+      background: rgba(232,160,32,0.08); border: 1px solid var(--glass-border);
+      border-radius: var(--radius-sm); padding: 8px 14px;
+      color: var(--cream); text-decoration: none; font-size: 0.8rem; font-weight: 600;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .social-btn:hover { background: rgba(232,160,32,0.18); border-color: var(--gold); color: var(--gold); }
+
+    /* Hours table */
+    .hours-row {
+      display: flex; justify-content: space-between;
+      font-size: 0.82rem; padding: 6px 0;
+      border-bottom: 1px solid rgba(232,160,32,0.1);
+    }
+    .hours-row:last-child { border-bottom: none; }
+    .hours-row span:first-child { color: var(--text-muted); }
+    .hours-row span:last-child { color: var(--cream); font-weight: 500; }
+    .hours-row.closed span:last-child { color: var(--danger); font-weight: 400; }
+
+    /* ── FORM COLUMN ── */
+    .form-card {
+      background: rgba(13,42,20,0.7);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      backdrop-filter: blur(10px);
+    }
+
+    .form-card h3 {
+      font-size: 0.8rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem;
+    }
+
+    /* Tab switcher */
+    .form-tabs {
+      display: flex; background: rgba(13,42,20,0.8);
+      border-radius: var(--radius-sm); padding: 4px; margin-bottom: 1.5rem;
+      gap: 4px;
+    }
+
+    .form-tab {
+      flex: 1; padding: 8px 6px; background: none; border: none;
+      color: var(--text-muted); font-size: 0.78rem; font-weight: 600;
+      cursor: pointer; border-radius: 6px; font-family: 'Space Grotesk', sans-serif;
+      transition: all 0.2s; text-align: center;
+    }
+    .form-tab.active { background: var(--gold); color: var(--green-deep); }
+
+    /* Form fields */
+    .form-panel { display: none; }
+    .form-panel.active { display: block; }
+
+    .field-row { display: flex; gap: 12px; margin-bottom: 14px; flex-wrap: wrap; }
+
+    .field-group { display: flex; flex-direction: column; flex: 1; min-width: 130px; }
+
+    .field-group label { font-size: 0.74rem; color: var(--text-muted); margin-bottom: 5px; }
+
+    .field-group input,
+    .field-group select,
+    .field-group textarea {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(232,160,32,0.25);
+      border-radius: var(--radius-sm);
+      color: var(--cream); padding: 10px 12px; font-size: 0.875rem;
+      outline: none; transition: border-color 0.2s;
+      font-family: 'Space Grotesk', sans-serif; resize: vertical;
+    }
+    .field-group input:focus,
+    .field-group select:focus,
+    .field-group textarea:focus { border-color: var(--gold); }
+    .field-group input::placeholder,
+    .field-group textarea::placeholder { color: rgba(240,237,230,0.22); }
+    .field-group select option { background: #1a4a24; }
+
+    .char-hint { font-size: 0.7rem; color: var(--text-muted); text-align: right; margin-top: 3px; }
+
+    .submit-btn {
+      width: 100%; padding: 13px;
+      background: var(--gold); color: var(--green-deep);
+      border: none; border-radius: var(--radius-sm);
+      font-size: 0.92rem; font-weight: 700; cursor: pointer;
+      font-family: 'Space Grotesk', sans-serif;
+      transition: background 0.2s, transform 0.15s;
+      margin-top: 0.5rem;
+    }
+    .submit-btn:hover { background: var(--gold-light); transform: scale(1.01); }
+
+    .form-note {
+      font-size: 0.75rem; color: var(--text-muted);
+      margin-top: 10px; line-height: 1.5; text-align: center;
+    }
+
+    /* ── DEPOT SUGGESTION SECTION ── */
+    .depot-section {
+      background: rgba(13,42,20,0.7);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem;
+      backdrop-filter: blur(10px);
+      margin-bottom: 3rem;
+    }
+
+    .depot-section-header { display: flex; gap: 1.5rem; align-items: flex-start; margin-bottom: 2rem; flex-wrap: wrap; }
+
+    .depot-icon {
+      width: 60px; height: 60px; border-radius: 14px; flex-shrink: 0;
+      background: rgba(232,160,32,0.1); border: 1px solid var(--gold);
+      display: flex; align-items: center; justify-content: center; font-size: 1.8rem;
+    }
+
+    .depot-section-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem; color: var(--cream); margin-bottom: 0.4rem;
+    }
+
+    .depot-section-header p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; max-width: 480px; }
+
+    .depot-form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 1.25rem;
+    }
+
+    @media (max-width: 600px) { .depot-form-grid { grid-template-columns: 1fr; } }
+
+    .votes-ticker {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 0.78rem; color: var(--text-muted);
+      margin-bottom: 1.5rem;
+    }
+
+    .votes-ticker .count { color: var(--gold); font-weight: 700; }
+
+    .vote-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1.5rem; }
+
+    .vote-chip {
+      background: rgba(232,160,32,0.08); border: 1px solid var(--glass-border);
+      border-radius: 40px; padding: 6px 14px; font-size: 0.78rem; color: var(--text-muted);
+      display: flex; align-items: center; gap: 8px;
+    }
+
+    .vote-chip .votes { color: var(--gold); font-weight: 700; font-size: 0.72rem; }
+
+    .vote-chip .bar-wrap {
+      width: 50px; height: 4px; background: rgba(232,160,32,0.15);
+      border-radius: 2px; overflow: hidden;
+    }
+
+    .vote-chip .bar { height: 100%; background: var(--gold); border-radius: 2px; }
+
+    /* ── SUCCESS STATE ── */
+    .form-success {
+      display: none; text-align: center; padding: 2rem 1rem;
+    }
+
+    .form-success .check { font-size: 3rem; margin-bottom: 1rem; }
+    .form-success h3 { color: var(--gold-light); font-size: 1.2rem; margin-bottom: 0.5rem; }
+    .form-success p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; }
+
+    /* ── QUICK LINKS ── */
+    .quick-links {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 3rem;
+    }
+
+    .quick-link-card {
+      background: rgba(13,42,20,0.6); border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md); padding: 1.25rem;
+      text-decoration: none; color: var(--text-on-dark);
+      transition: border-color 0.2s, transform 0.2s;
+      backdrop-filter: blur(6px);
+    }
+
+    .quick-link-card:hover { border-color: rgba(232,160,32,0.5); transform: translateY(-2px); }
+
+    .quick-link-card .ql-icon { font-size: 1.5rem; margin-bottom: 0.7rem; display: block; }
+    .quick-link-card h4 { font-size: 0.9rem; font-weight: 600; color: var(--cream); margin-bottom: 0.3rem; }
+    .quick-link-card p { font-size: 0.78rem; color: var(--text-muted); line-height: 1.5; }
+
+    /* ── WHATSAPP FLOAT ── */
+    .whatsapp-float {
+      position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 1000;
+      background: #25D366; color: white; border: none;
+      width: 56px; height: 56px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.6rem; cursor: pointer; text-decoration: none;
+      box-shadow: 0 4px 20px rgba(37,211,102,0.4);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .whatsapp-float:hover { transform: scale(1.1); box-shadow: 0 6px 28px rgba(37,211,102,0.55); }
+    .whatsapp-float .tooltip {
+      position: absolute; right: 64px; top: 50%; transform: translateY(-50%);
+      background: var(--green-mid); border: 1px solid var(--glass-border);
+      color: var(--cream); padding: 6px 12px; border-radius: 8px;
+      font-size: 0.78rem; font-weight: 600; white-space: nowrap;
+      opacity: 0; pointer-events: none; transition: opacity 0.2s;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+    .whatsapp-float:hover .tooltip { opacity: 1; }
+
+    /* ── AUTH MODAL ── */
+    .modal-backdrop {
+      display: none; position: fixed; inset: 0;
+      background: rgba(6,15,8,0.88); z-index: 3000;
+      align-items: center; justify-content: center; padding: 1rem;
+      backdrop-filter: blur(8px);
+    }
+    .modal-backdrop.open { display: flex; }
+    .modal {
+      background: var(--green-mid); border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg); padding: 2.5rem; width: 100%; max-width: 400px; position: relative;
+    }
+    .modal-close { position: absolute; top: 1rem; right: 1rem; background: none; border: none; color: var(--text-muted); font-size: 1.3rem; cursor: pointer; padding: 4px 8px; border-radius: 50%; }
+    .modal-close:hover { color: var(--cream); }
+    .modal h2 { font-family:'Playfair Display',serif; font-size:1.5rem; color:var(--gold-light); margin-bottom:0.4rem; }
+    .modal-sub { font-size:0.82rem; color:var(--text-muted); margin-bottom:1.5rem; }
+    .modal-tabs { display:flex; background:rgba(13,42,20,0.7); border-radius:var(--radius-sm); padding:4px; margin-bottom:1.5rem; }
+    .modal-tab { flex:1; padding:7px; background:none; border:none; color:var(--text-muted); font-size:0.82rem; font-weight:600; cursor:pointer; border-radius:6px; font-family:'Space Grotesk',sans-serif; transition:all 0.2s; }
+    .modal-tab.active { background:var(--gold); color:var(--green-deep); }
+    .form-field { margin-bottom:0.9rem; }
+    .form-field label { display:block; font-size:0.75rem; color:var(--text-muted); margin-bottom:5px; }
+    .form-field input { width:100%; padding:10px 12px; background:rgba(13,42,20,0.7); border:1px solid rgba(232,160,32,0.25); border-radius:var(--radius-sm); color:var(--cream); font-size:0.875rem; outline:none; transition:border-color 0.2s; font-family:'Space Grotesk',sans-serif; }
+    .form-field input:focus { border-color:var(--gold); }
+    .form-field input::placeholder { color:rgba(240,237,230,0.25); }
+    .btn-full { width:100%; padding:12px; background:var(--gold); color:var(--green-deep); border:none; border-radius:var(--radius-sm); font-size:0.9rem; font-weight:700; cursor:pointer; font-family:'Space Grotesk',sans-serif; transition:background 0.2s; margin-top:0.5rem; }
+    .btn-full:hover { background:var(--gold-light); }
+    .modal-switch { text-align:center; margin-top:1rem; font-size:0.8rem; color:var(--text-muted); }
+    .modal-switch button { background:none; border:none; color:var(--gold); cursor:pointer; font-size:0.8rem; font-weight:600; text-decoration:underline; }
+
+    /* ── TOAST ── */
+    .toast { position:fixed; bottom:5rem; right:2rem; background:var(--green-mid); border:1px solid var(--gold); border-radius:var(--radius-md); padding:1rem 1.5rem; color:var(--cream); font-size:0.875rem; z-index:9999; transform:translateY(20px); opacity:0; transition:all 0.3s; max-width:300px; }
+    .toast.show { transform:translateY(0); opacity:1; }
+    .toast strong { color:var(--gold); display:block; margin-bottom:2px; }
+  </style>
 </head>
 <body>
-  <header class="navbar">
-    <div class="logo">ABLE'S FARM</div>
-    <nav class="nav-links">
-      <a href="index.html">Home</a>
-      <a href="birds.html">Birds</a>
-      <a href="contact-us.html">Contact</a>
-    </nav>
-  </header>
 
-  <main class="contact-container">
-    <h1>Contact Us</h1>
-    <p>Have questions or want to place a custom order? Reach out to us below. We’d love to hear from you!</p>
+<!-- VIDEO BG -->
+<video class="bg-video" autoplay muted loop playsinline>
+  <source src="video/ABLE'S FARM BACKGROUND.mp4" type="video/mp4"/>
+</video>
+<div class="bg-overlay"></div>
 
-    <section class="contact-form-section">
-      <form id="contactForm">
-        <div class="form-group">
-          <label for="name">Full Name *</label>
-          <input type="text" id="name" name="name" required />
-        </div>
-
-        <div class="form-group">
-          <label for="email">Email Address *</label>
-          <input type="email" id="email" name="email" required />
-        </div>
-
-        <div class="form-group">
-          <label for="phone">Phone Number</label>
-          <input type="tel" id="phone" name="phone" />
-        </div>
-
-        <div class="form-group">
-          <label for="message">Your Message *</label>
-          <textarea id="message" name="message" required></textarea>
-        </div>
-
-        <button type="submit" class="submit-btn">Send Message</button>
-      </form>
-    </section>
-
-    <section class="contact-info">
-      <h2>Our Farm Location</h2>
-      <p>📍 123 Poultry Road, Lagos, Nigeria</p>
-      <p>📞 +234 812 345 6789</p>
-      <p>📧 contact@ablesfarm.com</p>
-
-     <iframe 
-  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3162.920795188607!2d-122.08424998469226!3d37.42199997982571!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808fba5c1cf9e9db%3A0x2dfbfd5d3b4c8d99!2sGoogleplex!5e0!3m2!1sen!2sus!4v1600000000000!5m2!1sen!2sus" 
-  width="100%" 
-  height="350" 
-  style="border:0;" 
-  allowfullscreen="" 
-  loading="lazy" 
-  referrerpolicy="no-referrer-when-downgrade">
-</iframe>
-
-    </section>
-  </main>
- <div class="back-buttons">
-    <button onclick="location.href='index.html'">Return to Home</button>
-    <button onclick="window.scrollTo({ top: 0, behavior: 'smooth' });">Back to Top</button>
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    <img src="images/Farm-logo.jpeg" alt="Able's Farm" onerror="this.style.display='none'"/>
+    <span>ABLE'S FARM</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="birds.html">🐔 Poultry</a></li>
+    <li><a href="eggs.html">Eggs</a></li>
+    <li><a href="fish.html">Fish</a></li>
+    <li><a href="livestock.html">Livestock</a></li>
+    <li><a href="farm-product.html">Crops</a></li>
+    <li><a href="contact-us.html" class="active">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="user-chip" id="userChip" onclick="handleUserClick()">
+      <div class="avatar" id="userAvatar">A</div>
+      <span id="userName">My Account</span>
+    </div>
+    <button class="btn-auth btn-login" id="loginBtn" onclick="openAuthModal('login')">Log in</button>
+    <button class="btn-auth btn-signup" id="signupBtn" onclick="openAuthModal('signup')">Sign up</button>
   </div>
- <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-column">
-                    <h3>Able's Farm</h3>
-                    <p>Providing natural, effective solutions to agricultural development since 2015.</p>
-                    <div class="footer-social">
-                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
-                </div>
-                
-                <div class="footer-column">
-                    <h3>Quick Links</h3>
-                    <ul class="footer-links">
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="products.html">Products</a></li>
-                        <li><a href="about-us.html">About Us</a></li>
-                        <li><a href="contact-us.html">Contact</a></li>
-                        <li><a href="Abfet/abfet.html"> Visit Abfet</a></li>
+</nav>
 
-                    </ul>
-                </div>
-                
-                <div class="footer-column">
-                    <h3>Categories</h3>
-                    <ul class="footer-links">
-                        <li><a href="livestock.html">Livestocks</a></li>
-                        <li><a href="eggs.html">Eggs</a></li>
-                        <li><a href="birds.html">Birds</a></li>
-                        <li><a href="fish.html">Fishes</a></li>
-                        <li><a href="farm-product.html">Farm Products</a></li>
-                        <li><a href="dayold.html">Hatchlings</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-column">
-                    <h3>Contact Us</h3>
-                    <div class="footer-contact">
-                        <p><i class="fas fa-map-marker-alt"></i> 123 Herbal Way, Ikeja, Lagos, Nigeria</p>
-                        <p><i class="fas fa-phone"></i> +234 812 345 6789</p>
-                        <p><i class="fas fa-envelope"></i>ablesfarm3000@gmail.com</p>
-                        <p><i class="fas fa-clock"></i> Mon-Sat: 9:00 AM - 6:00 PM</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="copyright">
-                <p>&copy; 2025 Ables Farm. All Rights Reserved.</p>
-            </div>
+<!-- PAGE CONTENT -->
+<div class="page-content">
+
+  <!-- HERO -->
+  <div class="page-hero">
+    <div class="breadcrumb">
+      <a href="index.html">Home</a>
+      <span>›</span>
+      <span>Contact Us</span>
+    </div>
+    <div class="eyebrow">Get in touch</div>
+    <h1>We'd love to hear from you</h1>
+    <p>Questions about orders, products, partnerships, or wholesale? Reach us any way you prefer.</p>
+  </div>
+
+  <!-- QUICK LINKS -->
+  <div class="quick-links">
+    <a href="birds.html" class="quick-link-card">
+      <span class="ql-icon">🐔</span>
+      <h4>Shop poultry</h4>
+      <p>Order fresh birds and get your QR pickup code today.</p>
+    </a>
+    <a href="wholesaler.html" class="quick-link-card">
+      <span class="ql-icon">🚚</span>
+      <h4>Bulk / Wholesale</h4>
+      <p>Volume pricing for businesses, restaurants, and resellers.</p>
+    </a>
+    <a href="retailer.html" class="quick-link-card">
+      <span class="ql-icon">🛒</span>
+      <h4>Become a retailer</h4>
+      <p>Partner with us to stock Able's Farm products in your shop.</p>
+    </a>
+    <a href="about-us.html" class="quick-link-card">
+      <span class="ql-icon">🌱</span>
+      <h4>About the farm</h4>
+      <p>Learn about our story, location, and farming practices.</p>
+    </a>
+  </div>
+
+  <!-- CONTACT GRID -->
+  <div class="contact-grid">
+
+    <!-- INFO COLUMN -->
+    <div class="info-col">
+
+      <div class="info-card">
+        <h3>📍 Find us</h3>
+        <div class="info-item">
+          <div class="info-icon">📍</div>
+          <div class="info-text">
+            <h4>Farm & Main Depot</h4>
+            <p>4, Adewale Anjorin Close, Alatishe,<br/>Ibeju-Lekki, Lagos, Nigeria</p>
+          </div>
         </div>
-    </footer>
-  <script src="js/contact.js"></script>
+        <div class="info-item">
+          <div class="info-icon">📞</div>
+          <div class="info-text">
+            <h4>Phone / WhatsApp</h4>
+            <p><a href="tel:+2348121479874">+234 812 147 9874</a></p>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">✉️</div>
+          <div class="info-text">
+            <h4>Email</h4>
+            <p><a href="mailto:ablesfarm3000@gmail.com">ablesfarm3000@gmail.com</a></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="info-card">
+        <h3>🕐 Opening hours</h3>
+        <div class="hours-row"><span>Monday</span><span>9:00 AM – 6:00 PM</span></div>
+        <div class="hours-row"><span>Tuesday</span><span>9:00 AM – 6:00 PM</span></div>
+        <div class="hours-row"><span>Wednesday</span><span>9:00 AM – 6:00 PM</span></div>
+        <div class="hours-row"><span>Thursday</span><span>9:00 AM – 6:00 PM</span></div>
+        <div class="hours-row"><span>Friday</span><span>9:00 AM – 6:00 PM</span></div>
+        <div class="hours-row"><span>Saturday</span><span>8:00 AM – 4:00 PM</span></div>
+        <div class="hours-row closed"><span>Sunday</span><span>Closed</span></div>
+      </div>
+
+      <div class="info-card">
+        <h3>🌐 Follow us</h3>
+        <p style="font-size:0.82rem; color:var(--text-muted); margin-bottom:1rem; line-height:1.6;">
+          Follow Able's Farm for farm updates, restocking alerts, and deals.
+        </p>
+        <div class="social-row">
+          <a href="#" class="social-btn">📘 Facebook</a>
+          <a href="#" class="social-btn">📸 Instagram</a>
+          <a href="#" class="social-btn">🐦 Twitter / X</a>
+          <a href="https://wa.me/2348121479874" target="_blank" class="social-btn">💬 WhatsApp</a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- FORM COLUMN -->
+    <div class="form-card">
+      <h3>✉️ Send us a message</h3>
+
+      <div class="form-tabs">
+        <button class="form-tab active" data-panel="general" onclick="switchFormTab(this)">General enquiry</button>
+        <button class="form-tab" data-panel="order" onclick="switchFormTab(this)">Order issue</button>
+        <button class="form-tab" data-panel="wholesale" onclick="switchFormTab(this)">Wholesale</button>
+      </div>
+
+      <!-- GENERAL -->
+      <div class="form-panel active" id="panel-general">
+        <div id="general-form">
+          <div class="field-row">
+            <div class="field-group">
+              <label>Full name *</label>
+              <input type="text" id="g-name" placeholder="e.g. Ade Bello"/>
+            </div>
+            <div class="field-group">
+              <label>Phone number *</label>
+              <input type="tel" id="g-phone" placeholder="+234 800 000 0000"/>
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field-group">
+              <label>Email address</label>
+              <input type="email" id="g-email" placeholder="you@email.com"/>
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field-group">
+              <label>Subject *</label>
+              <input type="text" id="g-subject" placeholder="What's this about?"/>
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field-group">
+              <label>Message *</label>
+              <textarea id="g-message" rows="5" placeholder="Tell us more..." oninput="updateCharCount('g-message','g-chars',500)"></textarea>
+              <div class="char-hint"><span id="g-chars">0</span>/500</div>
+            </div>
+          </div>
+          <button class="submit-btn" onclick="submitForm('general')">Send message →</button>
+          <p class="form-note">We typically reply within 24 hours on business days.</p>
+        </div>
+        <div class="form-success" id="general-success">
+          <div class="check">✅</div>
+          <h3>Message sent!</h3>
+          <p>Thank you for reaching out. We'll get back to you within 24 hours.</p>
+        </div>
+      </div>
+
+      <!-- ORDER ISSUE -->
+      <div class="form-panel" id="panel-order">
+        <div id="order-form">
+          <div class="field-row">
+            <div class="field-group">
+              <label>Full name *</label>
+              <input type="text" id="o-name" placeholder="e.g. Ade Bello"/>
+            </div>
+            <div class="field-group">
+              <label>Phone number *</label>
+              <input type="tel" id="o-phone" placeholder="+234 800 000 0000"/>
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field-group">
+              <label>Order reference *</label>
+              <input type="text" id="o-ref" placeholder="e.g. ABF-0SRKCS"/>
+            </div>
+            <div class="field-group">
+              <label>Issue type *</label>
+              <select id="o-issue">
+                <option value="">Select...</option>
+                <option>QR code not working</option>
+                <option>Order not ready at depot</option>
+                <option>Wrong product received</option>
+                <option>Expired QR code</option>
+                <option>Refund request</option>
+                <option>Other</option>
+              </select>
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field-group">
+              <label>Describe the issue *</label>
+              <textarea id="o-message" rows="4" placeholder="What went wrong?" oninput="updateCharCount('o-message','o-chars',400)"></textarea>
+              <div class="char-hint"><span id="o-chars">0</span>/400</div>
+            </div>
+          </div>
+          <button class="submit-btn" onclick="submitForm('order')">Submit issue →</button>
+          <p class="form-note">Order issues are prioritised — we'll respond within a few hours.</p>
+        </div>
+        <div class="form-success" id="order-success">
+          <div class="check">✅</div>
+          <h3>Issue logged!</h3>
+          <p>Our team will look into this and contact you shortly. If urgent, call us directly.</p>
+        </div>
+      </div>
+
+      <!-- WHOLESALE -->
+      <div class="form-panel" id="panel-wholesale">
+        <div id="wholesale-form">
+          <div class="field-row">
+            <div class="field-group">
+              <label>Business name *</label>
+              <input type="text" id="w-biz" placeholder="e.g. Sunrise Foods Ltd"/>
+            </div>
+            <div class="field-group">
+              <label>Contact person *</label>
+              <input type="text" id="w-name" placeholder="Your full name"/>
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field-group">
+              <label>Phone *</label>
+              <input type="tel" id="w-phone" placeholder="+234 800 000 0000"/>
+            </div>
+            <div class="field-group">
+              <label>Email *</label>
+              <input type="email" id="w-email" placeholder="business@email.com"/>
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field-group">
+              <label>Products of interest *</label>
+              <select id="w-product">
+                <option value="">Select product...</option>
+                <option>Broiler Chicken</option>
+                <option>Layer Hens</option>
+                <option>Turkey</option>
+                <option>Eggs (when available)</option>
+                <option>Mixed / Multiple products</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label>Estimated monthly volume</label>
+              <select id="w-volume">
+                <option value="">Select range...</option>
+                <option>10–50 units</option>
+                <option>50–200 units</option>
+                <option>200–500 units</option>
+                <option>500+ units</option>
+              </select>
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field-group">
+              <label>Additional info</label>
+              <textarea id="w-message" rows="3" placeholder="Tell us about your business and delivery needs..." oninput="updateCharCount('w-message','w-chars',400)"></textarea>
+              <div class="char-hint"><span id="w-chars">0</span>/400</div>
+            </div>
+          </div>
+          <button class="submit-btn" onclick="submitForm('wholesale')">Submit wholesale enquiry →</button>
+          <p class="form-note">A sales rep will be in touch within 1 business day.</p>
+        </div>
+        <div class="form-success" id="wholesale-success">
+          <div class="check">✅</div>
+          <h3>Enquiry received!</h3>
+          <p>A member of our sales team will contact you within 1 business day to discuss pricing and logistics.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- DEPOT SUGGESTION SECTION -->
+  <div class="depot-section">
+    <div class="depot-section-header">
+      <div class="depot-icon">📍</div>
+      <div>
+        <h2>Suggest a depot location</h2>
+        <p>We're expanding across Lagos and beyond. Tell us which market, local government area, or neighbourhood you'd like to see an Able's Farm depot — we'll use these votes to prioritise where we open next.</p>
+      </div>
+    </div>
+
+    <div class="votes-ticker">
+      <span>📊</span>
+      <span class="count" id="totalVotes">0</span>
+      <span>location requests submitted so far</span>
+    </div>
+
+    <!-- Top voted so far (populated from localStorage) -->
+    <div class="vote-chips" id="topVotes"></div>
+
+    <div id="depot-suggest-form">
+      <div class="depot-form-grid">
+        <div class="field-group">
+          <label>Your name</label>
+          <input type="text" id="ds-name" placeholder="e.g. Chidi Okafor"/>
+        </div>
+        <div class="field-group">
+          <label>Phone or email</label>
+          <input type="text" id="ds-contact" placeholder="So we can notify you when it opens"/>
+        </div>
+        <div class="field-group">
+          <label>Suggested location / area *</label>
+          <input type="text" id="ds-location" placeholder="e.g. Surulere Market, Lagos Island..."/>
+        </div>
+        <div class="field-group">
+          <label>State *</label>
+          <select id="ds-state">
+            <option value="">Select state...</option>
+            <option>Lagos</option>
+            <option>Ogun</option>
+            <option>Oyo</option>
+            <option>Abuja (FCT)</option>
+            <option>Rivers</option>
+            <option>Kano</option>
+            <option>Delta</option>
+            <option>Enugu</option>
+            <option>Anambra</option>
+            <option>Kaduna</option>
+            <option>Edo</option>
+            <option>Imo</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="field-group" style="grid-column: 1 / -1;">
+          <label>Why this location? (optional)</label>
+          <textarea id="ds-reason" rows="2" placeholder="e.g. Very busy market, lots of poultry buyers, no good supply nearby..."></textarea>
+        </div>
+      </div>
+      <button class="submit-btn" onclick="submitDepotSuggestion()" style="max-width: 320px;">📍 Submit location request →</button>
+    </div>
+
+    <div class="form-success" id="depot-success">
+      <div class="check">📍</div>
+      <h3>Location noted!</h3>
+      <p>We've recorded your suggestion. When we're ready to open a depot in that area, you'll be among the first to know.</p>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- WHATSAPP FLOAT -->
+<a href="https://wa.me/2348121479874?text=Hello%20Able's%20Farm%2C%20I%20have%20an%20enquiry."
+   target="_blank" class="whatsapp-float" title="Chat on WhatsApp">
+  💬
+  <span class="tooltip">Chat on WhatsApp</span>
+</a>
+
+<!-- AUTH MODAL -->
+<div class="modal-backdrop" id="authModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeAuthModal()">✕</button>
+    <h2 id="modalTitle">Welcome back</h2>
+    <p class="modal-sub" id="modalSub">Sign in to your account.</p>
+    <div class="modal-tabs">
+      <button class="modal-tab active" id="tab-login" onclick="switchAuthTab('login')">Log in</button>
+      <button class="modal-tab" id="tab-signup" onclick="switchAuthTab('signup')">Sign up</button>
+    </div>
+    <div id="formLogin">
+      <div class="form-field"><label>Phone or Email</label><input type="text" id="loginId" placeholder="0812 000 0000 or email"/></div>
+      <div class="form-field"><label>Password</label><input type="password" id="loginPass" placeholder="Your password"/></div>
+      <button class="btn-full" onclick="handleLogin()">Log in</button>
+    </div>
+    <div id="formSignup" style="display:none">
+      <div class="form-field"><label>Full name</label><input type="text" id="signupName" placeholder="e.g. Ade Bello"/></div>
+      <div class="form-field"><label>Phone number</label><input type="tel" id="signupPhone" placeholder="+234 800 000 0000"/></div>
+      <div class="form-field"><label>Email address</label><input type="email" id="signupEmail" placeholder="you@email.com"/></div>
+      <div class="form-field"><label>Password</label><input type="password" id="signupPass" placeholder="Min 8 characters"/></div>
+      <button class="btn-full" onclick="handleSignup()">Create account</button>
+    </div>
+    <div class="modal-switch" id="modalSwitch">
+      No account? <button onclick="switchAuthTab('signup')">Sign up free</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast">
+  <strong id="toastTitle"></strong>
+  <span id="toastMsg"></span>
+</div>
+
+<script>
+  const STORAGE_KEY = 'ablesfarm_user';
+  const DEPOT_KEY   = 'ablesfarm_depot_votes';
+
+  function getUser() { try { return JSON.parse(localStorage.getItem(STORAGE_KEY)); } catch { return null; } }
+  function setUser(u) { localStorage.setItem(STORAGE_KEY, JSON.stringify(u)); }
+
+  // ── NAV ──
+  function updateNav() {
+    const user = getUser();
+    const chip = document.getElementById('userChip');
+    const loginBtn = document.getElementById('loginBtn');
+    const signupBtn = document.getElementById('signupBtn');
+    if (user) {
+      chip.style.display = 'flex';
+      document.getElementById('userAvatar').textContent = user.name.charAt(0).toUpperCase();
+      document.getElementById('userName').textContent = user.name.split(' ')[0];
+      loginBtn.style.display = 'none'; signupBtn.style.display = 'none';
+    } else {
+      chip.style.display = 'none';
+      loginBtn.style.display = ''; signupBtn.style.display = '';
+    }
+  }
+
+  function handleUserClick() {
+    const user = getUser();
+    if (user && confirm(`Signed in as ${user.name}.\n\nLog out?`)) {
+      localStorage.removeItem(STORAGE_KEY); updateNav();
+      showToast('Signed out', 'See you next time!');
+    }
+  }
+
+  // ── FORM TABS ──
+  function switchFormTab(btn) {
+    document.querySelectorAll('.form-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.form-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('panel-' + btn.dataset.panel).classList.add('active');
+  }
+
+  // ── CHAR COUNT ──
+  function updateCharCount(fieldId, countId, max) {
+    const len = document.getElementById(fieldId).value.length;
+    document.getElementById(countId).textContent = len;
+  }
+
+  // ── FORM SUBMIT (simulated — replace with real fetch() to your backend) ──
+  function submitForm(type) {
+    const forms = {
+      general:   { fields: ['g-name','g-phone','g-subject','g-message'], required: ['g-name','g-phone','g-subject','g-message'] },
+      order:     { fields: ['o-name','o-phone','o-ref','o-issue','o-message'], required: ['o-name','o-phone','o-ref','o-message'] },
+      wholesale: { fields: ['w-biz','w-name','w-phone','w-email','w-product'], required: ['w-biz','w-name','w-phone','w-email','w-product'] }
+    };
+
+    const cfg = forms[type];
+    for (const id of cfg.required) {
+      const el = document.getElementById(id);
+      if (!el.value.trim()) {
+        el.style.borderColor = 'var(--danger)';
+        el.focus();
+        showToast('Missing field', 'Please fill in all required fields.');
+        setTimeout(() => el.style.borderColor = '', 2000);
+        return;
+      }
+    }
+
+    // Store locally (replace with real API call)
+    const submission = { type, ts: new Date().toISOString() };
+    cfg.fields.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) submission[id] = el.value.trim();
+    });
+
+    const stored = JSON.parse(localStorage.getItem('ablesfarm_messages') || '[]');
+    stored.push(submission);
+    localStorage.setItem('ablesfarm_messages', JSON.stringify(stored));
+
+    document.getElementById(type + '-form').style.display = 'none';
+    document.getElementById(type + '-success').style.display = 'block';
+    showToast('Sent!', 'Your message has been received.');
+  }
+
+  // ── DEPOT SUGGESTIONS ──
+  function loadDepotVotes() {
+    const votes = JSON.parse(localStorage.getItem(DEPOT_KEY) || '[]');
+    document.getElementById('totalVotes').textContent = votes.length;
+
+    // Tally by location
+    const tally = {};
+    votes.forEach(v => {
+      const key = v.location + (v.state ? `, ${v.state}` : '');
+      tally[key] = (tally[key] || 0) + 1;
+    });
+
+    const sorted = Object.entries(tally).sort((a, b) => b[1] - a[1]).slice(0, 6);
+    const max = sorted[0]?.[1] || 1;
+    const container = document.getElementById('topVotes');
+
+    if (sorted.length === 0) {
+      container.innerHTML = '<span style="font-size:0.8rem; color:var(--text-muted);">No suggestions yet — be the first!</span>';
+    } else {
+      container.innerHTML = sorted.map(([loc, count]) => `
+        <div class="vote-chip">
+          📍 ${loc}
+          <span class="votes">${count} vote${count > 1 ? 's' : ''}</span>
+          <div class="bar-wrap"><div class="bar" style="width:${Math.round((count/max)*100)}%"></div></div>
+        </div>
+      `).join('');
+    }
+  }
+
+  function submitDepotSuggestion() {
+    const location = document.getElementById('ds-location').value.trim();
+    const state    = document.getElementById('ds-state').value;
+
+    if (!location) { showToast('Missing field', 'Please enter a location.'); return; }
+    if (!state)    { showToast('Missing field', 'Please select a state.'); return; }
+
+    const entry = {
+      name:     document.getElementById('ds-name').value.trim(),
+      contact:  document.getElementById('ds-contact').value.trim(),
+      location,
+      state,
+      reason:   document.getElementById('ds-reason').value.trim(),
+      ts:       new Date().toISOString()
+    };
+
+    const votes = JSON.parse(localStorage.getItem(DEPOT_KEY) || '[]');
+    votes.push(entry);
+    localStorage.setItem(DEPOT_KEY, JSON.stringify(votes));
+
+    document.getElementById('depot-suggest-form').style.display = 'none';
+    document.getElementById('depot-success').style.display = 'block';
+    loadDepotVotes();
+    showToast('Location submitted!', `Thanks for suggesting ${location}.`);
+  }
+
+  // ── AUTH MODAL ──
+  function openAuthModal(tab) {
+    document.getElementById('authModal').classList.add('open');
+    switchAuthTab(tab || 'login');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeAuthModal() {
+    document.getElementById('authModal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.getElementById('authModal').addEventListener('click', function(e) {
+    if (e.target === this) closeAuthModal();
+  });
+
+  function switchAuthTab(tab) {
+    const isLogin = tab === 'login';
+    document.getElementById('tab-login').classList.toggle('active', isLogin);
+    document.getElementById('tab-signup').classList.toggle('active', !isLogin);
+    document.getElementById('formLogin').style.display = isLogin ? 'block' : 'none';
+    document.getElementById('formSignup').style.display = isLogin ? 'none' : 'block';
+    document.getElementById('modalTitle').textContent = isLogin ? 'Welcome back' : 'Create account';
+    document.getElementById('modalSub').textContent = isLogin ? 'Sign in to your account.' : 'Join Able\'s Farm.';
+    document.getElementById('modalSwitch').innerHTML = isLogin
+      ? 'No account? <button onclick="switchAuthTab(\'signup\')">Sign up free</button>'
+      : 'Have an account? <button onclick="switchAuthTab(\'login\')">Log in</button>';
+  }
+
+  function handleLogin() {
+    const id = document.getElementById('loginId').value.trim();
+    const pass = document.getElementById('loginPass').value.trim();
+    if (!id || !pass) { alert('Please fill in your details.'); return; }
+    const stored = getUser();
+    if (stored && (stored.phone === id || stored.email === id)) {
+      closeAuthModal(); updateNav(); showToast('Welcome back!', `Signed in as ${stored.name}`);
+    } else { alert('No account found. Please sign up first.'); switchAuthTab('signup'); }
+  }
+
+  function handleSignup() {
+    const name  = document.getElementById('signupName').value.trim();
+    const phone = document.getElementById('signupPhone').value.trim();
+    const email = document.getElementById('signupEmail').value.trim();
+    const pass  = document.getElementById('signupPass').value.trim();
+    if (!name || !phone || !email || !pass) { alert('Please fill in all fields.'); return; }
+    if (pass.length < 8) { alert('Password must be at least 8 characters.'); return; }
+    setUser({ name, phone, email, createdAt: Date.now() });
+    closeAuthModal(); updateNav(); showToast('Account created!', `Welcome, ${name.split(' ')[0]}!`);
+  }
+
+  // ── TOAST ──
+  let toastTimer;
+  function showToast(title, msg) {
+    const t = document.getElementById('toast');
+    document.getElementById('toastTitle').textContent = title;
+    document.getElementById('toastMsg').textContent = msg;
+    t.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => t.classList.remove('show'), 3200);
+  }
+
+  // ── INIT ──
+  updateNav();
+  loadDepotVotes();
+</script>
+
 </body>
 </html>

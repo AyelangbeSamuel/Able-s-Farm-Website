@@ -1,1025 +1,1819 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ABLE'S FARM - Poultry Birds </title>
-    <link rel="icon" type="image/jpeg" href="images/Farm-logo.jpeg" />
-    <style>
-        /* General Styling */
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(to right, #18191a, #203a43, #2c5364);
-            color: white;
-            margin: 0;
-            padding: 0;
-        }
+  <meta charset="UTF-8"/>
+  <title>Poultry Birds — ABLE'S FARM</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="icon" type="image/jpeg" href="images/Farm-logo.jpeg"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet"/>
+  <!-- QR Code library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <style>
+    :root {
+      --gold: #e8a020;
+      --gold-light: #ffc95c;
+      --gold-dark: #b87800;
+      --green-deep: #0d2a14;
+      --green-mid: #1a4a24;
+      --green-light: #2e7d42;
+      --cream: #f5f0e8;
+      --text-on-dark: #f0ede6;
+      --text-muted: rgba(240,237,230,0.6);
+      --glass: rgba(13,42,20,0.72);
+      --glass-border: rgba(232,160,32,0.25);
+      --danger: #e05252;
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 22px;
+    }
 
-        .video-bg {
-            position: fixed;
-            right: 0;
-            bottom: 0;
-            min-width: 100%;
-            min-height: 100%;
-            z-index: -100;
-            opacity: 0.3;
-        }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Space Grotesk', sans-serif; background: var(--green-deep); color: var(--text-on-dark); overflow-x: hidden; }
 
-        /* Header and Navigation */
-        .navbar {
-            padding: 1rem 2rem;
-            background: rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(10px);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-        }
+    /* ── VIDEO HERO/PAGE BACKGROUND ── */
+    .page-wrap { position: relative; min-height: 100vh; display: flex; flex-direction: column;
+    
+    position:relative;
+    z-index:2; }
 
-        .logo {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: #ffa726;
-        }
+    .bg-video {
+      position: fixed; inset: 0; width: 100%; height: 100%;
+      object-fit: cover; z-index: 0;
+    }
 
-        #search-bar {
-            padding: 8px 12px;
-            border-radius: 6px;
-            border: 1px solid #ffa726;
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            width: 250px;
-        }
+    .bg-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background: linear-gradient(
+        180deg,
+        rgba(13,42,20,0.35) 0%,
+        rgba(13,42,20,0.15) 45%,
+        rgba(13,42,20,0.35) 100%
+    );
+}
 
-        #filter-category {
-            padding: 8px;
-            border-radius: 6px;
-            border: 1px solid #ffa726;
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-        }
-        #filter-category option {
-            background: #2c5364;
-            color: white;
-        }
+    /* ── NAV ── */
+   nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.2rem 2.5rem;
+      background: rgba(13,42,20,0.85);
+      border-bottom: 1px solid var(--glass-border);
+      position: sticky;
+      top: 0;
+      z-index: 500;
+      backdrop-filter: blur(12px);
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
 
-        /* Marquee Styles */
-         .ads-marquee {
-            display: flex;
-            overflow: hidden;
-            white-space: nowrap;
-            border-top: 2px solid #ffa726;
-            border-bottom: 2px solid #ffa726;
-            padding: 0.5rem 0;
-            background: rgba(255, 255, 255, 0.05);
-        }
+    .nav-logo img {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--gold);
+    }
 
-        .ads-marquee video {
-            height: 60px;
-            width: 100px;
-            margin: 0 1rem;
-            border: 2px solid #fff;
-            border-radius: 6px;
-        }
+    .nav-logo span {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      color: var(--gold-light);
+    }
 
-         @keyframes scrollAds {
-            0% { transform: translateX(100%); }
-            100% { transform: translateX(-100%); }
-        }
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 0.2rem;
+    }
 
-         .ads-wrapper {
-            display: inline-flex;
-            animation: scrollAds 25s linear infinite;
-        }
-        
-        .marquee {
-            background: #ffa726;
-            color: black;
-            padding: 0.5rem;
-            font-weight: bold;
-        }
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      padding: 7px 12px;
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      font-weight: 500;
+      transition: background 0.2s, color 0.2s;
+    }
 
-        /* Cart Styling */
-        .cart {
-            position: relative;
-            cursor: pointer;
-        }
+    .nav-links a:hover, .nav-links a.active { color: var(--gold); }
 
-        .cart-dropdown {
-            display: none;
-            position: absolute;
-            right: 0;
-            top: 40px;
-            background: rgba(20, 30, 40, 0.9);
-            backdrop-filter: blur(10px);
-            color: #fff;
-            width: 280px;
-            box-shadow: 0 0 15px rgba(0,0,0,0.5);
-            border-radius: 8px;
-            border: 1px solid #ffa726;
-            padding: 1rem;
-            z-index: 1000;
-        }
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
 
-        .cart-dropdown ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            max-height: 220px;
-            overflow-y: auto;
-        }
+    .cart-btn {
+      position: relative;
+      background: rgba(232,160,32,0.12);
+      border: 1px solid var(--glass-border);
+      color: var(--cream);
+      padding: 8px 16px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-size: 0.875rem;
+      font-weight: 600;
+      font-family: 'Space Grotesk', sans-serif;
+      transition: background 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
 
-        .cart-dropdown li {
-            margin-bottom: 10px;
-            border-bottom: 1px solid #ffa726;
-            padding-bottom: 8px;
-        }
+    .cart-btn:hover { background: rgba(232,160,32,0.22); }
 
-        .cart:hover .cart-dropdown {
-            display: block;
-        }
+    .cart-badge {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      background: var(--gold);
+      color: var(--green-deep);
+      font-size: 0.65rem;
+      font-weight: 800;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-        /* Main Content and Product Grid */
-        main {
-            padding: 2rem;
-        }
+    .user-chip {
+      display: none;
+      align-items: center;
+      gap: 8px;
+      background: rgba(232,160,32,0.1);
+      border: 1px solid var(--glass-border);
+      border-radius: 40px;
+      padding: 5px 14px 5px 5px;
+      cursor: pointer;
+    }
 
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            justify-items: center;
-        }
+    .user-chip .avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--gold);
+      color: var(--green-deep);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.75rem;
+    }
 
-        /* Product Card Flip Styling */
-        .product-card {
-            background-color: transparent;
-            width: 250px;
-            height: 380px;
-            perspective: 1000px; /* Essential for 3D effect */
-            border: none;
-        }
+    .user-chip span { font-size: 0.8rem; font-weight: 500; }
 
-        .product-card-inner {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            transition: transform 0.8s;
-            transform-style: preserve-3d;
-        }
+    .btn-auth {
+      padding: 8px 16px;
+      border-radius: var(--radius-sm);
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: 'Space Grotesk', sans-serif;
+    }
 
-        .product-card-inner.flipped {
-            transform: rotateY(180deg);
-        }
+    .btn-login { background: transparent; border: 1px solid var(--glass-border); color: var(--text-on-dark); }
+    .btn-login:hover { border-color: var(--gold); color: var(--gold); }
+    .btn-signup { background: var(--gold); border: 1px solid var(--gold); color: var(--green-deep); }
+    .btn-signup:hover { background: var(--gold-light); }
 
-        .product-card-front,
-        .product-card-back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            -webkit-backface-visibility: hidden; /* For Safari */
-            backface-visibility: hidden;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-around;
-            align-items: center;
-            padding: 1rem;
-            border-radius: 12px;
-            border: 1px solid #ffa726;
-            background: rgba(44, 83, 100, 0.4);
-            backdrop-filter: blur(8px);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
-        }
+   
+   /* ── PAGE HEADER ── */
+    .page-header {
+      background: rgba(26,74,36,0.55);
+      backdrop-filter: blur(6px);
+      padding: 3rem 2.5rem 2rem;
+      border-bottom: 1px solid var(--glass-border);
+      position: relative;
+      z-index: 2;
+    }
+    .breadcrumb {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
 
-        .product-card-back {
-            transform: rotateY(180deg);
-            justify-content: center;
-            gap: 15px;
-        }
-        
-        .product-card img {
-            width: 95%;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 8px;
-        }
+    .breadcrumb a { color: var(--gold); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
 
-        .product-card h3 {
-            margin: 10px 0 5px 0;
-            color: #ffa726;
-        }
+    .page-header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.4rem;
+      color: var(--cream);
+      margin-bottom: 0.5rem;
+    }
 
-        .product-card p {
-            margin: 5px 0;
-            font-size: 1.1rem;
-        }
-        
-        .product-card button {
-            margin-top: 10px;
-            background: #ffa726;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 6px;
-            color: black;
-            cursor: pointer;
-            font-weight: bold;
-            transition: background 0.3s, transform 0.2s;
-        }
+    .page-header p { color: var(--text-muted); font-size: 0.95rem; }
 
-        .product-card button:hover {
-            background: #fb8c00;
-            transform: scale(1.05);
-        }
+    /* ── TICKER ── */
+    .ticker {
+      background: var(--gold);
+      color: var(--green-deep);
+      padding: 0.5rem 0;
+      overflow: hidden;
+      white-space: nowrap;
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
 
-        .product-card .badge {
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            background: #ff4500;
-            color: white;
-            padding: 5px 8px;
-            border-radius: 5px;
-            font-size: 0.8rem;
-            font-weight: bold;
-        }
-        
-        /* Utility and Footer */
-        .back-buttons {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            z-index: 1000;
-        }
+    .ticker-inner { display: inline-flex; animation: ticker 25s linear infinite; }
+    .ticker-item { padding: 0 2.5rem; }
+    .ticker-sep { opacity: 0.4; }
+    @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
-        .back-buttons button {
-            background: rgba(0, 0, 0, 0.7);
-            color: #fff;
-            border: 1px solid #00ffe5;
-            padding: 10px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 14px;
-            transition: all 0.3s ease-in-out;
-        }
+    /* ── SEARCH + FILTER BAR ── */
+    .filter-bar {
+      background: rgba(13,42,20,0.65);
+      backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--glass-border);
+      padding: 1rem 2.5rem;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 2;
+    }
+    .search-input {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-sm);
+      color: var(--cream);
+      padding: 9px 14px;
+      font-size: 0.875rem;
+      outline: none;
+      transition: border-color 0.2s;
+      font-family: 'Space Grotesk', sans-serif;
+      width: 240px;
+    }
 
-        .back-buttons button:hover {
-            background: #00ffe5;
-            color: black;
-        }
+    .search-input:focus { border-color: var(--gold); }
+    .search-input::placeholder { color: var(--text-muted); }
 
-       footer {
-            background: linear-gradient(135deg, var(--primary-dark), #143d18);
-            color: white;
-            padding: 70px 0 30px;
-        }
+    .filter-chip {
+      background: transparent;
+      border: 1px solid var(--glass-border);
+      color: var(--text-muted);
+      padding: 7px 14px;
+      border-radius: 40px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: 'Space Grotesk', sans-serif;
+      transition: all 0.2s;
+    }
 
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            margin-bottom: 50px;
-        }
+    .filter-chip:hover, .filter-chip.active {
+      border-color: var(--gold);
+      color: var(--gold);
+      background: rgba(232,160,32,0.1);
+    }
 
-        .footer-column h3 {
-            font-size: 1.4rem;
-            margin-bottom: 25px;
-            position: relative;
-            padding-bottom: 10px;
-        }
+    
+    /* ── MAIN LAYOUT ── */
+    .main-layout {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 0;
+      max-width: 1280px;
+      margin: 0 auto;
+      min-height: calc(100vh - 200px);
+    }
 
-        .footer-column h3::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 50px;
-            height: 3px;
-            background-color: var(--secondary);
-        }
+    /* ── PRODUCT GRID ── */
+    .product-area {
+      padding: 2rem 2.5rem;
+      border-right: 1px solid var(--glass-border);
+    }
 
-        .footer-links {
-            list-style: none;
-        }
+    .products-count {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+    }
 
-        .footer-links li {
-            margin-bottom: 12px;
-        }
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1.25rem;
+    }
 
-        .footer-links a {
-            color: rgba(255, 255, 255, 0.7);
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
+    .product-card {
+      background: var(--green-mid);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      transition: transform 0.2s, border-color 0.2s;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
 
-        .footer-links a:hover {
-            color: var(--secondary);
-            padding-left: 5px;
-        }
+    .product-card:hover { transform: translateY(-3px); border-color: rgba(232,160,32,0.45); }
 
-        .footer-contact p {
-            display: flex;
-            align-items: flex-start;
-            gap: 15px;
-            margin-bottom: 15px;
-        }
+    .card-img-wrap { position: relative; }
 
-        .footer-contact i {
-            color: var(--secondary);
-            margin-top: 5px;
-        }
+    .product-card img {
+      width: 100%;
+      height: 175px;
+      object-fit: cover;
+      display: block;
+    }
 
-        .footer-social {
-            display: flex;
-            gap: 15px;
-            margin-top: 20px;
-        }
+    .card-badge-top {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: var(--gold);
+      color: var(--green-deep);
+      font-size: 0.65rem;
+      font-weight: 800;
+      padding: 4px 8px;
+      border-radius: 5px;
+      letter-spacing: 0.05em;
+    }
 
-        .social-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: rgba(255, 255, 255, 0.1);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
+    .card-body {
+      padding: 1.1rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
 
-        .social-icon:hover {
-            background-color: var(--secondary);
-            color: var(--dark);
-            transform: translateY(-3px);
-        }
+    .card-body h3 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--cream);
+      margin-bottom: 0.3rem;
+    }
 
-        .copyright {
-            text-align: center;
-            padding-top: 30px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 0.95rem;
-        }
- 
-    </style>
+    .card-desc {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      flex: 1;
+      margin-bottom: 1rem;
+    }
+
+    .card-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 0.8rem;
+    }
+
+    .meta-pill {
+      font-size: 0.68rem;
+      background: rgba(232,160,32,0.1);
+      color: var(--gold);
+      padding: 3px 8px;
+      border-radius: 40px;
+      border: 1px solid rgba(232,160,32,0.2);
+    }
+
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .card-price { font-size: 1rem; font-weight: 700; color: var(--gold-light); }
+    .card-price span { font-size: 0.72rem; color: var(--text-muted); font-weight: 400; }
+
+    .qty-control {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(13,42,20,0.5);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-sm);
+      padding: 2px 4px;
+    }
+
+    .qty-btn {
+      background: none;
+      border: none;
+      color: var(--gold);
+      font-size: 1.1rem;
+      cursor: pointer;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 4px;
+      transition: background 0.2s;
+    }
+
+    .qty-btn:hover { background: rgba(232,160,32,0.15); }
+
+    .qty-val { font-size: 0.85rem; font-weight: 600; min-width: 20px; text-align: center; }
+
+    .btn-add {
+      background: var(--gold);
+      color: var(--green-deep);
+      border: none;
+      padding: 8px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: 'Space Grotesk', sans-serif;
+      transition: background 0.2s, transform 0.1s;
+      flex-shrink: 0;
+    }
+
+    .btn-add:hover { background: var(--gold-light); }
+    .btn-add:active { transform: scale(0.95); }
+    .btn-add.added { background: var(--green-light); color: white; }
+
+    /* ── CARD FLIP ── */
+    .card-details {
+      display: none;
+      background: rgba(13,42,20,0.9);
+      padding: 1.1rem;
+      border-top: 1px solid var(--glass-border);
+    }
+
+    .card-details.open { display: block; }
+
+    .detail-item { font-size: 0.78rem; color: var(--text-muted); margin-bottom: 4px; }
+    .detail-item strong { color: var(--cream); }
+
+    .toggle-details {
+      background: none;
+      border: none;
+      color: var(--gold);
+      font-size: 0.75rem;
+      cursor: pointer;
+      padding: 0;
+      font-family: 'Space Grotesk', sans-serif;
+      margin-top: 8px;
+      text-decoration: underline;
+    }
+
+    /* ── CART SIDEBAR ── */
+    .cart-sidebar {
+      padding: 2rem 1.5rem;
+      position: sticky;
+      top: 73px;
+      height: calc(100vh - 73px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .cart-sidebar h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--cream);
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .cart-empty {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      gap: 10px;
+      padding: 2rem 0;
+    }
+
+    .cart-empty .icon { font-size: 2.5rem; opacity: 0.4; }
+
+    .cart-items { flex: 1; display: flex; flex-direction: column; gap: 10px; margin-bottom: 1.5rem; }
+
+    .cart-item {
+      background: rgba(13,42,20,0.6);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-sm);
+      padding: 10px 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .cart-item img {
+      width: 44px;
+      height: 44px;
+      border-radius: 8px;
+      object-fit: cover;
+      flex-shrink: 0;
+      border: 1px solid var(--glass-border);
+    }
+
+    .cart-item-info { flex: 1; min-width: 0; }
+    .cart-item-info .name { font-size: 0.82rem; font-weight: 600; color: var(--cream); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .cart-item-info .sub { font-size: 0.72rem; color: var(--text-muted); }
+
+    .cart-item-price { font-size: 0.85rem; font-weight: 700; color: var(--gold-light); flex-shrink: 0; }
+
+    .cart-item-remove {
+      background: none;
+      border: none;
+      color: var(--danger);
+      cursor: pointer;
+      font-size: 0.9rem;
+      padding: 4px;
+      border-radius: 4px;
+      flex-shrink: 0;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+
+    .cart-item-remove:hover { opacity: 1; }
+
+    .cart-summary {
+      border-top: 1px solid var(--glass-border);
+      padding-top: 1rem;
+      margin-top: auto;
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      margin-bottom: 8px;
+      color: var(--text-muted);
+    }
+
+    .summary-row.total { color: var(--cream); font-weight: 700; font-size: 1rem; margin-top: 10px; }
+    .summary-row.total span:last-child { color: var(--gold-light); }
+
+    .btn-checkout {
+      width: 100%;
+      padding: 13px;
+      background: var(--gold);
+      color: var(--green-deep);
+      border: none;
+      border-radius: var(--radius-sm);
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: 'Space Grotesk', sans-serif;
+      transition: background 0.2s;
+      margin-top: 1rem;
+    }
+
+    .btn-checkout:hover { background: var(--gold-light); }
+    .btn-checkout:disabled { background: rgba(232,160,32,0.25); color: rgba(232,160,32,0.5); cursor: not-allowed; }
+
+    /* ── ORDER OVERLAY ── */
+    .overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(6,15,8,0.92);
+      z-index: 2000;
+      overflow-y: auto;
+      padding: 2rem 1rem;
+      backdrop-filter: blur(10px);
+    }
+
+    .overlay.open { display: block; }
+
+    .overlay-inner {
+      max-width: 640px;
+      margin: 0 auto;
+      animation: slideUp 0.3s ease;
+    }
+
+    @keyframes slideUp { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:translateY(0); } }
+
+    .overlay-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      border-bottom: 1px solid var(--glass-border);
+      padding-bottom: 1rem;
+    }
+
+    .overlay-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      color: var(--gold-light);
+    }
+
+    .close-btn {
+      background: none;
+      border: 1px solid rgba(224,82,82,0.4);
+      color: var(--danger);
+      padding: 7px 14px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-family: 'Space Grotesk', sans-serif;
+      transition: all 0.2s;
+    }
+
+    .close-btn:hover { background: var(--danger); color: white; }
+
+    /* Order items summary */
+    .order-items {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 1.5rem;
+    }
+
+    .order-item-row {
+      background: rgba(13,42,20,0.6);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-sm);
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .order-item-row img {
+      width: 52px;
+      height: 52px;
+      border-radius: 8px;
+      object-fit: cover;
+      border: 1px solid var(--glass-border);
+    }
+
+    .order-item-info h4 { font-size: 0.9rem; font-weight: 600; color: var(--cream); margin-bottom: 2px; }
+    .order-item-info p { font-size: 0.78rem; color: var(--text-muted); }
+
+    .order-item-price-col { margin-left: auto; text-align: right; }
+    .order-item-price-col .price { font-size: 0.95rem; font-weight: 700; color: var(--gold-light); }
+    .order-item-price-col .qty { font-size: 0.75rem; color: var(--text-muted); }
+
+    /* Form */
+    .order-box {
+      background: rgba(13,42,20,0.5);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .order-box h3 {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--gold);
+      margin-bottom: 1.1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.75rem;
+    }
+
+    .form-row { display: flex; gap: 12px; margin-bottom: 12px; flex-wrap: wrap; }
+
+    .form-group { display: flex; flex-direction: column; flex: 1; min-width: 140px; }
+
+    .form-group label { font-size: 0.74rem; color: var(--text-muted); margin-bottom: 5px; }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(232,160,32,0.25);
+      border-radius: var(--radius-sm);
+      color: var(--cream);
+      padding: 10px 12px;
+      font-size: 0.875rem;
+      outline: none;
+      transition: border-color 0.2s;
+      font-family: 'Space Grotesk', sans-serif;
+      resize: vertical;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus { border-color: var(--gold); }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: rgba(240,237,230,0.22); }
+
+    .form-group select option { background: #1a4a24; }
+
+    /* Total box */
+    .total-box {
+      background: rgba(232,160,32,0.07);
+      border: 1px solid rgba(232,160,32,0.3);
+      border-radius: var(--radius-md);
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .total-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.88rem;
+      margin-bottom: 8px;
+      color: var(--text-muted);
+    }
+
+    .total-row.grand {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--gold-light);
+      border-top: 1px solid rgba(232,160,32,0.25);
+      padding-top: 10px;
+      margin-top: 6px;
+    }
+
+    .place-order-btn {
+      width: 100%;
+      padding: 15px;
+      background: var(--gold);
+      color: var(--green-deep);
+      border: none;
+      border-radius: var(--radius-md);
+      font-size: 1rem;
+      font-weight: 800;
+      cursor: pointer;
+      font-family: 'Space Grotesk', sans-serif;
+      transition: background 0.2s, transform 0.15s;
+      letter-spacing: 0.02em;
+    }
+
+    .place-order-btn:hover { background: var(--gold-light); transform: scale(1.01); }
+
+    /* ── SUCCESS + QR ── */
+    .success-view {
+      display: none;
+      text-align: center;
+      padding: 2rem 0 1rem;
+    }
+
+    .success-check { font-size: 3.5rem; margin-bottom: 1rem; }
+
+    .success-view h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      color: var(--gold-light);
+      margin-bottom: 0.5rem;
+    }
+
+    .success-view p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.7; max-width: 480px; margin: 0 auto; }
+
+    .order-ref-chip {
+      display: inline-block;
+      background: rgba(232,160,32,0.12);
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      font-size: 0.85rem;
+      font-weight: 700;
+      padding: 8px 20px;
+      border-radius: 40px;
+      margin: 1rem 0;
+      letter-spacing: 0.05em;
+    }
+
+    /* QR CODE DISPLAY */
+    .qr-section {
+      background: rgba(13,42,20,0.6);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      margin: 1.5rem 0;
+      text-align: center;
+    }
+
+    .qr-section h3 { color: var(--gold); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1.5rem; }
+
+    .qr-code-wrap {
+      background: white;
+      border-radius: 12px;
+      padding: 16px;
+      display: inline-block;
+      margin-bottom: 1.25rem;
+    }
+
+    #qrcode canvas, #qrcode img { display: block; }
+
+    .qr-validity {
+      background: rgba(232,160,32,0.1);
+      border: 1px solid rgba(232,160,32,0.3);
+      border-radius: var(--radius-sm);
+      padding: 12px 20px;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+
+    .qr-validity .days-val { color: var(--gold); font-weight: 700; font-size: 1rem; }
+
+    .qr-info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 1rem;
+      text-align: left;
+    }
+
+    .qr-info-item { font-size: 0.75rem; color: var(--text-muted); }
+    .qr-info-item strong { display: block; color: var(--cream); font-size: 0.82rem; margin-bottom: 2px; }
+
+    .btn-download {
+      background: var(--green-mid);
+      border: 1px solid var(--glass-border);
+      color: var(--cream);
+      padding: 10px 24px;
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: 'Space Grotesk', sans-serif;
+      transition: background 0.2s;
+      margin-top: 0.5rem;
+    }
+
+    .btn-download:hover { background: rgba(232,160,32,0.12); border-color: var(--gold); }
+
+    .pickup-deadline-banner {
+      background: rgba(224,82,82,0.1);
+      border: 1px solid rgba(224,82,82,0.3);
+      border-radius: var(--radius-sm);
+      padding: 12px 16px;
+      color: #ff9a9a;
+      font-size: 0.82rem;
+      margin-top: 1rem;
+      line-height: 1.6;
+    }
+
+    .btn-back-shop {
+      background: var(--gold);
+      color: var(--green-deep);
+      border: none;
+      padding: 12px 30px;
+      border-radius: var(--radius-sm);
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: 'Space Grotesk', sans-serif;
+      margin-top: 1.5rem;
+    }
+
+    .btn-back-shop:hover { background: var(--gold-light); }
+
+    /* ── AUTH MODAL ── */
+    .modal-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(6,15,8,0.88);
+      z-index: 3000;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      backdrop-filter: blur(8px);
+    }
+
+    .modal-backdrop.open { display: flex; }
+
+    .modal {
+      background: var(--green-mid);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem;
+      width: 100%;
+      max-width: 400px;
+      position: relative;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 1.3rem;
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: 50%;
+      transition: color 0.2s;
+    }
+
+    .modal-close:hover { color: var(--cream); }
+
+    .modal h2 { font-family:'Playfair Display',serif; font-size:1.5rem; color:var(--gold-light); margin-bottom:0.4rem; }
+    .modal-sub { font-size:0.82rem; color:var(--text-muted); margin-bottom:1.5rem; }
+
+    .modal-tabs { display:flex; background:rgba(13,42,20,0.7); border-radius:var(--radius-sm); padding:4px; margin-bottom:1.5rem; }
+    .modal-tab { flex:1; padding:7px; background:none; border:none; color:var(--text-muted); font-size:0.82rem; font-weight:600; cursor:pointer; border-radius:6px; font-family:'Space Grotesk',sans-serif; transition:all 0.2s; }
+    .modal-tab.active { background:var(--gold); color:var(--green-deep); }
+
+    .form-field { margin-bottom:0.9rem; }
+    .form-field label { display:block; font-size:0.75rem; color:var(--text-muted); margin-bottom:5px; }
+    .form-field input { width:100%; padding:10px 12px; background:rgba(13,42,20,0.7); border:1px solid rgba(232,160,32,0.25); border-radius:var(--radius-sm); color:var(--cream); font-size:0.875rem; outline:none; transition:border-color 0.2s; font-family:'Space Grotesk',sans-serif; }
+    .form-field input:focus { border-color:var(--gold); }
+    .form-field input::placeholder { color:rgba(240,237,230,0.25); }
+
+    .btn-full { width:100%; padding:12px; background:var(--gold); color:var(--green-deep); border:none; border-radius:var(--radius-sm); font-size:0.9rem; font-weight:700; cursor:pointer; font-family:'Space Grotesk',sans-serif; transition:background 0.2s; margin-top:0.5rem; }
+    .btn-full:hover { background:var(--gold-light); }
+
+    .modal-switch { text-align:center; margin-top:1rem; font-size:0.8rem; color:var(--text-muted); }
+    .modal-switch button { background:none; border:none; color:var(--gold); cursor:pointer; font-size:0.8rem; font-weight:600; text-decoration:underline; }
+
+    /* ── TOAST ── */
+    .toast { position:fixed; bottom:2rem; right:2rem; background:var(--green-mid); border:1px solid var(--gold); border-radius:var(--radius-md); padding:1rem 1.5rem; color:var(--cream); font-size:0.875rem; z-index:9999; transform:translateY(20px); opacity:0; transition:all 0.3s; max-width:300px; }
+    .toast.show { transform:translateY(0); opacity:1; }
+    .toast strong { color:var(--gold); display:block; margin-bottom:2px; }
+
+    /* ── NO RESULTS ── */
+    .no-results { grid-column: 1/-1; text-align:center; padding:3rem; color:var(--text-muted); font-size:1rem; }
+
+    /* ── MOBILE ── */
+    @media (max-width: 860px) {
+      .main-layout { grid-template-columns: 1fr; }
+      .cart-sidebar { position: static; height: auto; border-top: 1px solid var(--glass-border); }
+      nav { padding: 1rem 1.25rem; }
+      .nav-links { display: none; }
+      .page-header { padding: 2rem 1.25rem 1.5rem; }
+      .filter-bar { padding: 1rem 1.25rem; }
+      .product-area { padding: 1.5rem 1.25rem; border-right: none; }
+    }
+
+    @media (max-width: 560px) {
+      .page-header h1 { font-size: 1.8rem; }
+      .product-grid { grid-template-columns: 1fr; }
+      .form-row { flex-direction: column; }
+      .qr-info-grid { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
-
 <body>
-    <video class="video-bg" autoplay muted loop>
-        <source src="video/EGG HATCH - Copy.mp4" type="video/mp4" />
-        Your browser does not support HTML5 video.
-    </video>
 
-    <div class="ads-marquee">
-        <div class="ads-wrapper">
-             <video muted autoplay loop><source src="video/EGG HATCH - Copy.mp4" type="video/mp4"></video>
-             <video muted autoplay loop><source src="video/ABLE'S FARM BACKGROUND.mp4" type="video/mp4"></video>
-             <video muted autoplay loop><source src="video/CROPS.mp4" type="video/mp4"></video>
-             <video muted autoplay loop><source src="video/ABLE'S COWS.mp4" type="video/mp4"></video>
-             <video muted autoplay loop><source src="video/EGG HATCH - Copy.mp4" type="video/mp4"></video>
-             <video muted autoplay loop><source src="video/CROPS.mp4" type="video/mp4"></video>
-        </div>
+  <div class="page-wrap">
+  <!-- Background video — swap source per page -->
+  <video class="bg-video" autoplay muted loop playsinline id="bgVideo">
+    <source src="video/EGG HATCH - Copy.mp4" type="video/mp4"/>
+  </video>
+  <div class="bg-overlay"></div>
+
+
+  
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    <img src="images/Farm-logo.jpeg" alt="Able's Farm" onerror="this.style.display='none'"/>
+    <span>ABLE'S FARM</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="birds.html" class="active">🐔 Poultry</a></li>
+    <li><a href="eggs.html">Eggs</a></li>
+    <li><a href="fish.html">Fish</a></li>
+    <li><a href="livestock.html">Livestock</a></li>
+    <li><a href="farm-product.html">Crops</a></li>
+    <li><a href="about-us.html">About</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="user-chip" id="userChip" onclick="handleUserClick()">
+      <div class="avatar" id="userAvatar">A</div>
+      <span id="userName">My Account</span>
     </div>
+    <button class="btn-auth btn-login" id="loginBtn" onclick="openAuthModal('login')">Log in</button>
+    <button class="btn-auth btn-signup" id="signupBtn" onclick="openAuthModal('signup')">Sign up</button>
+    <button class="cart-btn" id="cartBtn" onclick="openOrderOverlay()">
+      🛒 Cart
+      <span class="cart-badge" id="cartBadge" style="display:none">0</span>
+    </button>
+  </div>
+</nav>
 
-    <header class="navbar">
-        <div class="logo">ABLE'S FARM</div>
-        <input type="text" id="search-bar" placeholder="Search livestock..." list="search-suggestions">
-        <datalist id="search-suggestions"></datalist>
-        <div class="filter-category">
-            <label for="filter-category">Filter:</label>
-            <select id="filter-category">
-                <option value="all">All</option>
-                <option value="Broiler">Broiler</option>
-                <option value="Layer">Layer</option>
-                <option value="Noiler">Noiler</option>
-                <option value="Duck">Duck</option>
-                <option value="Turkey">Turkey</option>
-                 <option value="Ostrich">Ostrich</option>
-                  <option value="Emu">Emu</option>
-                   <option value="Finch">Finch</option>
-                    <option value="Goose">Goose</option>
-                     <option value="Black Geese">Black Geese</option>
-                      <option value="Love Bird">Love Bird</option>
-                       <option value="Quail">Quail</option>
-                        <option value="Guinea Fowl">Guinea Fowl</option>
-                         <option value="Canary">Canary</option>
-                          <option value="Peacock">Peacock</option>
-                           <option value="Chuckar">Chuckar</option>
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <span class="ticker-item">🐔 Fresh broilers available now <span class="ticker-sep">·</span></span>
+    <span class="ticker-item">🥚 Layer hens in stock <span class="ticker-sep">·</span></span>
+    <span class="ticker-item">📲 QR pickup at selected Lagos depots <span class="ticker-sep">·</span></span>
+    <span class="ticker-item">⏰ 4–5 working day collection window <span class="ticker-sep">·</span></span>
+    <span class="ticker-item">🐔 Fresh broilers available now <span class="ticker-sep">·</span></span>
+    <span class="ticker-item">🥚 Layer hens in stock <span class="ticker-sep">·</span></span>
+    <span class="ticker-item">📲 QR pickup at selected Lagos depots <span class="ticker-sep">·</span></span>
+    <span class="ticker-item">⏰ 4–5 working day collection window <span class="ticker-sep">·</span></span>
+  </div>
+</div>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="breadcrumb">
+    <a href="index.html">Home</a>
+    <span>›</span>
+    <span>Poultry Birds</span>
+  </div>
+  <h1>Poultry Birds</h1>
+  <p>Farm-raised, vaccinated birds — ready to collect at your nearest depot with your QR code.</p>
+</div>
+
+<!-- SEARCH + FILTER -->
+<div class="filter-bar">
+  <input type="text" class="search-input" id="searchInput" placeholder="🔍 Search birds..." oninput="applyFilters()"/>
+  <button class="filter-chip active" data-cat="all" onclick="filterCat(this)">All</button>
+  <button class="filter-chip" data-cat="Broiler" onclick="filterCat(this)">Broilers</button>
+  <button class="filter-chip" data-cat="Layer" onclick="filterCat(this)">Layers</button>
+  <button class="filter-chip" data-cat="Turkey" onclick="filterCat(this)">Turkey</button>
+  <button class="filter-chip" data-cat="Noiler" onclick="filterCat(this)">Noiler</button>
+</div>
+
+<!-- MAIN LAYOUT -->
+<div class="main-layout">
+  <!-- PRODUCTS -->
+  <div class="product-area">
+    <p class="products-count" id="productCount">Showing all products</p>
+    <div class="product-grid" id="productGrid">
+
+      <!-- Broiler -->
+      <div class="product-card" data-cat="Broiler" data-name="Broiler Chicken" data-price="3500" data-img="images/Broiler.jpeg">
+        <div class="card-img-wrap">
+          <span class="card-badge-top">🔥 HOT</span>
+          <img src="images/Broiler.jpeg" alt="Broiler Chicken" onerror="this.src='https://placehold.co/400x175/1a4a24/e8a020?text=Broiler+Chicken'"/>
+        </div>
+        <div class="card-body">
+          <h3>Broiler Chicken</h3>
+          <div class="card-meta">
+            <span class="meta-pill">~2kg avg</span>
+            <span class="meta-pill">6–8 weeks</span>
+            <span class="meta-pill">Vaccinated</span>
+          </div>
+          <p class="card-desc">Well-fed, healthy broilers grown on our Ibeju-Lekki farm. Raised on quality feed with no growth hormones.</p>
+          <div class="card-footer">
+            <div>
+              <div class="card-price">₦3,500 <span>/ bird</span></div>
+            </div>
+            <div style="display:flex; gap:6px; align-items:center;">
+              <div class="qty-control">
+                <button class="qty-btn" onclick="changeQty(this, -1)">−</button>
+                <span class="qty-val">1</span>
+                <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+              </div>
+              <button class="btn-add" onclick="addToCart(this)">Add</button>
+            </div>
+          </div>
+          <button class="toggle-details" onclick="toggleDetails(this)">View details ▾</button>
+          <div class="card-details">
+            <div class="detail-item"><strong>Breed:</strong> Ross 308 Broiler</div>
+            <div class="detail-item"><strong>Feed:</strong> High-protein commercial feed</div>
+            <div class="detail-item"><strong>Vaccination:</strong> Newcastle, Gumboro</div>
+            <div class="detail-item"><strong>Collection:</strong> Live bird, farm-to-depot</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Layer Hen -->
+      <div class="product-card" data-cat="Layer" data-name="Layer Hen (Point of Lay)" data-price="4800" data-img="images/Layer.jpeg">
+        <div class="card-img-wrap">
+          <img src="images/Layer.jpeg" alt="Layer Hen" onerror="this.src='https://placehold.co/400x175/1a4a24/e8a020?text=Layer+Hen'"/>
+        </div>
+        <div class="card-body">
+          <h3>Layer Hen (Point of Lay)</h3>
+          <div class="card-meta">
+            <span class="meta-pill">18 weeks</span>
+            <span class="meta-pill">POL</span>
+            <span class="meta-pill">Vaccinated</span>
+          </div>
+          <p class="card-desc">Point-of-lay layers ready to produce. High-producing strain, ideal for commercial or home egg production.</p>
+          <div class="card-footer">
+            <div>
+              <div class="card-price">₦4,800 <span>/ bird</span></div>
+            </div>
+            <div style="display:flex; gap:6px; align-items:center;">
+              <div class="qty-control">
+                <button class="qty-btn" onclick="changeQty(this, -1)">−</button>
+                <span class="qty-val">1</span>
+                <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+              </div>
+              <button class="btn-add" onclick="addToCart(this)">Add</button>
+            </div>
+          </div>
+          <button class="toggle-details" onclick="toggleDetails(this)">View details ▾</button>
+          <div class="card-details">
+            <div class="detail-item"><strong>Breed:</strong> Isa Brown / Lohmann</div>
+            <div class="detail-item"><strong>Egg production:</strong> Up to 300 eggs/year</div>
+            <div class="detail-item"><strong>Vaccination:</strong> Full program, Marek's, ND, IB</div>
+            <div class="detail-item"><strong>Collection:</strong> Live bird, farm-to-depot</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Grower Layer -->
+      <div class="product-card" data-cat="Layer" data-name="Layer Grower (8 weeks)" data-price="2500" data-img="images/Layer.jpeg">
+        <div class="card-img-wrap">
+          <img src="images/Layer.jpeg" alt="Layer Grower" onerror="this.src='https://placehold.co/400x175/1a4a24/e8a020?text=Layer+Grower'"/>
+        </div>
+        <div class="card-body">
+          <h3>Layer Grower (8 weeks)</h3>
+          <div class="card-meta">
+            <span class="meta-pill">8 weeks</span>
+            <span class="meta-pill">Grower</span>
+            <span class="meta-pill">Vaccinated</span>
+          </div>
+          <p class="card-desc">Grower-stage layers at 8 weeks. Perfect if you want to raise them on to point-of-lay yourself.</p>
+          <div class="card-footer">
+            <div>
+              <div class="card-price">₦2,500 <span>/ bird</span></div>
+            </div>
+            <div style="display:flex; gap:6px; align-items:center;">
+              <div class="qty-control">
+                <button class="qty-btn" onclick="changeQty(this, -1)">−</button>
+                <span class="qty-val">1</span>
+                <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+              </div>
+              <button class="btn-add" onclick="addToCart(this)">Add</button>
+            </div>
+          </div>
+          <button class="toggle-details" onclick="toggleDetails(this)">View details ▾</button>
+          <div class="card-details">
+            <div class="detail-item"><strong>Age:</strong> 8 weeks</div>
+            <div class="detail-item"><strong>Vaccination:</strong> Newcastle, Gumboro, IB given</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Noiler -->
+      <div class="product-card" data-cat="Noiler" data-name="Noiler Bird" data-price="3200" data-img="images/Broiler.jpeg">
+        <div class="card-img-wrap">
+          <span class="card-badge-top" style="background:rgba(13,42,20,0.9); color:var(--gold); border:1px solid var(--gold);">NEW</span>
+          <img src="images/Broiler.jpeg" alt="Noiler Bird" onerror="this.src='https://placehold.co/400x175/1a4a24/e8a020?text=Noiler+Bird'"/>
+        </div>
+        <div class="card-body">
+          <h3>Noiler Bird</h3>
+          <div class="card-meta">
+            <span class="meta-pill">Dual purpose</span>
+            <span class="meta-pill">Hardy</span>
+            <span class="meta-pill">Vaccinated</span>
+          </div>
+          <p class="card-desc">The Noiler is a dual-purpose bird — meat and eggs. Highly resilient and well-adapted to Nigerian conditions.</p>
+          <div class="card-footer">
+            <div>
+              <div class="card-price">₦3,200 <span>/ bird</span></div>
+            </div>
+            <div style="display:flex; gap:6px; align-items:center;">
+              <div class="qty-control">
+                <button class="qty-btn" onclick="changeQty(this, -1)">−</button>
+                <span class="qty-val">1</span>
+                <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+              </div>
+              <button class="btn-add" onclick="addToCart(this)">Add</button>
+            </div>
+          </div>
+          <button class="toggle-details" onclick="toggleDetails(this)">View details ▾</button>
+          <div class="card-details">
+            <div class="detail-item"><strong>Breed:</strong> Amo Noiler</div>
+            <div class="detail-item"><strong>Purpose:</strong> Meat + Eggs (dual use)</div>
+            <div class="detail-item"><strong>Hardy:</strong> Thrives in free-range and deep litter</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Turkey -->
+      <div class="product-card" data-cat="Turkey" data-name="Live Turkey" data-price="18000" data-img="images/Broiler.jpeg">
+        <div class="card-img-wrap">
+          <img src="images/Broiler.jpeg" alt="Live Turkey" onerror="this.src='https://placehold.co/400x175/1a4a24/e8a020?text=Turkey'"/>
+        </div>
+        <div class="card-body">
+          <h3>Live Turkey</h3>
+          <div class="card-meta">
+            <span class="meta-pill">~8kg</span>
+            <span class="meta-pill">Mature</span>
+            <span class="meta-pill">Vaccinated</span>
+          </div>
+          <p class="card-desc">Healthy, mature live turkeys. Great for festive periods or small-scale turkey farming. Raised free-range.</p>
+          <div class="card-footer">
+            <div>
+              <div class="card-price">₦18,000 <span>/ bird</span></div>
+            </div>
+            <div style="display:flex; gap:6px; align-items:center;">
+              <div class="qty-control">
+                <button class="qty-btn" onclick="changeQty(this, -1)">−</button>
+                <span class="qty-val">1</span>
+                <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+              </div>
+              <button class="btn-add" onclick="addToCart(this)">Add</button>
+            </div>
+          </div>
+          <button class="toggle-details" onclick="toggleDetails(this)">View details ▾</button>
+          <div class="card-details">
+            <div class="detail-item"><strong>Average weight:</strong> 7–10kg</div>
+            <div class="detail-item"><strong>Age:</strong> 5–6 months</div>
+            <div class="detail-item"><strong>Vaccination:</strong> Full program given</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cockerel -->
+      <div class="product-card" data-cat="Broiler" data-name="Live Cockerel" data-price="5500" data-img="images/Broiler.jpeg">
+        <div class="card-img-wrap">
+          <img src="images/Broiler.jpeg" alt="Live Cockerel" onerror="this.src='https://placehold.co/400x175/1a4a24/e8a020?text=Cockerel'"/>
+        </div>
+        <div class="card-body">
+          <h3>Live Cockerel</h3>
+          <div class="card-meta">
+            <span class="meta-pill">~3kg</span>
+            <span class="meta-pill">5 months</span>
+            <span class="meta-pill">Vaccinated</span>
+          </div>
+          <p class="card-desc">Mature cockerels, healthy and well-fed. Popular for pepper soup and native chicken stews.</p>
+          <div class="card-footer">
+            <div>
+              <div class="card-price">₦5,500 <span>/ bird</span></div>
+            </div>
+            <div style="display:flex; gap:6px; align-items:center;">
+              <div class="qty-control">
+                <button class="qty-btn" onclick="changeQty(this, -1)">−</button>
+                <span class="qty-val">1</span>
+                <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+              </div>
+              <button class="btn-add" onclick="addToCart(this)">Add</button>
+            </div>
+          </div>
+          <button class="toggle-details" onclick="toggleDetails(this)">View details ▾</button>
+          <div class="card-details">
+            <div class="detail-item"><strong>Type:</strong> Free-range cockerel</div>
+            <div class="detail-item"><strong>Age:</strong> 5 months</div>
+            <div class="detail-item"><strong>Vaccination:</strong> Newcastle, Fowl pox given</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="no-results" id="noResults" style="display:none">
+        No products found matching your search.
+      </div>
+    </div>
+  </div>
+
+  <!-- CART SIDEBAR -->
+  <div class="cart-sidebar">
+    <h3>🛒 Your cart</h3>
+    <div id="cartEmptyMsg" class="cart-empty">
+      <span class="icon">🛒</span>
+      <span>Your cart is empty.<br/>Add birds above to get started.</span>
+    </div>
+    <div id="cartItems" class="cart-items" style="display:none"></div>
+    <div id="cartSummary" class="cart-summary" style="display:none">
+      <div class="summary-row"><span>Items</span><span id="cartItemCount">0</span></div>
+      <div class="summary-row"><span>Subtotal</span><span>₦<span id="cartSubtotal">0</span></span></div>
+      <div class="summary-row"><span>Depot collection</span><span style="color:var(--gold);">Free</span></div>
+      <div class="summary-row total"><span>Total</span><span>₦<span id="cartTotal">0</span></span></div>
+      <button class="btn-checkout" id="checkoutBtn" onclick="openOrderOverlay()">Place order & get QR →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ORDER OVERLAY -->
+<div class="overlay" id="orderOverlay">
+  <div class="overlay-inner">
+
+    <!-- ORDER FORM VIEW -->
+    <div id="orderFormView">
+      <div class="overlay-header">
+        <h2>📋 Your order</h2>
+        <button class="close-btn" onclick="closeOverlay()">✕ Close</button>
+      </div>
+
+      <div class="order-items" id="orderItemsList"></div>
+
+      <div class="total-box">
+        <div class="total-row"><span>Items</span><span id="orderItemCount">0</span></div>
+        <div class="total-row"><span>Subtotal</span><span>₦<span id="orderSubtotal">0</span></span></div>
+        <div class="total-row"><span>Depot collection</span><span style="color:var(--gold);">Free</span></div>
+        <div class="total-row grand"><span>Total</span><span>₦<span id="orderTotal">0</span></span></div>
+      </div>
+
+      <div class="order-box">
+        <h3>Your details</h3>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Full name *</label>
+            <input type="text" id="orderName" placeholder="e.g. Ade Bello"/>
+          </div>
+          <div class="form-group">
+            <label>Phone number *</label>
+            <input type="tel" id="orderPhone" placeholder="+234 800 000 0000"/>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Email address</label>
+            <input type="email" id="orderEmail" placeholder="you@email.com"/>
+          </div>
+        </div>
+      </div>
+
+      <div class="order-box">
+        <h3>Pickup depot</h3>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Choose your nearest depot *</label>
+            <select id="orderDepot">
+              <option value="">-- Select a depot --</option>
+              <option value="Ibeju-Lekki (Farm Gate)">Ibeju-Lekki (Farm Gate) · Mon–Sat 8am–6pm</option>
+              <option value="Lekki Phase 1">Lekki Phase 1 (opening soon)</option>
+              <option value="Ajah">Ajah (opening soon)</option>
+              <option value="Victoria Island">Victoria Island (opening soon)</option>
             </select>
+          </div>
         </div>
-        <div class="cart">
-            <span id="cart-label">Hover To View Cart 🛒 (<span id="cart-count">0</span>)</span>
-            <div class="cart-dropdown" id="cart-dropdown">
-                <ul id="cart-list">
-                    <li>Your cart is empty.</li>
-                </ul>
-                <p><strong>Total:</strong> ₦<span id="cart-total">0</span></p>
-            </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Additional notes</label>
+            <textarea id="orderNotes" rows="2" placeholder="e.g. preferred pickup time, special instructions..."></textarea>
+          </div>
         </div>
-    </header>
+      </div>
 
-    <div class="marquee">
-        <marquee>🔥 Fresh broilers restocked | 🚀 Drone delivery starts Friday | 💥 Order Now! Don't miss out!</marquee>
+      <button class="place-order-btn" onclick="placeOrder()">
+        🔐 Confirm order & generate QR code
+      </button>
     </div>
 
-    <main>
-        <h2 style="text-align:center; color:#FFFFFF; font-size: 2.5rem; text-shadow: 0 0 10px #ffa726;">OUR BIRDS</h2>
-        <div class="product-grid">
+    <!-- SUCCESS + QR VIEW -->
+    <div id="orderSuccessView" style="display:none">
+      <div class="overlay-header">
+        <h2>Order confirmed</h2>
+        <button class="close-btn" onclick="closeOverlay()">✕ Close</button>
+      </div>
 
-            <div class="product-card">
-                <div class="product-card-inner">
-                    <div class="product-card-front">
-                        <span class="badge">🔥 Hot</span>
-                        <img src="images/Layer.jpg" alt="Layer Bird" />
-                        <h3>Layers</h3>
-                        <p>₦4,500</p>
-                        <div>
-                            <button class="add-to-cart-btn">Add to Cart</button>
-                            <button class="view-details-btn">🔍 View Details</button>
-                        </div>
-                    </div>
-                    <div class="product-card-back">
-                        <h3>Layer Bird</h3>
-                        <p>A prime specimen of a layer bird, known for its superior muscle mass and lean meat. Age: 16 weeks. Weight: ~250g.</p>
-                        <button class="back-btn">⬅️ Back</button>
-                    </div>
-                </div>
-            </div>
+      <div class="success-view" style="display:block">
+        <div class="success-check">✅</div>
+        <h2>Order placed!</h2>
+        <div class="order-ref-chip" id="orderRef"></div>
+        <p>Your QR code is ready. Screenshot it or download it. Show it to our staff at the depot to collect your birds.</p>
 
-            <div class="product-card">
-                <div class="product-card-inner">
-                    <div class="product-card-front">
-                        <img src="images/Broiler.jpeg" alt="Broiler Bird" />
-                        <h3>Broiler</h3>
-                        <p>₦10,000</p>
-                        <div>
-                            <button class="add-to-cart-btn">Add to Cart</button>
-                            <button class="view-details-btn">🔍 View Details</button>
-                        </div>
-                    </div>
-                    <div class="product-card-back">
-                        <h3>Broiler Bird</h3>
-                        <p>A healthy and robust , perfect broiler chicken breeding. Fully vaccinated. Age: 7 weeks, Weight: 250g</p>
-                        <button class="back-btn">⬅️ Back</button>
-                    </div>
-                </div>
-            </div>
-              <div class="product-card">
-                <div class="product-card-inner">
-                    <div class="product-card-front">
-                        <img src="images/Black geese.jpg" alt="Black Geese" />
-                        <h3>Black Geese</h3>
-                        <p>₦10,000</p>
-                        <div>
-                            <button class="add-to-cart-btn">Add to Cart</button>
-                            <button class="view-details-btn">🔍 View Details</button>
-                        </div>
-                    </div>
-                    <div class="product-card-back">
-                        <h3>Black Geese</h3>
-                        <p>A healthy and robust black geese, perfect for breeding. Fully vaccinated. Age: 3 months.</p>
-                        <button class="back-btn">⬅️ Back</button>
-                    </div>
-                </div>
-            </div>
-             <div class="product-card">
-                <div class="product-card-inner">
-                    <div class="product-card-front">
-                        <img src="images/finch1.jpg" alt="Finch" />
-                        <h3>Finch</h3>
-                        <p>₦70,000</p>
-                        <div>
-                            <button class="add-to-cart-btn">Add to Cart</button>
-                            <button class="view-details-btn">🔍 View Details</button>
-                        </div>
-                    </div>
-                    <div class="product-card-back">
-                        <h3>Finch</h3>
-                        <p>A healthy finch, perfect . Fully vaccinated. Age: 1 months.</p>
-                        <button class="back-btn">⬅️ Back</button>
-                    </div>
-                </div>
-            </div>
-             <div class="product-card">
-                <div class="product-card-inner">
-                    <div class="product-card-front">
-                        <img src="images/finch2.jpg" alt="Finch" />
-                        <h3>Finch</h3>
-                        <p>₦65,000</p>
-                        <div>
-                            <button class="add-to-cart-btn">Add to Cart</button>
-                            <button class="view-details-btn">🔍 View Details</button>
-                        </div>
-                    </div>
-                    <div class="product-card-back">
-                        <h3>Finch/h3>
-                        <p>A healthy finch. Fully vaccinated. Age: 1 months.</p>
-                        <button class="back-btn">⬅️ Back</button>
-                    </div>
-                </div>
-            </div>
-             <div class="product-card">
-                <div class="product-card-inner">
-                    <div class="product-card-front">
-                        <img src="images/finch3.jpg" alt="Finch" />
-                        <h3>Finch</h3>
-                        <p>₦21,000</p>
-                        <div>
-                            <button class="add-to-cart-btn">Add to Cart</button>
-                            <button class="view-details-btn">🔍 View Details</button>
-                        </div>
-                    </div>
-                    <div class="product-card-back">
-                        <h3>Finch</h3>
-                        <p>A healthy finch . Fully vaccinated. Age: 3weeks.</p>
-                        <button class="back-btn">⬅️ Back</button>
-                    </div>
-                </div>
-            </div>
-             <div class="product-card">
-                <div class="product-card-inner">
-                    <div class="product-card-front">
-                        <img src="images/finch4.jpg" alt="Finch" />
-                        <h3>Finch</h3>
-                        <p>₦110,000</p>
-                        <div>
-                            <button class="add-to-cart-btn">Add to Cart</button>
-                            <button class="view-details-btn">🔍 View Details</button>
-                        </div>
-                    </div>
-                    <div class="product-card-back">
-                        <h3>Finch</h3>
-                        <p>A healthy finch. Fully vaccinated. Age: 18 months.</p>
-                        <button class="back-btn">⬅️ Back</button>
-                    </div>
-                </div>
-            </div>
-             <div class="product-card">
-                <div class="product-card-inner">
-                    <div class="product-card-front">
-                        <img src="images/Dove1.jpg" alt="Dove" />
-                        <h3>Dove</h3>
-                        <p>₦21,000</p>
-                        <div>
-                            <button class="add-to-cart-btn">Add to Cart</button>
-                            <button class="view-details-btn">🔍 View Details</button>
-                        </div>
-                    </div>
-                    <div class="product-card-back">
-                        <h3>Dove</h3>
-                        <p>A healthy Dove, perfect for breeding. Fully vaccinated. Age: 3 months.</p>
-                        <button class="back-btn">⬅️ Back</button>
-                    </div>
-                </div>
-            </div>
-             <div class="product-card">
-                <div class="product-card-inner">
-                    <div class="product-card-front">
-                        <img src="images/Dove2.jpg" alt="Dove" />
-                        <h3>Dove</h3>
-                        <p>₦20,000</p>
-                        <div>
-                            <button class="add-to-cart-btn">Add to Cart</button>
-                            <button class="view-details-btn">🔍 View Details</button>
-                        </div>
-                    </div>
-                    <div class="product-card-back">
-                        <h3>Dove</h3>
-                        <p>A healthy dove, perfect for breeding. Fully vaccinated. Age: 4 months.</p>
-                        <button class="back-btn">⬅️ Back</button>
-                    </div>
-                </div>
-            </div>
-             <div class="product-card">
-                <div class="product-card-inner">
-                    <div class="product-card-front">
-                        <img src="images/LB1.jpg" alt="Love Bird" />
-                        <h3>Lover Bird</h3>
-                        <p>₦210,000</p>
-                        <div>
-                            <button class="add-to-cart-btn">Add to Cart</button>
-                            <button class="view-details-btn">🔍 View Details</button>
-                        </div>
-                    </div>
-                    <div class="product-card-back">
-                        <h3>Love Bird</h3>
-                        <p>A healthy love bird, perfect for breeding. Fully vaccinated. Age: 8 months.</p>
-                        <button class="back-btn">⬅️ Back</button>
-                    </div>
-                </div>
-            </div>
-             <div class="product-card">
-                <div class="product-card-inner">
-                    <div class="product-card-front">
-                        <img src="images/LB2.jpg" alt="Love Bird" />
-                        <h3>Love Bird</h3>
-                        <p>₦100,000</p>
-                        <div>
-                            <button class="add-to-cart-btn">Add to Cart</button>
-                            <button class="view-details-btn">🔍 View Details</button>
-                        </div>
-                    </div>
-                    <div class="product-card-back">
-                        <h3>Love Bird</h3>
-                        <p>A healthy love bird, perfect for breeding. Fully vaccinated. Age: 6 months</p>
-                        <button class="back-btn">⬅️ Back</button>
-                    </div>
-                </div>
-            </div>
-             <div class="product-card">
-                <div class="product-card-inner">
-                    <div class="product-card-front">
-                        <img src="images/Ostrich.jpg" alt="Ostrich" />
-                        <h3>Ostrich</h3>
-                        <p>₦1,000,000</p>
-                        <div>
-                            <button class="add-to-cart-btn">Add to Cart</button>
-                            <button class="view-details-btn">🔍 View Details</button>
-                        </div>
-                    </div>
-                    <div class="product-card-back">
-                        <h3>Bighorn Ram</h3>
-                        <p>A healthy and robust female ostrich, perfect for breeding. Fully vaccinated. Age: 18 months.</p>
-                        <button class="back-btn">⬅️ Back</button>
-                    </div>
-                </div>
-            </div>
-             <div class="product-card">
-                <div class="product-card-inner">
-                    <div class="product-card-front">
-                        <img src="images/OSTRICHGROUND1601-2.jpg" alt="Ostrich" />
-                        <h3>Ostrich</h3>
-                        <p>₦2,000,000</p>
-                        <div>
-                            <button class="add-to-cart-btn">Add to Cart</button>
-                            <button class="view-details-btn">🔍 View Details</button>
-                        </div>
-                    </div>
-                    <div class="product-card-back">
-                        <h3>Ostrich</h3>
-                        <p>A healthy and robust male ostrich, perfect for breeding. Fully vaccinated. Age: 22 months.</p>
-                        <button class="back-btn">⬅️ Back</button>
-                    </div>
-                </div>
-            </div>
-  <div class="product-card">
-                <div class="product-card-inner">
-                    <div class="product-card-front">
-                        <img src="images/Duck.jpg" alt="Duck" />
-                        <h3>Duck</h3>
-                        <p>₦25,000</p>
-                        <div>
-                            <button class="add-to-cart-btn">Add to Cart</button>
-                            <button class="view-details-btn">🔍 View Details</button>
-                        </div>
-                    </div>
-                    <div class="product-card-back">
-                        <h3>Duck</h3>
-                        <p>A healthy duck, perfect for breeding. Fully vaccinated. Age: 3 months.</p>
-                        <button class="back-btn">⬅️ Back</button>
-                    </div>
-                </div>
-            </div>
+        <div class="qr-section">
+          <h3>📲 Your pickup QR code</h3>
+          <div class="qr-code-wrap">
+            <div id="qrcode"></div>
+          </div>
 
-  <div class="product-card">
-                <div class="product-card-inner">
-                    <div class="product-card-front">
-                        <img src="images/Grey geese.jpg" alt="A grey geese" />
-                        <h3>Grey Geese</h3>
-                        <p>₦40,000</p>
-                        <div>
-                            <button class="add-to-cart-btn">Add to Cart</button>
-                            <button class="view-details-btn">🔍 View Details</button>
-                        </div>
-                    </div>
-                    <div class="product-card-back">
-                        <h3>Grey Geese</h3>
-                        <p>A healthy grey geese, perfect for breeding. Fully vaccinated. Age: 4 months.</p>
-                        <button class="back-btn">⬅️ Back</button>
-                    </div>
-                </div>
-            </div>
-  <div class="product-card">
-                <div class="product-card-inner">
-                    <div class="product-card-front">
-                        <img src="images/Quail.jpg" alt="Quail" />
-                        <h3>Quail</h3>
-                        <p>₦10,000</p>
-                        <div>
-                            <button class="add-to-cart-btn">Add to Cart</button>
-                            <button class="view-details-btn">🔍 View Details</button>
-                        </div>
-                    </div>
-                    <div class="product-card-back">
-                        <h3>Quail</h3>
-                        <p>A healthy quail, perfect for breeding. Fully vaccinated. Age:  month.</p>
-                        <button class="back-btn">⬅️ Back</button>
-                    </div>
-                </div>
-            </div>
-  <div class="product-card">
-                <div class="product-card-inner">
-                    <div class="product-card-front">
-                        <img src="images/Turkey.jpg" alt="Turkey" />
-                        <h3>Turkey</h3>
-                        <p>₦21,000</p>
-                        <div>
-                            <button class="add-to-cart-btn">Add to Cart</button>
-                            <button class="view-details-btn">🔍 View Details</button>
-                        </div>
-                    </div>
-                    <div class="product-card-back">
-                        <h3>Turkey</h3>
-                        <p>A healthy and robust turkey perfect for breeding. Fully vaccinated. Age: 18 months.</p>
-                        <button class="back-btn">⬅️ Back</button>
-                    </div>
-                </div>
-            </div>
-  <div class="product-card">
-                <div class="product-card-inner">
-                    <div class="product-card-front">
-                        <img src="images/Guinea fowl.jpg" alt="Guinea Fowl" />
-                        <h3>Guinea Fowl</h3>
-                        <p>₦15,000</p>
-                        <div>
-                            <button class="add-to-cart-btn">Add to Cart</button>
-                            <button class="view-details-btn">🔍 View Details</button>
-                        </div>
-                    </div>
-                    <div class="product-card-back">
-                        <h3>Quail</h3>
-                        <p>A healthy and robust guinea fowl, perfect for breeding. Fully vaccinated. Age: 18 months.</p>
-                        <button class="back-btn">⬅️ Back</button>
-                    </div>
-                </div>
-            </div>
-  <div class="product-card">
-                <div class="product-card-inner">
-                    <div class="product-card-front">
-                        <img src="images/white geese2.jpg" alt="White Geese" />
-                        <h3>White Geese</h3>
-                        <p>₦20,000</p>
-                        <div>
-                            <button class="add-to-cart-btn">Add to Cart</button>
-                            <button class="view-details-btn">🔍 View Details</button>
-                        </div>
-                    </div>
-                    <div class="product-card-back">
-                        <h3>White Geese</h3>
-                        <p>A healthy white geese, perfect for breeding. Fully vaccinated. Age: 3 months.</p>
-                        <button class="back-btn">⬅️ Back</button>
-                    </div>
-                </div>
-            </div>
-  <div class="product-card">
-                <div class="product-card-inner">
-                    <div class="product-card-front">
-                        <img src="images/grey geese2.jpg" alt="grey geese" />
-                        <h3>Grey Geese</h3>
-                        <p>₦20,000</p>
-                        <div>
-                            <button class="add-to-cart-btn">Add to Cart</button>
-                            <button class="view-details-btn">🔍 View Details</button>
-                        </div>
-                    </div>
-                    <div class="product-card-back">
-                        <h3>Grey Geese</h3>
-                        <p>A healthy and robust Grey Geese, perfect for breeding.  vaccinated. Age: 2 months.</p>
-                        <button class="back-btn">⬅️ Back</button>
-                    </div>
-                </div>
-            </div>
-  <div class="product-card">
-                <div class="product-card-inner">
-                    <div class="product-card-front">
-                        <img src="images/canary1.jpg" alt="Canary" />
-                        <h3>Canary</h3>
-                        <p>₦210,000</p>
-                        <div>
-                            <button class="add-to-cart-btn">Add to Cart</button>
-                            <button class="view-details-btn">🔍 View Details</button>
-                        </div>
-                    </div>
-                    <div class="product-card-back">
-                        <h3>Bighorn Ram</h3>
-                        <p>A healthy and robust Bighorn ram, perfect for breeding. Fully vaccinated. Age: 18 months.</p>
-                        <button class="back-btn">⬅️ Back</button>
-                    </div>
-                </div>
-            </div>
-  <div class="product-card">
-                <div class="product-card-inner">
-                    <div class="product-card-front">
-                        <img src="images/canary2.jpg" alt="Bighorn Ram" />
-                        <h3>Canary</h3>
-                        <p>₦210,000</p>
-                        <div>
-                            <button class="add-to-cart-btn">Add to Cart</button>
-                            <button class="view-details-btn">🔍 View Details</button>
-                        </div>
-                    </div>
-                    <div class="product-card-back">
-                        <h3>Canary</h3>
-                        <p>A healthy canary bird. Fully vaccinated. Age: 3 months.</p>
-                        <bsutton class="back-btn">⬅️ Back</bsutton>
-                    </div>
-                </div>
-            </div>
+          <div class="qr-validity">
+            <span>Collect within</span>
+            <span class="days-val">5 working days</span>
+            <span>of placing this order</span>
+          </div>
 
-            <div class="product-card">
-                <div class="product-card-inner">
-                    <div class="product-card-front">
-                        <img src="images/chukar1.jpg" alt="Chukar" />
-                        <h3>Chukar</h3>
-                        <p>₦90,000</p>
-                        <div>
-                           <button class="add-to-casrt-btn">Add to Cart</button>
-                           <button class="view-details-btn">🔍 View Details</button>
-                        </div>
-                    </div>
-                    <div class="product-card-back">
-                        <h3>Chukar</h3>
-                        <p>High-quality chukar bird. Known for its hardiness and adaptability. Age: 2months.</p>
-                        <button class="back-btn">⬅️ Back</button>
-                    </div>
-                </div>
+          <div class="qr-info-grid">
+            <div class="qr-info-item">
+              <strong id="qrName">—</strong>
+              Customer name
             </div>
-
-            <div class="product-card">
-                 <div class="product-card-inner">
-                    <div class="product-card-front">
-                        <img src="images/peacock 1.jpg" alt="A Peacock" />
-                        <h3>Peacock</h3>
-                        <p>₦35,000</p>
-                         <div>
-                           <button class="add-to-cart-btn">Add to Cart</button>
-                           <button class="view-details-btn">🔍 View Details</button>
-                        </div>
-                    </div>
-                    <div class="product-card-back">
-                        <h3>Peacock</h3>
-                        <p>An energetic and healthy peacock. Perfect for raising on your farm. Weaned and ready. Age: 4 months.</p>
-                        <button class="back-btn">⬅️ Back</button>
-                    </div>
-                </div>
+            <div class="qr-info-item">
+              <strong id="qrPhone">—</strong>
+              Phone number
             </div>
-
+            <div class="qr-info-item">
+              <strong id="qrDepot">—</strong>
+              Collection depot
             </div>
-            
-    </main>
+            <div class="qr-info-item">
+              <strong id="qrDeadline">—</strong>
+              Collect by (deadline)
+            </div>
+          </div>
 
-    <div class="back-buttons">
-        <button onclick="location.href='index.html'">Return to Home</button>
-        <button onclick="window.scrollTo({ top: 0, behavior: 'smooth' })">Back to Top</button>
+          <div class="pickup-deadline-banner" id="pickupWarning">
+            ⚠️ You have <strong id="daysRemaining">5</strong> working days to collect your order. After this date, your QR code expires and the order may be cancelled.
+          </div>
+
+          <button class="btn-download" onclick="downloadQR()">⬇ Download QR code</button>
+        </div>
+
+        <button class="btn-back-shop" onclick="backToShop()">← Continue shopping</button>
+      </div>
     </div>
 
-   <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-column">
-                    <h3>Able's Farm</h3>
-                    <p>Providing natural, effective solutions to agricultural development since 2015.</p>
-                    <div class="footer-social">
-                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
-                </div>
-                
-                <div class="footer-column">
-                    <h3>Quick Links</h3>
-                    <ul class="footer-links">
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="products.html">Products</a></li>
-                        <li><a href="about-us.html">About Us</a></li>
-                        <li><a href="contact-us.html">Contact</a></li>
-                        <li><a href="Abfet/abfet.html"> Visit Abfet</a></li>
+  </div>
+</div>
 
-                    </ul>
-                </div>
-                
-                <div class="footer-column">
-                    <h3>Categories</h3>
-                    <ul class="footer-links">
-                        <li><a href="livestock.html">Livestocks</a></li>
-                        <li><a href="eggs.html">Eggs</a></li>
-                        <li><a href="birds.html">Birds</a></li>
-                        <li><a href="fish.html">Fishes</a></li>
-                        <li><a href="farm-product.html">Farm Products</a></li>
-                        <li><a href="dayold.html">Hatchlings</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-column">
-                    <h3>Contact Us</h3>
-                    <div class="footer-contact">
-                        <p><i class="fas fa-map-marker-alt"></i> 4,Adewale Anjorin Close,Alatishe Ibeju-Lekkki, Lagos, Nigeria</p>
-                        <p><i class="fas fa-phone"></i> +234 8121479874</p>
-                        <p><i class="fas fa-envelope"></i>ablesfarm3000@gmail.com</p>
-                        <p><i class="fas fa-clock"></i> Mon-Sat: 9:00 AM - 6:00 PM</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="copyright">
-                <p>&copy; 2025 Ables Farm. All Rights Reserved.</p>
-            </div>
-        </div>
-    </footer>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
+<!-- AUTH MODAL -->
+<div class="modal-backdrop" id="authModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeAuthModal()">✕</button>
+    <h2 id="modalTitle">Welcome back</h2>
+    <p class="modal-sub" id="modalSub">Sign in to track your orders.</p>
+    <div class="modal-tabs">
+      <button class="modal-tab active" id="tab-login" onclick="switchTab('login')">Log in</button>
+      <button class="modal-tab" id="tab-signup" onclick="switchTab('signup')">Sign up</button>
+    </div>
+    <div id="formLogin">
+      <div class="form-field"><label>Phone or Email</label><input type="text" id="loginId" placeholder="0812 000 0000 or email"/></div>
+      <div class="form-field"><label>Password</label><input type="password" id="loginPass" placeholder="Your password"/></div>
+      <button class="btn-full" onclick="handleLogin()">Log in</button>
+    </div>
+    <div id="formSignup" style="display:none">
+      <div class="form-field"><label>Full name</label><input type="text" id="signupName" placeholder="e.g. Ade Bello"/></div>
+      <div class="form-field"><label>Phone number</label><input type="tel" id="signupPhone" placeholder="+234 800 000 0000"/></div>
+      <div class="form-field"><label>Email address</label><input type="email" id="signupEmail" placeholder="you@email.com"/></div>
+      <div class="form-field"><label>Password</label><input type="password" id="signupPass" placeholder="Min 8 characters"/></div>
+      <button class="btn-full" onclick="handleSignup()">Create account</button>
+    </div>
+    <div class="modal-switch" id="modalSwitch">
+      No account? <button onclick="switchTab('signup')">Sign up free</button>
+    </div>
+  </div>
+</div>
 
-            const productGrid = document.querySelector('.product-grid');
-            const cart = [];
+<div class="toast" id="toast">
+  <strong id="toastTitle"></strong>
+  <span id="toastMsg"></span>
+</div>
 
-            // --- Event Listener for Product Cards ---
-            // Using event delegation for efficiency
-            productGrid.addEventListener('click', (event) => {
-                const target = event.target;
-                
-                // Find the product card's inner element
-                const cardInner = target.closest('.product-card-inner');
-                if (!cardInner) return;
+<script>
+// ── CART STATE ──────────────────────────────────────────────────────────────
+let cart = [];
+let nextId = 0;
+const STORAGE_KEY = 'ablesfarm_user';
 
-                // Handle "View Details" button click
-                if (target.classList.contains('view-details-btn')) {
-                    cardInner.classList.add('flipped');
-                }
+function getUser() {
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEY)); } catch { return null; }
+}
 
-                // Handle "Back" button click on the back of the card
-                if (target.classList.contains('back-btn')) {
-                    cardInner.classList.remove('flipped');
-                }
+function setUser(u) { localStorage.setItem(STORAGE_KEY, JSON.stringify(u)); }
 
-                // Handle "Add to Cart" button click
-                if (target.classList.contains('add-to-cart-btn')) {
-                    const cardFront = target.closest('.product-card-front');
-                    if (cardFront) {
-                        const name = cardFront.querySelector('h3').innerText;
-                        const priceString = cardFront.querySelector('p').innerText;
-                        addToCart(name, priceString);
-                    }
-                }
-            });
+// ── QTY CONTROLS ────────────────────────────────────────────────────────────
+function changeQty(btn, delta) {
+  const ctrl = btn.closest('.qty-control');
+  const valEl = ctrl.querySelector('.qty-val');
+  let val = parseInt(valEl.textContent) + delta;
+  if (val < 1) val = 1;
+  if (val > 99) val = 99;
+  valEl.textContent = val;
+}
 
-            // --- Cart Logic ---
-            function addToCart(name, priceString) {
-                const price = parseInt(priceString.replace(/[^\d]/g, ''));
-                cart.push({ name, price });
-                updateCartUI();
-            }
+// ── ADD TO CART ──────────────────────────────────────────────────────────────
+function addToCart(btn) {
+  const card = btn.closest('.product-card');
+  const name = card.dataset.name;
+  const price = parseInt(card.dataset.price);
+  const img = card.dataset.img;
+  const qty = parseInt(card.querySelector('.qty-val').textContent);
 
-            function updateCartUI() {
-                const cartCount = document.getElementById('cart-count');
-                const cartList = document.getElementById('cart-list');
-                const cartTotal = document.getElementById('cart-total');
-                const cartLabel = document.getElementById('cart-label');
+  // Check if already in cart — increase qty
+  const existing = cart.find(i => i.name === name);
+  if (existing) {
+    existing.qty += qty;
+  } else {
+    cart.push({ id: nextId++, name, price, img, qty });
+  }
 
-                cartCount.innerText = cart.length;
+  renderCart();
 
-                if (cart.length === 0) {
-                    cartList.innerHTML = '<li>Your cart is empty.</li>';
-                    cartTotal.innerText = '0';
-                    return;
-                }
-                
-                cartList.innerHTML = '';
-                let total = 0;
-                
-                cart.forEach(item => {
-                    total += item.price;
-                    const li = document.createElement('li');
-                    li.innerText = `${item.name} - ₦${item.price.toLocaleString()}`;
-                    cartList.appendChild(li);
-                });
+  btn.textContent = '✓ Added';
+  btn.classList.add('added');
+  setTimeout(() => { btn.textContent = 'Add'; btn.classList.remove('added'); }, 800);
 
-                cartTotal.innerText = total.toLocaleString();
-            }
+  showToast(`Added to cart`, `${qty}× ${name}`);
+}
 
-            // --- Cart Dropdown Logic ---
-            const cartElement = document.querySelector('.cart');
-            const cartDropdown = document.getElementById('cart-dropdown');
+// ── RENDER CART ──────────────────────────────────────────────────────────────
+function renderCart() {
+  const empty = document.getElementById('cartEmptyMsg');
+  const itemsEl = document.getElementById('cartItems');
+  const summaryEl = document.getElementById('cartSummary');
+  const badge = document.getElementById('cartBadge');
+  const countEl = document.getElementById('cartItemCount');
+  const subtotalEl = document.getElementById('cartSubtotal');
+  const totalEl = document.getElementById('cartTotal');
 
-            // Show on hover is handled by CSS, but this handles clicking behavior if needed
-            cartElement.addEventListener('click', (event) => {
-                 const isVisible = cartDropdown.style.display === 'block';
-                 cartDropdown.style.display = isVisible ? 'none' : 'block';
-                 event.stopPropagation();
-            });
+  const totalQty = cart.reduce((s, i) => s + i.qty, 0);
+  const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
 
-            window.addEventListener('click', (event) => {
-                if (!cartElement.contains(event.target)) {
-                    cartDropdown.style.display = 'none';
-                }
-            });
+  if (cart.length === 0) {
+    empty.style.display = 'flex';
+    itemsEl.style.display = 'none';
+    summaryEl.style.display = 'none';
+    badge.style.display = 'none';
+    return;
+  }
 
-            // Initial UI update
-            updateCartUI(); 
-        });
-    </script>
+  empty.style.display = 'none';
+  itemsEl.style.display = 'flex';
+  summaryEl.style.display = 'block';
+  badge.style.display = 'flex';
+  badge.textContent = totalQty;
+
+  itemsEl.innerHTML = cart.map(item => `
+    <div class="cart-item">
+      <img src="${item.img}" alt="${item.name}" onerror="this.src='https://placehold.co/44x44/1a4a24/e8a020?text=🐔'"/>
+      <div class="cart-item-info">
+        <div class="name">${item.name}</div>
+        <div class="sub">× ${item.qty} bird${item.qty > 1 ? 's' : ''}</div>
+      </div>
+      <div class="cart-item-price">₦${(item.price * item.qty).toLocaleString()}</div>
+      <button class="cart-item-remove" onclick="removeFromCart(${item.id})" title="Remove">✕</button>
+    </div>
+  `).join('');
+
+  countEl.textContent = totalQty + ` item${totalQty !== 1 ? 's' : ''}`;
+  subtotalEl.textContent = total.toLocaleString();
+  totalEl.textContent = total.toLocaleString();
+}
+
+function removeFromCart(id) {
+  cart = cart.filter(i => i.id !== id);
+  renderCart();
+}
+
+// ── FILTER + SEARCH ──────────────────────────────────────────────────────────
+let activeCat = 'all';
+
+function filterCat(btn) {
+  document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+  btn.classList.add('active');
+  activeCat = btn.dataset.cat;
+  applyFilters();
+}
+
+function applyFilters() {
+  const q = document.getElementById('searchInput').value.toLowerCase().trim();
+  const cards = document.querySelectorAll('.product-card');
+  let visible = 0;
+
+  cards.forEach(card => {
+    const nameMatch = card.dataset.name.toLowerCase().includes(q);
+    const catMatch = activeCat === 'all' || card.dataset.cat === activeCat;
+    const show = nameMatch && catMatch;
+    card.style.display = show ? '' : 'none';
+    if (show) visible++;
+  });
+
+  document.getElementById('noResults').style.display = visible === 0 ? 'block' : 'none';
+  document.getElementById('productCount').textContent =
+    visible === 0 ? 'No products found' : `Showing ${visible} product${visible !== 1 ? 's' : ''}`;
+}
+
+// ── TOGGLE DETAILS ────────────────────────────────────────────────────────────
+function toggleDetails(btn) {
+  const details = btn.nextElementSibling;
+  const isOpen = details.classList.toggle('open');
+  btn.textContent = isOpen ? 'Hide details ▴' : 'View details ▾';
+}
+
+// ── ORDER OVERLAY ─────────────────────────────────────────────────────────────
+function openOrderOverlay() {
+  if (cart.length === 0) {
+    showToast('Cart is empty', 'Add some birds first!');
+    return;
+  }
+
+  // Prefill from user account if logged in
+  const user = getUser();
+  if (user) {
+    document.getElementById('orderName').value = user.name || '';
+    document.getElementById('orderPhone').value = user.phone || '';
+    document.getElementById('orderEmail').value = user.email || '';
+  }
+
+  // Render order items
+  const listEl = document.getElementById('orderItemsList');
+  const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
+  const qty = cart.reduce((s, i) => s + i.qty, 0);
+
+  listEl.innerHTML = cart.map(item => `
+    <div class="order-item-row">
+      <img src="${item.img}" alt="${item.name}" onerror="this.src='https://placehold.co/52x52/1a4a24/e8a020?text=🐔'"/>
+      <div class="order-item-info">
+        <h4>${item.name}</h4>
+        <p>Poultry bird · Live, vaccinated</p>
+      </div>
+      <div class="order-item-price-col">
+        <div class="price">₦${(item.price * item.qty).toLocaleString()}</div>
+        <div class="qty">× ${item.qty}</div>
+      </div>
+    </div>
+  `).join('');
+
+  document.getElementById('orderItemCount').textContent = qty;
+  document.getElementById('orderSubtotal').textContent = total.toLocaleString();
+  document.getElementById('orderTotal').textContent = total.toLocaleString();
+
+  document.getElementById('orderFormView').style.display = 'block';
+  document.getElementById('orderSuccessView').style.display = 'none';
+  document.getElementById('orderOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeOverlay() {
+  document.getElementById('orderOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// ── PLACE ORDER + QR ──────────────────────────────────────────────────────────
+function placeOrder() {
+  const name = document.getElementById('orderName').value.trim();
+  const phone = document.getElementById('orderPhone').value.trim();
+  const email = document.getElementById('orderEmail').value.trim();
+  const depot = document.getElementById('orderDepot').value;
+
+  if (!name) { alert('Please enter your full name.'); return; }
+  if (!phone) { alert('Please enter your phone number.'); return; }
+  if (!depot) { alert('Please select a collection depot.'); return; }
+
+  // Generate order ref
+  const ref = 'ABF-' + Date.now().toString(36).toUpperCase().slice(-6);
+  const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
+  const qty = cart.reduce((s, i) => s + i.qty, 0);
+
+  // Calculate deadline (5 working days, skip weekends)
+  const deadline = addWorkingDays(new Date(), 5);
+  const deadlineStr = deadline.toLocaleDateString('en-NG', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });
+
+  // Build QR payload
+  const itemsSummary = cart.map(i => `${i.qty}× ${i.name}`).join(', ');
+  const qrPayload = JSON.stringify({
+    r: ref,
+    n: name,
+    p: phone,
+    d: depot,
+    t: total,
+    dl: deadline.toISOString().slice(0,10),
+    sig: btoa(`${ref}:${phone}:${deadline.getTime()}`).slice(0, 12)
+  });
+
+  // Show success view
+  document.getElementById('orderFormView').style.display = 'none';
+  document.getElementById('orderSuccessView').style.display = 'block';
+
+  document.getElementById('orderRef').textContent = ref;
+  document.getElementById('qrName').textContent = name;
+  document.getElementById('qrPhone').textContent = phone;
+  document.getElementById('qrDepot').textContent = depot;
+  document.getElementById('qrDeadline').textContent = deadlineStr;
+
+  const daysEl = document.getElementById('daysRemaining');
+  daysEl.textContent = '5';
+
+  // Generate QR code
+  const qrEl = document.getElementById('qrcode');
+  qrEl.innerHTML = '';
+  new QRCode(qrEl, {
+    text: qrPayload,
+    width: 200,
+    height: 200,
+    colorDark: '#0d2a14',
+    colorLight: '#ffffff',
+    correctLevel: QRCode.CorrectLevel.M
+  });
+
+  // Clear cart
+  cart = [];
+  renderCart();
+
+  // Save ref for worker scanner simulation
+  window._lastOrderRef = ref;
+  window._lastOrderPayload = qrPayload;
+}
+
+function addWorkingDays(date, days) {
+  let d = new Date(date);
+  let added = 0;
+  while (added < days) {
+    d.setDate(d.getDate() + 1);
+    const dow = d.getDay();
+    if (dow !== 0 && dow !== 6) added++; // skip Sat (6) and Sun (0)
+  }
+  return d;
+}
+
+function downloadQR() {
+  const canvas = document.querySelector('#qrcode canvas');
+  if (!canvas) { alert('QR code not ready yet — please wait a moment.'); return; }
+  const ref = document.getElementById('orderRef').textContent;
+  const a = document.createElement('a');
+  a.download = `AblesFarm-QR-${ref}.png`;
+  a.href = canvas.toDataURL('image/png');
+  a.click();
+}
+
+function backToShop() {
+  closeOverlay();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ── AUTH ─────────────────────────────────────────────────────────────────────
+function updateNav() {
+  const user = getUser();
+  const chip = document.getElementById('userChip');
+  const loginBtn = document.getElementById('loginBtn');
+  const signupBtn = document.getElementById('signupBtn');
+  if (user) {
+    chip.style.display = 'flex';
+    document.getElementById('userAvatar').textContent = user.name.charAt(0).toUpperCase();
+    document.getElementById('userName').textContent = user.name.split(' ')[0];
+    loginBtn.style.display = 'none';
+    signupBtn.style.display = 'none';
+  } else {
+    chip.style.display = 'none';
+    loginBtn.style.display = '';
+    signupBtn.style.display = '';
+  }
+}
+
+function handleUserClick() {
+  const user = getUser();
+  if (user && confirm(`Signed in as ${user.name}.\n\nLog out?`)) {
+    localStorage.removeItem(STORAGE_KEY);
+    updateNav();
+    showToast('Signed out', 'See you next time!');
+  }
+}
+
+function openAuthModal(tab) {
+  document.getElementById('authModal').classList.add('open');
+  switchTab(tab || 'login');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeAuthModal() {
+  document.getElementById('authModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.getElementById('authModal').addEventListener('click', function(e) {
+  if (e.target === this) closeAuthModal();
+});
+
+function switchTab(tab) {
+  const isLogin = tab === 'login';
+  document.getElementById('tab-login').classList.toggle('active', isLogin);
+  document.getElementById('tab-signup').classList.toggle('active', !isLogin);
+  document.getElementById('formLogin').style.display = isLogin ? 'block' : 'none';
+  document.getElementById('formSignup').style.display = isLogin ? 'none' : 'block';
+  document.getElementById('modalTitle').textContent = isLogin ? 'Welcome back' : 'Create account';
+  document.getElementById('modalSub').textContent = isLogin
+    ? 'Sign in to track your orders and QR codes.'
+    : 'Join Able\'s Farm — takes 30 seconds.';
+  document.getElementById('modalSwitch').innerHTML = isLogin
+    ? 'No account? <button onclick="switchTab(\'signup\')">Sign up free</button>'
+    : 'Have an account? <button onclick="switchTab(\'login\')">Log in</button>';
+}
+
+function handleLogin() {
+  const id = document.getElementById('loginId').value.trim();
+  const pass = document.getElementById('loginPass').value.trim();
+  if (!id || !pass) { alert('Please enter your details.'); return; }
+  const stored = getUser();
+  if (stored && (stored.phone === id || stored.email === id)) {
+    closeAuthModal();
+    updateNav();
+    showToast('Welcome back!', `Signed in as ${stored.name}`);
+  } else {
+    alert('No account found. Please sign up first.');
+    switchTab('signup');
+  }
+}
+
+function handleSignup() {
+  const name = document.getElementById('signupName').value.trim();
+  const phone = document.getElementById('signupPhone').value.trim();
+  const email = document.getElementById('signupEmail').value.trim();
+  const pass = document.getElementById('signupPass').value.trim();
+  if (!name || !phone || !email || !pass) { alert('Please fill in all fields.'); return; }
+  if (pass.length < 8) { alert('Password must be at least 8 characters.'); return; }
+  setUser({ name, phone, email, createdAt: Date.now() });
+  closeAuthModal();
+  updateNav();
+  showToast('Account created!', `Welcome, ${name.split(' ')[0]}!`);
+}
+
+// ── TOAST ─────────────────────────────────────────────────────────────────────
+let toastTimer;
+function showToast(title, msg) {
+  const t = document.getElementById('toast');
+  document.getElementById('toastTitle').textContent = title;
+  document.getElementById('toastMsg').textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 3200);
+}
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+updateNav();
+renderCart();
+</script>
+
 </body>
 </html>

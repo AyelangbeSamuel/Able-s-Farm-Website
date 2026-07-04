@@ -1,271 +1,1498 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>ABLE'S FARM - Home</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" type="image/jpeg" href="images/Farm-logo.jpeg" />
+  <meta charset="UTF-8"/>
+  <title>ABLE'S FARM — Fresh From The Source</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="icon" type="image/jpeg" href="images/Farm-logo.jpeg"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet"/>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    :root {
+      --gold: #e8a020;
+      --gold-light: #ffc95c;
+      --gold-dark: #b87800;
+      --green-deep: #0d2a14;
+      --green-mid: #1a4a24;
+      --green-light: #2e7d42;
+      --cream: #f5f0e8;
+      --text-on-dark: #f0ede6;
+      --text-muted: rgba(240,237,230,0.6);
+      --glass: rgba(13,42,20,0.72);
+      --glass-border: rgba(232,160,32,0.25);
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 22px;
     }
 
-    body, html {
-      height: 100%;
-      font-family: Arial, sans-serif;
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Space Grotesk', sans-serif;
+      background: var(--green-deep);
+      color: var(--text-on-dark);
       overflow-x: hidden;
+      min-height: 100vh;
     }
 
-    /* Video Background */
-    .video-bg {
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 100%;
-      width: 100%;
-      object-fit: cover;
-      z-index: -1;
-    }
-
-    /* Dark Background */
-    .dark-bg {
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 100%;
-      width: 100%;
-      background: linear-gradient(135deg, #0f0f0f, #1a1a1a, #2c2c2c);
-      z-index: -2;
-      display: none;
-    }
-
-    header {
-      background-color: rgba(80, 82, 81, 0.801);
-      color: #fff;
-      padding: 10px;
-      text-align: center;
-    }
-
-    .head {
-      width: 150px;
-      height: auto;
-      border-radius: 8px;
-      padding: 5px;
-    }
-
-    .sidebar {
-      position: fixed;
-      top: 100px;
-      left: 20px;
-      z-index: 999;
-    }
-
-    .menu-toggle {
-      background-color: #00ffd0;
-      color: #000;
-      padding: 10px 15px;
-      font-size: 18px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    .dropdown {
-  display: none;
-  flex-direction: column;
-  background-color: rgba(0, 0, 0, 0.8);
-  margin-top: 10px;
-  border-radius: 6px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-  padding: 10px;
-  width: 200px;
-  max-height: 80vh;
-  overflow-y: auto;
-}
-
-
-    .dropdown a {
-      color: #fff;
-      text-decoration: none;
-      padding: 10px;
-      border-bottom: 1px solid #85f881;
-    }
-
-    .dropdown a:last-child {
-      border-bottom: none;
-    }
-
-    .dropdown a:hover {
-      background-color: #f3f7ea;
-      color: black;
-    }
-
-    .top-right-buttons {
-      position: fixed;
-      top: 15px;
-      right: 15px;
+    /* ── VIDEO HERO ── */
+    .hero {
+      position: relative;
+      height: 100vh;
+      min-height: 600px;
       display: flex;
       flex-direction: column;
+    }
+
+    .hero-video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(13,42,20,0.55) 0%,
+        rgba(13,42,20,0.3) 40%,
+        rgba(13,42,20,0.85) 100%
+      );
+      z-index: 1;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: relative;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.2rem 2.5rem;
+      backdrop-filter: blur(12px);
+      background: rgba(13,42,20,0.5);
+      border-bottom: 1px solid var(--glass-border);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
       gap: 10px;
-      z-index: 1000;
+      text-decoration: none;
     }
 
-    .top-right-buttons button, .top-right-buttons a {
-      padding: 10px 15px;
-      border: none;
-      border-radius: 6px;
-      font-size: 14px;
+    .nav-logo img {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--gold);
+    }
+
+    .nav-logo span {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      color: var(--gold-light);
+      letter-spacing: 0.04em;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-on-dark);
+      text-decoration: none;
+      padding: 7px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .nav-links a:hover { background: rgba(232,160,32,0.15); color: var(--gold-light); }
+    .nav-links a.active { color: var(--gold); }
+
+    .badge-coming {
+      font-size: 0.6rem;
+      background: var(--gold);
+      color: var(--green-deep);
+      padding: 2px 5px;
+      border-radius: 4px;
+      font-weight: 700;
+      vertical-align: super;
+      margin-left: 3px;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-auth {
+      padding: 8px 18px;
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      font-weight: 600;
       cursor: pointer;
-      font-weight: bold;
-      transition: 0.3s;
+      transition: all 0.2s;
+      font-family: 'Space Grotesk', sans-serif;
     }
 
-    .toggle-bg-btn {
-      background: #444;
-      color: #fff;
+    .btn-login {
+      background: transparent;
+      border: 1px solid var(--glass-border);
+      color: var(--text-on-dark);
     }
 
-    .toggle-bg-btn:hover {
-      background: #666;
+    .btn-login:hover { border-color: var(--gold); color: var(--gold); }
+
+    .btn-signup {
+      background: var(--gold);
+      border: 1px solid var(--gold);
+      color: var(--green-deep);
     }
 
-    .abfet-link {
-      background: #00ffd0;
-      color: #000;
+    .btn-signup:hover { background: var(--gold-light); }
+
+    /* ── USER CHIP (logged in) ── */
+    .user-chip {
+      display: none;
+      align-items: center;
+      gap: 8px;
+      background: rgba(232,160,32,0.12);
+      border: 1px solid var(--glass-border);
+      border-radius: 40px;
+      padding: 5px 14px 5px 5px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .user-chip:hover { background: rgba(232,160,32,0.22); }
+
+    .user-chip .avatar {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: var(--gold);
+      color: var(--green-deep);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.8rem;
+    }
+
+    .user-chip span { font-size: 0.82rem; font-weight: 500; }
+
+    /* ── HERO CONTENT ── */
+    .hero-body {
+      position: relative;
+      z-index: 2;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.75rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .hero-eyebrow::before, .hero-eyebrow::after {
+      content: '';
+      display: block;
+      width: 32px;
+      height: 1px;
+      background: var(--gold);
+      opacity: 0.5;
+    }
+
+    .hero-headline {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.6rem, 7vw, 5.2rem);
+      line-height: 1.08;
+      letter-spacing: -0.01em;
+      color: var(--cream);
+      margin-bottom: 1.4rem;
+      max-width: 820px;
+    }
+
+    .hero-headline em {
+      font-style: normal;
+      color: var(--gold-light);
+    }
+
+    .hero-sub {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+      max-width: 520px;
+      margin-bottom: 2.4rem;
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .btn-primary {
+      background: var(--gold);
+      color: var(--green-deep);
+      border: none;
+      padding: 14px 32px;
+      border-radius: var(--radius-md);
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
       text-decoration: none;
       display: inline-block;
-      text-align: center;
+      font-family: 'Space Grotesk', sans-serif;
+      transition: background 0.2s, transform 0.15s;
     }
 
-    .abfet-link:hover {
-      background: #00a387;
+    .btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text-on-dark);
+      border: 1px solid rgba(240,237,230,0.3);
+      padding: 13px 28px;
+      border-radius: var(--radius-md);
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      font-family: 'Space Grotesk', sans-serif;
+      transition: border-color 0.2s, color 0.2s;
     }
 
-    main {
-      color: white;
-      padding: 150px 20px;
-      text-align: center;
+    .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* ── SCROLL INDICATOR ── */
+    .scroll-hint {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
       z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-muted);
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .scroll-hint .arrow {
+      width: 20px;
+      height: 20px;
+      border-right: 1.5px solid var(--gold);
+      border-bottom: 1.5px solid var(--gold);
+      transform: rotate(45deg);
+      animation: bounce 1.6s ease-in-out infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: rotate(45deg) translateY(0); }
+      50% { transform: rotate(45deg) translateY(5px); }
+    }
+
+    /* ── MARQUEE TICKER ── */
+    .ticker {
+      background: var(--gold);
+      color: var(--green-deep);
+      padding: 0.55rem 0;
+      overflow: hidden;
+      white-space: nowrap;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
+    .ticker-inner {
+      display: inline-flex;
+      animation: ticker 30s linear infinite;
+      gap: 0;
+    }
+
+    .ticker-item {
+      padding: 0 3rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .ticker-dot {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--green-deep);
+      opacity: 0.5;
+    }
+
+    @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+    /* ── SECTION LAYOUT ── */
+    section { padding: 5rem 2.5rem; }
+    .container { max-width: 1120px; margin: 0 auto; }
+
+    .section-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.8rem;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      line-height: 1.18;
+      margin-bottom: 1rem;
+      color: var(--cream);
+    }
+
+    .section-sub {
+      color: var(--text-muted);
+      font-size: 1rem;
+      line-height: 1.7;
+      max-width: 560px;
+    }
+
+    /* ── PRODUCTS SECTION ── */
+    .products-section { background: var(--green-mid); }
+
+    .products-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 3rem;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .product-card {
+      background: rgba(13,42,20,0.7);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition: transform 0.25s, border-color 0.25s;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .product-card:hover { transform: translateY(-4px); border-color: rgba(232,160,32,0.5); }
+
+    .product-card-img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .product-card-body {
+      padding: 1.25rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .product-card h3 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--cream);
+      margin-bottom: 0.35rem;
+    }
+
+    .product-card p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      flex: 1;
+      margin-bottom: 1rem;
+    }
+
+    .product-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .price {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--gold-light);
+    }
+
+    .card-badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: var(--gold);
+      color: var(--green-deep);
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 4px 8px;
+      border-radius: 6px;
+      letter-spacing: 0.05em;
+    }
+
+    .card-badge.coming {
+      background: rgba(13,42,20,0.85);
+      color: var(--gold);
+      border: 1px solid var(--gold);
+    }
+
+    .btn-card {
+      background: var(--gold);
+      color: var(--green-deep);
+      border: none;
+      padding: 8px 16px;
+      border-radius: var(--radius-sm);
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      font-family: 'Space Grotesk', sans-serif;
+      transition: background 0.2s;
+    }
+
+    .btn-card:hover { background: var(--gold-light); }
+
+    .btn-card.disabled {
+      background: rgba(232,160,32,0.2);
+      color: rgba(232,160,32,0.5);
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    /* ── HOW IT WORKS ── */
+    .how-section { background: var(--green-deep); }
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
       position: relative;
     }
 
-    /* Typing Effect - Cursorless */
-    .wrapper {
-      display: inline-block;
-      white-space: nowrap;
+    .steps-grid::before {
+      content: '';
+      position: absolute;
+      top: 28px;
+      left: 10%;
+      right: 10%;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--gold-dark), transparent);
+      z-index: 0;
+    }
+
+    .step {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+    }
+
+    .step-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: var(--green-mid);
+      border: 2px solid var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.2rem;
+      font-size: 1.4rem;
+    }
+
+    .step h4 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--cream);
+      margin-bottom: 0.5rem;
+    }
+
+    .step p {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* ── QR HIGHLIGHT ── */
+    .qr-section {
+      background: var(--green-mid);
+    }
+
+    .qr-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .qr-visual {
+      background: var(--green-deep);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem;
+      text-align: center;
+    }
+
+    .qr-mock {
+      width: 160px;
+      height: 160px;
+      margin: 0 auto 1.5rem;
+      border-radius: 12px;
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
       overflow: hidden;
-      font-size: 1.5rem;
-      animation: typing 3s steps(40, end);
     }
 
-    @keyframes typing {
-      from { width: 0 }
-      to { width: 100% }
+    .qr-mock svg { width: 140px; height: 140px; }
+
+    .qr-meta {
+      font-size: 0.78rem;
+      color: var(--text-muted);
     }
 
-    .subtext {
+    .qr-meta strong { color: var(--gold); font-size: 0.85rem; display: block; margin-bottom: 4px; }
+
+    .countdown-bar {
+      margin-top: 1.2rem;
+      background: rgba(232,160,32,0.12);
+      border: 1px solid var(--glass-border);
+      border-radius: 8px;
+      padding: 10px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.8rem;
+    }
+
+    .countdown-bar .days { color: var(--gold); font-weight: 700; font-size: 1rem; }
+
+    .qr-features { list-style: none; margin-top: 2rem; display: flex; flex-direction: column; gap: 1rem; }
+
+    .qr-features li {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+
+    .qr-features .icon {
+      width: 36px;
+      height: 36px;
+      flex-shrink: 0;
+      background: rgba(232,160,32,0.12);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+    }
+
+    .qr-features .text h5 { font-size: 0.9rem; font-weight: 600; color: var(--cream); margin-bottom: 2px; }
+    .qr-features .text p { font-size: 0.8rem; color: var(--text-muted); line-height: 1.5; }
+
+    /* ── DEPOT MAP ── */
+    .depots-section { background: var(--green-deep); }
+
+    .depots-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      margin-top: 2.5rem;
+    }
+
+    .depot-card {
+      background: var(--green-mid);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+    }
+
+    .depot-card .depot-name { font-weight: 600; color: var(--gold); margin-bottom: 4px; font-size: 0.95rem; }
+    .depot-card .depot-addr { font-size: 0.8rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 10px; }
+    .depot-card .depot-hours { font-size: 0.75rem; color: var(--gold-dark); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #060f08;
+      padding: 4rem 2.5rem 2rem;
+      border-top: 1px solid rgba(232,160,32,0.15);
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1.5fr;
+      gap: 3rem;
+      max-width: 1120px;
+      margin: 0 auto 3rem;
+    }
+
+    .footer-brand p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.7;
       margin-top: 1rem;
-      font-size: 1.2rem;
-      line-height: 1.5;
+      max-width: 260px;
     }
 
-    @media (max-width: 600px) {
-      .menu-toggle {
-        font-size: 16px;
-        padding: 8px 12px;
-      }
-
-      .dropdown {
-        width: auto;
-      }
-
-      .top-right-buttons {
-        flex-direction: column;
-        top: 10px;
-        right: 10px;
-      }
+    .footer-col h4 {
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.2rem;
     }
+
+    .footer-col a {
+      display: block;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.875rem;
+      margin-bottom: 0.7rem;
+      transition: color 0.2s;
+    }
+
+    .footer-col a:hover { color: var(--gold); }
+
+    .footer-contact-item {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-bottom: 0.8rem;
+    }
+
+    .footer-contact-item span:first-child { font-size: 1rem; flex-shrink: 0; }
+
+    .footer-bottom {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(240,237,230,0.08);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    /* ── AUTH MODAL ── */
+    .modal-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(6,15,8,0.88);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      backdrop-filter: blur(8px);
+    }
+
+    .modal-backdrop.open { display: flex; }
+
+    .modal {
+      background: var(--green-mid);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem;
+      width: 100%;
+      max-width: 420px;
+      position: relative;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 1.3rem;
+      cursor: pointer;
+      line-height: 1;
+      padding: 4px;
+      border-radius: 50%;
+      transition: color 0.2s, background 0.2s;
+    }
+
+    .modal-close:hover { color: var(--cream); background: rgba(240,237,230,0.1); }
+
+    .modal h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      color: var(--gold-light);
+      margin-bottom: 0.4rem;
+    }
+
+    .modal-sub {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+    }
+
+    .modal-tabs {
+      display: flex;
+      gap: 0;
+      background: rgba(13,42,20,0.7);
+      border-radius: var(--radius-sm);
+      padding: 4px;
+      margin-bottom: 1.8rem;
+    }
+
+    .modal-tab {
+      flex: 1;
+      padding: 8px;
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      border-radius: 6px;
+      transition: background 0.2s, color 0.2s;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+
+    .modal-tab.active { background: var(--gold); color: var(--green-deep); }
+
+    .form-field {
+      margin-bottom: 1rem;
+    }
+
+    .form-field label {
+      display: block;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+      letter-spacing: 0.04em;
+    }
+
+    .form-field input {
+      width: 100%;
+      padding: 11px 14px;
+      background: rgba(13,42,20,0.7);
+      border: 1px solid rgba(232,160,32,0.25);
+      border-radius: var(--radius-sm);
+      color: var(--cream);
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.2s;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+
+    .form-field input:focus { border-color: var(--gold); }
+    .form-field input::placeholder { color: rgba(240,237,230,0.25); }
+
+    .btn-full {
+      width: 100%;
+      padding: 13px;
+      background: var(--gold);
+      color: var(--green-deep);
+      border: none;
+      border-radius: var(--radius-sm);
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: 'Space Grotesk', sans-serif;
+      transition: background 0.2s;
+      margin-top: 0.5rem;
+    }
+
+    .btn-full:hover { background: var(--gold-light); }
+
+    .modal-switch {
+      text-align: center;
+      margin-top: 1.2rem;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    .modal-switch button {
+      background: none;
+      border: none;
+      color: var(--gold);
+      cursor: pointer;
+      font-size: 0.82rem;
+      font-weight: 600;
+      padding: 0;
+      text-decoration: underline;
+    }
+
+    /* ── MOBILE NAV ── */
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: 1px solid var(--glass-border);
+      color: var(--text-on-dark);
+      padding: 8px 12px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-size: 1.1rem;
+    }
+
+    @media (max-width: 860px) {
+      .nav-links { display: none; }
+      .mobile-menu-btn { display: block; }
+      .hero-headline { font-size: 2.4rem; }
+      .qr-layout { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 560px) {
+      nav { padding: 1rem 1.25rem; }
+      section { padding: 3.5rem 1.25rem; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .steps-grid::before { display: none; }
+    }
+
+    /* ── NOTIFICATION TOAST ── */
+    .toast {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: var(--green-mid);
+      border: 1px solid var(--gold);
+      border-radius: var(--radius-md);
+      padding: 1rem 1.5rem;
+      color: var(--cream);
+      font-size: 0.875rem;
+      z-index: 9999;
+      transform: translateY(20px);
+      opacity: 0;
+      transition: all 0.3s;
+      max-width: 320px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+    }
+
+    .toast.show { transform: translateY(0); opacity: 1; }
+    .toast strong { color: var(--gold); display: block; margin-bottom: 2px; }
   </style>
 </head>
 <body>
 
-  <!-- Background elements -->
-  <video class="video-bg" autoplay muted loop id="videoBackground">
-    <source src="video/ABLE'S FARM BACKGROUND.mp4" type="video/mp4" />
-    Your browser does not support HTML5 video.
+<!-- HERO SECTION -->
+<section class="hero">
+  <video class="hero-video" autoplay muted loop playsinline id="heroBg">
+    <source src="video/ABLE'S FARM BACKGROUND.mp4" type="video/mp4"/>
   </video>
-  <div class="dark-bg" id="darkBackground"></div>
+  <div class="hero-overlay"></div>
 
-  <!-- Top Right Buttons -->
-  <div class="top-right-buttons">
-    <button class="toggle-bg-btn" onclick="toggleBackground()">Toggle Background</button>
-    <a class="abfet-link" href="Abfet/abfet.html">Visit ABFET</a>
-  </div>
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="nav-logo">
+      <img src="images/Farm-logo.jpeg" alt="Able's Farm Logo" onerror="this.style.display='none'"/>
+      <span>ABLE'S FARM</span>
+    </a>
 
-  <!-- Header -->
-  <header>
-    <img class="head" src="images/Farm-logo.jpeg" alt="Able's Farm Logo" />
-    <h1>ABLE'S FARM</h1>
-  </header>
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="birds.html">🐔 Poultry</a></li>
+      <li><a href="eggs.html">🥚 Eggs <span class="badge-coming">SOON</span></a></li>
+      <li><a href="fish.html">🐟 Fish <span class="badge-coming">SOON</span></a></li>
+      <li><a href="livestock.html">🐄 Livestock <span class="badge-coming">SOON</span></a></li>
+      <li><a href="farm-product.html">🌾 Crops <span class="badge-coming">SOON</span></a></li>
+      <li><a href="about-us.html">About</a></li>
+      <li><a href="contact-us.html">Contact</a></li>
+    </ul>
 
-  <!-- Sidebar Menu -->
-  <div class="sidebar">
-    <button class="menu-toggle" onclick="toggleMenu()"> ☰ Menu</button>
-    <nav class="dropdown" id="dropdownMenu">
-      <a href="index.html">🏠 Home</a>
-      <a href="birds.html">🐣Poultry Birds</a>
-      <a href="eggs.html">🥚 Eggs</a>
-      <a href="farm-product.html">🌾 Farm Products</a>
-       <a href="fish.html">🌓 Fishes</a>
-      <a href="livestock.html">🐤livestocks</a>
-      <a href="dayold.html">🐤 Hatchlings</a>
-      <a href="delivery.html">📦 Delivery</a>
-      <a href="about-us.html">Fishes</a>
-      <a href="retailer.html">🛒 Become a Retailer</a>
-      <a href="wholesaler.html">🚚 Become a Wholesaler</a>
-      <a href="#">📅 Down Booking</a>
-      <a href="about-us.html">📄 About Us</a>
-      <a href="contact-us.html">📞 Contact Us</a>
-      <a href="mailto:ablesfarm300@gmail.com">✉️ Message Us</a>
-     
-    </nav>
-  </div>
-
-  <!-- Main Content -->
-  <main>
-    <div class="wrapper">
-      WELCOME TO ABLE'S FARM
-      <p>Where futuristic farming meets fresh food.</p>
-      <p>Shop fresh, direct from the farm powered by next-gen agricultural technology!</p>
+    <div class="nav-right">
+      <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+      <div class="user-chip" id="userChip" onclick="handleUserClick()">
+        <div class="avatar" id="userAvatar">A</div>
+        <span id="userName">My Account</span>
+      </div>
+      <button class="btn-auth btn-login" id="loginBtn" onclick="openModal('login')">Log in</button>
+      <button class="btn-auth btn-signup" id="signupBtn" onclick="openModal('signup')">Sign up</button>
     </div>
-    <div class="subtext"></div>
-  </main>
+  </nav>
 
-  <!-- JavaScript -->
-  <script>
-    function toggleMenu() {
-      const menu = document.getElementById("dropdownMenu");
-      menu.style.display = menu.style.display === "flex" ? "none" : "flex";
-    }
+  <!-- HERO BODY -->
+  <div class="hero-body">
+    <div class="hero-eyebrow">Ibeju-Lekki, Lagos · Est. 2015</div>
+    <h1 class="hero-headline">
+      Farm-fresh food,<br/>
+      <em>from our land to your hands</em>
+    </h1>
+    <p class="hero-sub">
+      Order directly from Able's Farm. We generate a secure QR code — 
+      collect your produce at any depot near you within 5 working days.
+    </p>
+    <div class="hero-ctas">
+      <a href="birds.html" class="btn-primary">Shop Poultry Birds →</a>
+      <a href="#how-it-works" class="btn-ghost">How it works</a>
+    </div>
+  </div>
 
-    function toggleTheme() {
-      document.body.classList.toggle("dark-theme");
-    }
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <div class="arrow"></div>
+  </div>
+</section>
 
-    function toggleBackground() {
-      const video = document.getElementById("videoBackground");
-      const darkBg = document.getElementById("darkBackground");
-      if (video.style.display === "none") {
-        video.style.display = "block";
-        darkBg.style.display = "none";
-      } else {
-        video.style.display = "none";
-        darkBg.style.display = "block";
-      }
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <span class="ticker-item">🐔 Fresh broilers & layers now available<span class="ticker-dot"></span></span>
+    <span class="ticker-item">🥚 Eggs restocking soon<span class="ticker-dot"></span></span>
+    <span class="ticker-item">📦 Collect at any sales depot near you<span class="ticker-dot"></span></span>
+    <span class="ticker-item">🔐 Secure QR code pickup system<span class="ticker-dot"></span></span>
+    <span class="ticker-item">⏰ 4–5 working day collection window<span class="ticker-dot"></span></span>
+    <span class="ticker-item">🐄 Livestock & crops coming soon<span class="ticker-dot"></span></span>
+    <!-- duplicate for seamless loop -->
+    <span class="ticker-item">🐔 Fresh broilers & layers now available<span class="ticker-dot"></span></span>
+    <span class="ticker-item">🥚 Eggs restocking soon<span class="ticker-dot"></span></span>
+    <span class="ticker-item">📦 Collect at any sales depot near you<span class="ticker-dot"></span></span>
+    <span class="ticker-item">🔐 Secure QR code pickup system<span class="ticker-dot"></span></span>
+    <span class="ticker-item">⏰ 4–5 working day collection window<span class="ticker-dot"></span></span>
+    <span class="ticker-item">🐄 Livestock & crops coming soon<span class="ticker-dot"></span></span>
+  </div>
+</div>
+
+<!-- PRODUCTS PREVIEW -->
+<section class="products-section">
+  <div class="container">
+    <div class="products-header">
+      <div>
+        <div class="section-label">What we sell</div>
+        <h2 class="section-title">Our product range</h2>
+        <p class="section-sub">Only chicken is available now. Everything else is under production — check back soon.</p>
+      </div>
+      <a href="birds.html" class="btn-primary">View all birds →</a>
+    </div>
+
+    <div class="product-grid">
+      <div class="product-card">
+        <span class="card-badge">🔥 AVAILABLE</span>
+        <img class="product-card-img" src="images/Broiler.jpeg" alt="Broiler Chicken"
+          onerror="this.src='https://placehold.co/400x200/1a4a24/e8a020?text=Broiler+Chicken'"/>
+        <div class="product-card-body">
+          <h3>Broiler Chicken</h3>
+          <p>Well-fed, healthy broilers raised on our Ibeju-Lekki farm. Ready for collection.</p>
+          <div class="product-card-footer">
+            <span class="price">₦3,500+</span>
+            <a href="birds.html" class="btn-card">Order now</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <span class="card-badge">🔥 AVAILABLE</span>
+        <img class="product-card-img" src="images/Layer.jpg" alt="Layer Hen"
+          onerror="this.src='https://placehold.co/400x200/1a4a24/e8a020?text=Layer+Hen'"/>
+        <div class="product-card-body">
+          <h3>Layer Hens</h3>
+          <p>High-producing layer hens for your home or business. Vaccinated and healthy.</p>
+          <div class="product-card-footer">
+            <span class="price">₦4,500+</span>
+            <a href="birds.html" class="btn-card">Order now</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <span class="card-badge coming">⏳ COMING SOON</span>
+        <img class="product-card-img" src="images/yam1.jpeg" alt="Farm Produce"
+          onerror="this.src='https://placehold.co/400x200/1a4a24/e8a020?text=Farm+Crops'"/>
+        <div class="product-card-body">
+          <h3>Farm Crops</h3>
+          <p>Yam, tomato, cassava, garlic and more — currently under production on our farm.</p>
+          <div class="product-card-footer">
+            <span class="price" style="color:var(--text-muted)">TBD</span>
+            <span class="btn-card disabled">Coming soon</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <span class="card-badge coming">⏳ COMING SOON</span>
+        <img class="product-card-img" src="images/Cow1.jpg" alt="Livestock"
+          onerror="this.src='https://placehold.co/400x200/1a4a24/e8a020?text=Livestock'"/>
+        <div class="product-card-body">
+          <h3>Livestock</h3>
+          <p>Cows, goats, rams and more — our livestock programme is currently in development.</p>
+          <div class="product-card-footer">
+            <span class="price" style="color:var(--text-muted)">TBD</span>
+            <span class="btn-card disabled">Coming soon</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how-section" id="how-it-works">
+  <div class="container">
+    <div class="section-label">The process</div>
+    <h2 class="section-title">How to get your order</h2>
+    <p class="section-sub">No home delivery confusion. Order online, get a QR code, walk in and collect.</p>
+
+    <div class="steps-grid">
+      <div class="step">
+        <div class="step-icon">📱</div>
+        <h4>1. Create account</h4>
+        <p>Sign up with your name, phone and email — takes 30 seconds.</p>
+      </div>
+      <div class="step">
+        <div class="step-icon">🛒</div>
+        <h4>2. Add to cart</h4>
+        <p>Browse available birds, select quantity, pick your nearest depot.</p>
+      </div>
+      <div class="step">
+        <div class="step-icon">💳</div>
+        <h4>3. Place order</h4>
+        <p>Confirm your details. We generate a unique signed QR code for your order.</p>
+      </div>
+      <div class="step">
+        <div class="step-icon">📲</div>
+        <h4>4. Get your QR code</h4>
+        <p>Download or screenshot your QR code. It contains your order and depot info.</p>
+      </div>
+      <div class="step">
+        <div class="step-icon">🏪</div>
+        <h4>5. Collect at depot</h4>
+        <p>Visit your chosen depot within 4–5 working days. Show the QR, our staff scans it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QR SYSTEM EXPLAINER -->
+<section class="qr-section">
+  <div class="container">
+    <div class="qr-layout">
+      <div>
+        <div class="section-label">Our QR system</div>
+        <h2 class="section-title">Pickup, not guesswork</h2>
+        <p class="section-sub">Each QR code is cryptographically signed with your order ID, product, and depot. Our workers use the Able's Farm scanner app to verify it on the spot — generic QR codes won't pass.</p>
+
+        <ul class="qr-features">
+          <li>
+            <div class="icon">🔐</div>
+            <div class="text">
+              <h5>Cryptographically unique</h5>
+              <p>Every code contains a signed hash — cannot be forged or reused.</p>
+            </div>
+          </li>
+          <li>
+            <div class="icon">⏳</div>
+            <div class="text">
+              <h5>4–5 working day window</h5>
+              <p>Your code is valid for collection within the window shown on your order.</p>
+            </div>
+          </li>
+          <li>
+            <div class="icon">📍</div>
+            <div class="text">
+              <h5>Depot-linked</h5>
+              <p>Your code is tied to the depot you chose at checkout — collect there.</p>
+            </div>
+          </li>
+          <li>
+            <div class="icon">📲</div>
+            <div class="text">
+              <h5>Staff scanner app</h5>
+              <p>Our workers use a dedicated cross-platform app to scan and verify your code.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="qr-visual">
+        <div class="qr-mock">
+          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <!-- Simulated QR pattern -->
+            <rect fill="#000" x="10" y="10" width="20" height="20" rx="2"/>
+            <rect fill="#fff" x="13" y="13" width="14" height="14" rx="1"/>
+            <rect fill="#000" x="15" y="15" width="10" height="10" rx="1"/>
+            <rect fill="#000" x="70" y="10" width="20" height="20" rx="2"/>
+            <rect fill="#fff" x="73" y="13" width="14" height="14" rx="1"/>
+            <rect fill="#000" x="75" y="15" width="10" height="10" rx="1"/>
+            <rect fill="#000" x="10" y="70" width="20" height="20" rx="2"/>
+            <rect fill="#fff" x="13" y="73" width="14" height="14" rx="1"/>
+            <rect fill="#000" x="15" y="75" width="10" height="10" rx="1"/>
+            <rect fill="#000" x="38" y="10" width="4" height="4"/>
+            <rect fill="#000" x="44" y="10" width="4" height="4"/>
+            <rect fill="#000" x="50" y="10" width="8" height="4"/>
+            <rect fill="#000" x="60" y="10" width="4" height="4"/>
+            <rect fill="#000" x="38" y="16" width="8" height="4"/>
+            <rect fill="#000" x="52" y="16" width="4" height="4"/>
+            <rect fill="#000" x="60" y="16" width="8" height="4"/>
+            <rect fill="#000" x="10" y="38" width="4" height="4"/>
+            <rect fill="#000" x="18" y="38" width="8" height="4"/>
+            <rect fill="#000" x="10" y="44" width="4" height="4"/>
+            <rect fill="#000" x="16" y="44" width="4" height="4"/>
+            <rect fill="#000" x="10" y="50" width="8" height="4"/>
+            <rect fill="#000" x="22" y="50" width="4" height="4"/>
+            <rect fill="#000" x="10" y="56" width="4" height="4"/>
+            <rect fill="#000" x="18" y="56" width="8" height="4"/>
+            <rect fill="#000" x="10" y="62" width="6" height="4"/>
+            <rect fill="#000" x="38" y="38" width="4" height="4"/>
+            <rect fill="#000" x="46" y="38" width="8" height="4"/>
+            <rect fill="#000" x="58" y="38" width="4" height="4"/>
+            <rect fill="#000" x="64" y="38" width="4" height="4"/>
+            <rect fill="#000" x="70" y="38" width="4" height="4"/>
+            <rect fill="#000" x="76" y="38" width="4" height="4"/>
+            <rect fill="#000" x="82" y="38" width="8" height="4"/>
+            <rect fill="#000" x="38" y="44" width="8" height="4"/>
+            <rect fill="#000" x="50" y="44" width="4" height="4"/>
+            <rect fill="#000" x="58" y="44" width="8" height="4"/>
+            <rect fill="#000" x="70" y="44" width="4" height="4"/>
+            <rect fill="#000" x="78" y="44" width="4" height="4"/>
+            <rect fill="#000" x="86" y="44" width="4" height="4"/>
+            <rect fill="#000" x="38" y="50" width="4" height="8"/>
+            <rect fill="#000" x="46" y="50" width="4" height="4"/>
+            <rect fill="#000" x="54" y="50" width="8" height="4"/>
+            <rect fill="#000" x="66" y="50" width="4" height="4"/>
+            <rect fill="#000" x="74" y="50" width="4" height="8"/>
+            <rect fill="#000" x="82" y="50" width="8" height="4"/>
+            <rect fill="#000" x="38" y="58" width="8" height="4"/>
+            <rect fill="#000" x="50" y="58" width="4" height="4"/>
+            <rect fill="#000" x="58" y="58" width="4" height="4"/>
+            <rect fill="#000" x="66" y="58" width="4" height="4"/>
+            <rect fill="#000" x="82" y="58" width="8" height="4"/>
+            <rect fill="#000" x="38" y="64" width="4" height="4"/>
+            <rect fill="#000" x="46" y="64" width="8" height="4"/>
+            <rect fill="#000" x="58" y="64" width="4" height="8"/>
+            <rect fill="#000" x="66" y="64" width="8" height="4"/>
+            <rect fill="#000" x="78" y="64" width="4" height="4"/>
+            <rect fill="#000" x="38" y="70" width="8" height="4"/>
+            <rect fill="#000" x="50" y="70" width="4" height="4"/>
+            <rect fill="#000" x="70" y="70" width="8" height="4"/>
+            <rect fill="#000" x="82" y="70" width="8" height="4"/>
+            <rect fill="#000" x="38" y="76" width="4" height="4"/>
+            <rect fill="#000" x="46" y="76" width="4" height="4"/>
+            <rect fill="#000" x="54" y="76" width="8" height="4"/>
+            <rect fill="#000" x="66" y="76" width="4" height="4"/>
+            <rect fill="#000" x="74" y="76" width="4" height="4"/>
+            <rect fill="#000" x="82" y="76" width="4" height="4"/>
+            <rect fill="#000" x="38" y="82" width="8" height="4"/>
+            <rect fill="#000" x="50" y="82" width="4" height="4"/>
+            <rect fill="#000" x="58" y="82" width="8" height="4"/>
+            <rect fill="#000" x="70" y="82" width="4" height="4"/>
+            <rect fill="#000" x="78" y="82" width="4" height="4"/>
+            <rect fill="#000" x="86" y="82" width="4" height="4"/>
+          </svg>
+        </div>
+        <div class="qr-meta">
+          <strong>ABF-ORDER-7X4K2M</strong>
+          2× Broiler Chicken · Lekki Phase 1 Depot
+        </div>
+        <div class="countdown-bar">
+          <span>Collection window</span>
+          <span class="days">5 working days</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DEPOTS -->
+<section class="depots-section">
+  <div class="container">
+    <div class="section-label">Where to collect</div>
+    <h2 class="section-title">Sales depots</h2>
+    <p class="section-sub">Pick your nearest depot when ordering. Show your QR code and collect.</p>
+
+    <div class="depots-grid">
+      <div class="depot-card">
+        <div class="depot-name">📍 Ibeju-Lekki (Farm Gate)</div>
+        <div class="depot-addr">4, Adewale Anjorin Close, Alatishe, Ibeju-Lekki, Lagos</div>
+        <div class="depot-hours">⏰ Mon–Sat: 8am – 6pm</div>
+      </div>
+      <div class="depot-card">
+        <div class="depot-name">📍 Lekki Phase 1</div>
+        <div class="depot-addr">Coming soon — Lekki Phase 1, Lagos</div>
+        <div class="depot-hours">⏰ TBD</div>
+      </div>
+      <div class="depot-card">
+        <div class="depot-name">📍 Ajah</div>
+        <div class="depot-addr">Coming soon — Ajah, Lagos</div>
+        <div class="depot-hours">⏰ TBD</div>
+      </div>
+      <div class="depot-card">
+        <div class="depot-name">📍 Victoria Island</div>
+        <div class="depot-addr">Coming soon — VI, Lagos</div>
+        <div class="depot-hours">⏰ TBD</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div style="font-family:'Playfair Display',serif; font-size:1.4rem; color:var(--gold-light);">ABLE'S FARM</div>
+      <p>Providing natural, farm-fresh food directly to families and businesses in Lagos since 2015. Powered by technology — backed by soil.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Shop</h4>
+      <a href="birds.html">Poultry Birds</a>
+      <a href="eggs.html">Eggs</a>
+      <a href="fish.html">Fish</a>
+      <a href="livestock.html">Livestock</a>
+      <a href="farm-product.html">Crops</a>
+      <a href="dayold.html">Hatchlings</a>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="about-us.html">About Us</a>
+      <a href="contact-us.html">Contact</a>
+      <a href="retailer.html">Become a Retailer</a>
+      <a href="wholesaler.html">Become a Wholesaler</a>
+      <a href="Abfet/abfet.html">Visit ABFET</a>
+    </div>
+    <div class="footer-col">
+      <h4>Get in touch</h4>
+      <div class="footer-contact-item"><span>📍</span><span>4, Adewale Anjorin Close, Alatishe Ibeju-Lekki, Lagos</span></div>
+      <div class="footer-contact-item"><span>📞</span><span>+234-812-147-9874</span></div>
+      <div class="footer-contact-item"><span>✉️</span><span>ablesfarm3000@gmail.com</span></div>
+      <div class="footer-contact-item"><span>🕐</span><span>Mon–Sat: 9am – 6pm</span></div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Able's Farm. All rights reserved.</span>
+    <span>Made in Lagos, Nigeria 🇳🇬</span>
+  </div>
+</footer>
+
+<!-- AUTH MODAL -->
+<div class="modal-backdrop" id="authModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <h2 id="modalTitle">Welcome back</h2>
+    <p class="modal-sub" id="modalSub">Sign in to track your orders and QR codes.</p>
+
+    <div class="modal-tabs">
+      <button class="modal-tab active" id="tab-login" onclick="switchTab('login')">Log in</button>
+      <button class="modal-tab" id="tab-signup" onclick="switchTab('signup')">Sign up</button>
+    </div>
+
+    <!-- LOGIN FORM -->
+    <div id="formLogin">
+      <div class="form-field">
+        <label>Phone or Email</label>
+        <input type="text" id="loginId" placeholder="0812 000 0000 or you@email.com"/>
+      </div>
+      <div class="form-field">
+        <label>Password</label>
+        <input type="password" id="loginPass" placeholder="Your password"/>
+      </div>
+      <button class="btn-full" onclick="handleLogin()">Log in to my account</button>
+    </div>
+
+    <!-- SIGNUP FORM -->
+    <div id="formSignup" style="display:none">
+      <div class="form-field">
+        <label>Full name</label>
+        <input type="text" id="signupName" placeholder="e.g. Ade Bello"/>
+      </div>
+      <div class="form-field">
+        <label>Phone number</label>
+        <input type="tel" id="signupPhone" placeholder="+234 800 000 0000"/>
+      </div>
+      <div class="form-field">
+        <label>Email address</label>
+        <input type="email" id="signupEmail" placeholder="you@email.com"/>
+      </div>
+      <div class="form-field">
+        <label>Password</label>
+        <input type="password" id="signupPass" placeholder="Create a password (8+ characters)"/>
+      </div>
+      <button class="btn-full" onclick="handleSignup()">Create my account</button>
+    </div>
+
+    <div class="modal-switch" id="modalSwitch">
+      Don't have an account? <button onclick="switchTab('signup')">Sign up free</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+  <strong id="toastTitle">Done!</strong>
+  <span id="toastMsg">Your action was successful.</span>
+</div>
+
+<script>
+  // ── AUTH STATE ──
+  const STORAGE_KEY = 'ablesfarm_user';
+
+  function getUser() {
+    try { return JSON.parse(localStorage.getItem(STORAGE_KEY)); } catch { return null; }
+  }
+
+  function setUser(u) { localStorage.setItem(STORAGE_KEY, JSON.stringify(u)); }
+
+  function updateNav() {
+    const user = getUser();
+    const chip = document.getElementById('userChip');
+    const loginBtn = document.getElementById('loginBtn');
+    const signupBtn = document.getElementById('signupBtn');
+    if (user) {
+      chip.style.display = 'flex';
+      document.getElementById('userAvatar').textContent = user.name.charAt(0).toUpperCase();
+      document.getElementById('userName').textContent = user.name.split(' ')[0];
+      loginBtn.style.display = 'none';
+      signupBtn.style.display = 'none';
+    } else {
+      chip.style.display = 'none';
+      loginBtn.style.display = '';
+      signupBtn.style.display = '';
     }
-  </script>
+  }
+
+  function handleUserClick() {
+    const user = getUser();
+    if (user && confirm(`Signed in as ${user.name}.\n\nLog out?`)) {
+      localStorage.removeItem(STORAGE_KEY);
+      updateNav();
+      showToast('Signed out', 'See you next time!');
+    }
+  }
+
+  // ── MODAL ──
+  function openModal(tab) {
+    document.getElementById('authModal').classList.add('open');
+    switchTab(tab || 'login');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    document.getElementById('authModal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  document.getElementById('authModal').addEventListener('click', function(e) {
+    if (e.target === this) closeModal();
+  });
+
+  function switchTab(tab) {
+    const isLogin = tab === 'login';
+    document.getElementById('tab-login').classList.toggle('active', isLogin);
+    document.getElementById('tab-signup').classList.toggle('active', !isLogin);
+    document.getElementById('formLogin').style.display = isLogin ? 'block' : 'none';
+    document.getElementById('formSignup').style.display = isLogin ? 'none' : 'block';
+    document.getElementById('modalTitle').textContent = isLogin ? 'Welcome back' : 'Create account';
+    document.getElementById('modalSub').textContent = isLogin
+      ? 'Sign in to track your orders and QR codes.'
+      : 'Join Able\'s Farm — fresh food, your way.';
+    document.getElementById('modalSwitch').innerHTML = isLogin
+      ? 'Don\'t have an account? <button onclick="switchTab(\'signup\')">Sign up free</button>'
+      : 'Already have an account? <button onclick="switchTab(\'login\')">Log in</button>';
+  }
+
+  function handleLogin() {
+    const id = document.getElementById('loginId').value.trim();
+    const pass = document.getElementById('loginPass').value.trim();
+    if (!id || !pass) { alert('Please enter your phone/email and password.'); return; }
+    // Simulate login — in production this hits your API
+    const stored = getUser();
+    if (stored && (stored.phone === id || stored.email === id)) {
+      closeModal();
+      updateNav();
+      showToast('Welcome back!', `Signed in as ${stored.name}`);
+    } else {
+      alert('No account found with those details. Please sign up first.');
+      switchTab('signup');
+    }
+  }
+
+  function handleSignup() {
+    const name = document.getElementById('signupName').value.trim();
+    const phone = document.getElementById('signupPhone').value.trim();
+    const email = document.getElementById('signupEmail').value.trim();
+    const pass = document.getElementById('signupPass').value.trim();
+    if (!name || !phone || !email || !pass) { alert('Please fill in all fields.'); return; }
+    if (pass.length < 8) { alert('Password must be at least 8 characters.'); return; }
+    setUser({ name, phone, email, createdAt: Date.now() });
+    closeModal();
+    updateNav();
+    showToast('Account created!', `Welcome to Able\'s Farm, ${name.split(' ')[0]}!`);
+  }
+
+  // ── TOAST ──
+  let toastTimer;
+  function showToast(title, msg) {
+    const t = document.getElementById('toast');
+    document.getElementById('toastTitle').textContent = title;
+    document.getElementById('toastMsg').textContent = msg;
+    t.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => t.classList.remove('show'), 3500);
+  }
+
+  // ── MOBILE MENU ──
+  function toggleMobileMenu() {
+    const links = document.querySelector('.nav-links');
+    const isOpen = links.style.display === 'flex';
+    links.style.display = isOpen ? 'none' : 'flex';
+    links.style.position = 'absolute';
+    links.style.top = '70px';
+    links.style.left = '0';
+    links.style.right = '0';
+    links.style.flexDirection = 'column';
+    links.style.background = 'rgba(13,42,20,0.97)';
+    links.style.padding = '1rem';
+    links.style.borderBottom = '1px solid var(--glass-border)';
+    links.style.backdropFilter = 'blur(12px)';
+    links.style.zIndex = '200';
+  }
+
+  // ── INIT ──
+  updateNav();
+
+  // Smooth scroll for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+    });
+  });
+</script>
 
 </body>
 </html>
