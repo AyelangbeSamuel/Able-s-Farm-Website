@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
-  <title>Poultry Birds — ABLE'S FARM</title>
+  <title>Poultry Birds ABLE'S FARM</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <link rel="icon" type="image/jpeg" href="images/Farm-logo.jpeg"/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
@@ -221,7 +221,7 @@
 
     /* ── TICKER ── */
     .ticker {
-      background: var(--gold);
+      background:  #e8a020;
       color: var(--green-deep);
       padding: 0.5rem 0;
       overflow: hidden;
@@ -229,7 +229,10 @@
       font-size: 0.8rem;
       font-weight: 700;
     }
-
+    .ticker .ticker-inner {
+      color: white;
+      background:  #e8a020;
+    }
     .ticker-inner { display: inline-flex; animation: ticker 25s linear infinite; }
     .ticker-item { padding: 0 2.5rem; }
     .ticker-sep { opacity: 0.4; }
@@ -329,9 +332,10 @@
 
     .product-card img {
       width: 100%;
-      height: 175px;
+      height: 350px;
       object-fit: cover;
       display: block;
+      
     }
 
     .card-badge-top {
@@ -1050,7 +1054,7 @@
       <div class="product-card" data-cat="Broiler" data-name="Broiler Chicken" data-price="3500" data-img="images/Broiler.jpeg">
         <div class="card-img-wrap">
           <span class="card-badge-top">🔥 HOT</span>
-          <img src="images/Broiler.jpeg" alt="Broiler Chicken" onerror="this.src='https://placehold.co/400x175/1a4a24/e8a020?text=Broiler+Chicken'"/>
+          <img src="images/Broiler-bird-resize.jpeg" alt="Broiler Chicken" onerror="this.src='https://placehold.co/400x175/1a4a24/e8a020?text=Broiler+Chicken'"/>
         </div>
         <div class="card-body">
           <h3>Broiler Chicken</h3>
@@ -1062,7 +1066,7 @@
           <p class="card-desc">Well-fed, healthy broilers grown on our Ibeju-Lekki farm. Raised on quality feed with no growth hormones.</p>
           <div class="card-footer">
             <div>
-              <div class="card-price">₦3,500 <span>/ bird</span></div>
+              <div class="card-price">₦15,000 <span>/ bird</span></div>
             </div>
             <div style="display:flex; gap:6px; align-items:center;">
               <div class="qty-control">
@@ -1084,9 +1088,9 @@
       </div>
 
       <!-- Layer Hen -->
-      <div class="product-card" data-cat="Layer" data-name="Layer Hen (Point of Lay)" data-price="4800" data-img="images/Layer.jpeg">
+      <div class="product-card" data-cat="Layer" data-name="Layer Hen (Point of Lay)" data-price="7800" data-img="images/Layer.jpeg">
         <div class="card-img-wrap">
-          <img src="images/Layer.jpeg" alt="Layer Hen" onerror="this.src='https://placehold.co/400x175/1a4a24/e8a020?text=Layer+Hen'"/>
+          <img src="images/Layer.jpg" alt="Layer Hen" onerror="this.src='https://placehold.co/400x175/1a4a24/e8a020?text=Layer+Hen'"/>
         </div>
         <div class="card-body">
           <h3>Layer Hen (Point of Lay)</h3>
@@ -1098,7 +1102,7 @@
           <p class="card-desc">Point-of-lay layers ready to produce. High-producing strain, ideal for commercial or home egg production.</p>
           <div class="card-footer">
             <div>
-              <div class="card-price">₦4,800 <span>/ bird</span></div>
+              <div class="card-price">₦7,800 <span>/ bird</span></div>
             </div>
             <div style="display:flex; gap:6px; align-items:center;">
               <div class="qty-control">
@@ -1120,9 +1124,9 @@
       </div>
 
       <!-- Grower Layer -->
-      <div class="product-card" data-cat="Layer" data-name="Layer Grower (8 weeks)" data-price="2500" data-img="images/Layer.jpeg">
+      <div class="product-card" data-cat="Layer" data-name="Layer Grower (8 weeks)" data-price="5600" data-img="images/Layer.jpeg">
         <div class="card-img-wrap">
-          <img src="images/Layer.jpeg" alt="Layer Grower" onerror="this.src='https://placehold.co/400x175/1a4a24/e8a020?text=Layer+Grower'"/>
+          <img src="images/Layer.jpg" alt="Layer Grower" onerror="this.src='https://placehold.co/400x175/1a4a24/e8a020?text=Layer+Grower'"/>
         </div>
         <div class="card-body">
           <h3>Layer Grower (8 weeks)</h3>
@@ -1134,7 +1138,7 @@
           <p class="card-desc">Grower-stage layers at 8 weeks. Perfect if you want to raise them on to point-of-lay yourself.</p>
           <div class="card-footer">
             <div>
-              <div class="card-price">₦2,500 <span>/ bird</span></div>
+              <div class="card-price">₦5600 <span>/ bird</span></div>
             </div>
             <div style="display:flex; gap:6px; align-items:center;">
               <div class="qty-control">
@@ -1154,10 +1158,10 @@
       </div>
 
       <!-- Noiler -->
-      <div class="product-card" data-cat="Noiler" data-name="Noiler Bird" data-price="3200" data-img="images/Broiler.jpeg">
+      <div class="product-card" data-cat="Noiler" data-name="Noiler Bird" data-price="6200" data-img="images/Noiler.jpeg">
         <div class="card-img-wrap">
           <span class="card-badge-top" style="background:rgba(13,42,20,0.9); color:var(--gold); border:1px solid var(--gold);">NEW</span>
-          <img src="images/Broiler.jpeg" alt="Noiler Bird" onerror="this.src='https://placehold.co/400x175/1a4a24/e8a020?text=Noiler+Bird'"/>
+          <img src="images/Noiler.jpeg" alt="Noiler Bird" onerror="this.src='https://placehold.co/400x175/1a4a24/e8a020?text=Noiler+Bird'"/>
         </div>
         <div class="card-body">
           <h3>Noiler Bird</h3>
@@ -1169,7 +1173,7 @@
           <p class="card-desc">The Noiler is a dual-purpose bird — meat and eggs. Highly resilient and well-adapted to Nigerian conditions.</p>
           <div class="card-footer">
             <div>
-              <div class="card-price">₦3,200 <span>/ bird</span></div>
+              <div class="card-price">₦6,200 <span>/ bird</span></div>
             </div>
             <div style="display:flex; gap:6px; align-items:center;">
               <div class="qty-control">
@@ -1190,9 +1194,9 @@
       </div>
 
       <!-- Turkey -->
-      <div class="product-card" data-cat="Turkey" data-name="Live Turkey" data-price="18000" data-img="images/Broiler.jpeg">
+      <div class="product-card" data-cat="Turkey" data-name="Live Turkey" data-price="18000" data-img="images/Turkey.jpg">
         <div class="card-img-wrap">
-          <img src="images/Broiler.jpeg" alt="Live Turkey" onerror="this.src='https://placehold.co/400x175/1a4a24/e8a020?text=Turkey'"/>
+          <img src="images/Turkey.jpg" alt="Live Turkey" onerror="this.src='https://placehold.co/400x175/1a4a24/e8a020?text=Turkey'"/>
         </div>
         <div class="card-body">
           <h3>Live Turkey</h3>
@@ -1225,9 +1229,9 @@
       </div>
 
       <!-- Cockerel -->
-      <div class="product-card" data-cat="Broiler" data-name="Live Cockerel" data-price="5500" data-img="images/Broiler.jpeg">
+      <div class="product-card" data-cat="Broiler" data-name="Live Cockerel" data-price="5500" data-img="images/Cockrel.jpeg">
         <div class="card-img-wrap">
-          <img src="images/Broiler.jpeg" alt="Live Cockerel" onerror="this.src='https://placehold.co/400x175/1a4a24/e8a020?text=Cockerel'"/>
+          <img src="images/Cockrel.jpeg" alt="Live Cockerel" onerror="this.src='https://placehold.co/400x175/1a4a24/e8a020?text=Cockerel'"/>
         </div>
         <div class="card-body">
           <h3>Live Cockerel</h3>
