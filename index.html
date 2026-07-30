@@ -1441,17 +1441,43 @@
     }
   }
 
-  function handleSignup() {
+  function async handleSignup() {
+    const API_URL = "http://localhost:5000/auth/register";
+      try{
+
     const name = document.getElementById('signupName').value.trim();
     const phone = document.getElementById('signupPhone').value.trim();
     const email = document.getElementById('signupEmail').value.trim();
     const pass = document.getElementById('signupPass').value.trim();
-    if (!name || !phone || !email || !pass) { alert('Please fill in all fields.'); return; }
-    if (pass.length < 8) { alert('Password must be at least 8 characters.'); return; }
     setUser({ name, phone, email, createdAt: Date.now() });
+
+    const response = await fetch(${API_URL}/signup, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(setUser),
+        });
+
+        const data = await response.json();
     closeModal();
     updateNav();
     showToast('Account created!', `Welcome to Able\'s Farm, ${name.split(' ')[0]}!`);
+     if (!name || !phone || !email || !pass) { alert('Please fill in all fields.'); return; }
+    if (pass.length < 8) { alert('Password must be at least 8 characters.'); return; }
+
+    
+
+
+      }catch(err){
+
+        console.error(error);
+      
+
+      }
+  
+    
+    
   }
 
   // ── TOAST ──
