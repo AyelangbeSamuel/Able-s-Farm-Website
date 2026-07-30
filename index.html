@@ -1371,7 +1371,7 @@
   // ======================================================
   // ⭐ API CONFIGURATION - CHANGE THIS WHEN GOING LIVE
   // ======================================================
-  const API_BASE = "http://localhost:5000/auth";   // ← Development
+  const API_BASE = "http://localhost:3000/auth";   // ← Development
   // const API_BASE = "https://api.ablesfarm.com/auth"; // ← Production example
 
   const STORAGE_KEY = 'ablesfarm_user';
@@ -1520,7 +1520,7 @@
     btn.textContent = 'Creating account...';
 
     try {
-      const response = await fetch(`${API_BASE}/register`, {   // ← Uses your endpoint
+      const response = await fetch(`${API_BASE}/signup`, {   // ← Uses your endpoint
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, phone, email, password })
