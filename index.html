@@ -35,6 +35,79 @@
       min-height: 100vh;
     }
 
+    /* ===================== CUSTOM LOADING SPINNER ===================== */
+    #pageLoader {
+      position: fixed;
+      inset: 0;
+      background: var(--green-deep);
+      z-index: 99999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.5s ease, visibility 0.5s;
+    }
+
+    #pageLoader.hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .spinner-logo {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      border: 3px solid var(--gold);
+      margin-bottom: 24px;
+      animation: pulse 1.6s ease-in-out infinite;
+    }
+
+    .spinner {
+      width: 48px;
+      height: 48px;
+      border: 4px solid rgba(232, 160, 32, 0.25);
+      border-top-color: var(--gold);
+      border-radius: 50%;
+      animation: spin 0.9s linear infinite;
+    }
+
+    .loader-text {
+      margin-top: 18px;
+      font-size: 0.95rem;
+      color: var(--gold-light);
+      letter-spacing: 0.08em;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.08); opacity: 0.85; }
+    }
+
+    /* Button loading state */
+    .btn-loading {
+      position: relative;
+      pointer-events: none;
+      opacity: 0.85;
+    }
+
+    .btn-loading::after {
+      content: "";
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      top: 50%;
+      left: 50%;
+      margin: -9px 0 0 -9px;
+      border: 2.5px solid transparent;
+      border-top-color: var(--green-deep);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+    }
+
     /* ── VIDEO HERO ── */
     .hero {
       position: relative;
@@ -163,7 +236,6 @@
 
     .btn-signup:hover { background: var(--gold-light); }
 
-    /* ── USER CHIP (logged in) ── */
     .user-chip {
       display: none;
       align-items: center;
@@ -290,7 +362,6 @@
 
     .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
 
-    /* ── SCROLL INDICATOR ── */
     .scroll-hint {
       position: absolute;
       bottom: 2rem;
@@ -336,7 +407,6 @@
     .ticker-inner {
       display: inline-flex;
       animation: ticker 30s linear infinite;
-      gap: 0;
     }
 
     .ticker-item {
@@ -356,7 +426,6 @@
 
     @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
-    /* ── SECTION LAYOUT ── */
     section { padding: 5rem 2.5rem; }
     .container { max-width: 1120px; margin: 0 auto; }
 
@@ -383,7 +452,6 @@
       max-width: 560px;
     }
 
-    /* ── PRODUCTS SECTION ── */
     .products-section { background: var(--green-mid); }
 
     .products-header {
@@ -496,7 +564,6 @@
       pointer-events: none;
     }
 
-    /* ── HOW IT WORKS ── */
     .how-section { background: var(--green-deep); }
 
     .steps-grid {
@@ -550,10 +617,7 @@
       line-height: 1.6;
     }
 
-    /* ── QR HIGHLIGHT ── */
-    .qr-section {
-      background: var(--green-mid);
-    }
+    .qr-section { background: var(--green-mid); }
 
     .qr-layout {
       display: grid;
@@ -629,7 +693,6 @@
     .qr-features .text h5 { font-size: 0.9rem; font-weight: 600; color: var(--cream); margin-bottom: 2px; }
     .qr-features .text p { font-size: 0.8rem; color: var(--text-muted); line-height: 1.5; }
 
-    /* ── DEPOT MAP ── */
     .depots-section { background: var(--green-deep); }
 
     .depots-grid {
@@ -650,7 +713,6 @@
     .depot-card .depot-addr { font-size: 0.8rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 10px; }
     .depot-card .depot-hours { font-size: 0.75rem; color: var(--gold-dark); }
 
-    /* ── FOOTER ── */
     footer {
       background: #060f08;
       padding: 4rem 2.5rem 2rem;
@@ -717,7 +779,7 @@
       color: var(--text-muted);
     }
 
-    /* ── AUTH MODAL ── */
+    /* AUTH MODAL */
     .modal-backdrop {
       display: none;
       position: fixed;
@@ -860,7 +922,6 @@
       text-decoration: underline;
     }
 
-    /* ── MOBILE NAV ── */
     .mobile-menu-btn {
       display: none;
       background: none;
@@ -887,7 +948,6 @@
       .steps-grid::before { display: none; }
     }
 
-    /* ── NOTIFICATION TOAST ── */
     .toast {
       position: fixed;
       bottom: 2rem;
@@ -912,6 +972,13 @@
 </head>
 <body>
 
+<!-- ========== PAGE LOADER ========== -->
+<div id="pageLoader">
+  <img src="images/Farm-logo.jpeg" alt="Able's Farm" class="spinner-logo" onerror="this.style.display='none'">
+  <div class="spinner"></div>
+  <div class="loader-text">Loading Able's Farm...</div>
+</div>
+
 <!-- HERO SECTION -->
 <section class="hero">
   <video class="hero-video" autoplay muted loop playsinline id="heroBg">
@@ -919,7 +986,6 @@
   </video>
   <div class="hero-overlay"></div>
 
-  <!-- NAV -->
   <nav>
     <a href="index.html" class="nav-logo">
       <img src="images/Farm-logo.jpeg" alt="Able's Farm Logo" onerror="this.style.display='none'"/>
@@ -948,7 +1014,6 @@
     </div>
   </nav>
 
-  <!-- HERO BODY -->
   <div class="hero-body">
     <div class="hero-eyebrow">Ibeju-Lekki, Lagos · Est. 2015</div>
     <h1 class="hero-headline">
@@ -980,7 +1045,6 @@
     <span class="ticker-item">🔐 Secure QR code pickup system<span class="ticker-dot"></span></span>
     <span class="ticker-item">⏰ 4–5 working day collection window<span class="ticker-dot"></span></span>
     <span class="ticker-item">🐄 Livestock & crops coming soon<span class="ticker-dot"></span></span>
-    <!-- duplicate for seamless loop -->
     <span class="ticker-item">🐔 Fresh broilers & layers now available<span class="ticker-dot"></span></span>
     <span class="ticker-item">🥚 Eggs restocking soon<span class="ticker-dot"></span></span>
     <span class="ticker-item">📦 Collect at any sales depot near you<span class="ticker-dot"></span></span>
@@ -1099,14 +1163,14 @@
   </div>
 </section>
 
-<!-- QR SYSTEM EXPLAINER -->
+<!-- QR SYSTEM -->
 <section class="qr-section">
   <div class="container">
     <div class="qr-layout">
       <div>
         <div class="section-label">Our QR system</div>
         <h2 class="section-title">Pickup, not guesswork</h2>
-        <p class="section-sub">Each QR code is cryptographically signed with your order ID, product, and depot. Our workers use the Able's Farm scanner app to verify it on the spot — generic QR codes won't pass.</p>
+        <p class="section-sub">Each QR code is cryptographically signed with your order ID, product, and depot. Our workers use the Able's Farm scanner app to verify it on the spot.</p>
 
         <ul class="qr-features">
           <li>
@@ -1127,14 +1191,14 @@
             <div class="icon">📍</div>
             <div class="text">
               <h5>Depot-linked</h5>
-              <p>Your code is tied to the depot you chose at checkout — collect there.</p>
+              <p>Your code is tied to the depot you chose at checkout.</p>
             </div>
           </li>
           <li>
             <div class="icon">📲</div>
             <div class="text">
               <h5>Staff scanner app</h5>
-              <p>Our workers use a dedicated cross-platform app to scan and verify your code.</p>
+              <p>Our workers use a dedicated app to scan and verify your code.</p>
             </div>
           </li>
         </ul>
@@ -1143,7 +1207,6 @@
       <div class="qr-visual">
         <div class="qr-mock">
           <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-            <!-- Simulated QR pattern -->
             <rect fill="#000" x="10" y="10" width="20" height="20" rx="2"/>
             <rect fill="#fff" x="13" y="13" width="14" height="14" rx="1"/>
             <rect fill="#000" x="15" y="15" width="10" height="10" rx="1"/>
@@ -1153,67 +1216,14 @@
             <rect fill="#000" x="10" y="70" width="20" height="20" rx="2"/>
             <rect fill="#fff" x="13" y="73" width="14" height="14" rx="1"/>
             <rect fill="#000" x="15" y="75" width="10" height="10" rx="1"/>
-            <rect fill="#000" x="38" y="10" width="4" height="4"/>
-            <rect fill="#000" x="44" y="10" width="4" height="4"/>
-            <rect fill="#000" x="50" y="10" width="8" height="4"/>
-            <rect fill="#000" x="60" y="10" width="4" height="4"/>
-            <rect fill="#000" x="38" y="16" width="8" height="4"/>
-            <rect fill="#000" x="52" y="16" width="4" height="4"/>
-            <rect fill="#000" x="60" y="16" width="8" height="4"/>
-            <rect fill="#000" x="10" y="38" width="4" height="4"/>
-            <rect fill="#000" x="18" y="38" width="8" height="4"/>
-            <rect fill="#000" x="10" y="44" width="4" height="4"/>
-            <rect fill="#000" x="16" y="44" width="4" height="4"/>
-            <rect fill="#000" x="10" y="50" width="8" height="4"/>
-            <rect fill="#000" x="22" y="50" width="4" height="4"/>
-            <rect fill="#000" x="10" y="56" width="4" height="4"/>
-            <rect fill="#000" x="18" y="56" width="8" height="4"/>
-            <rect fill="#000" x="10" y="62" width="6" height="4"/>
-            <rect fill="#000" x="38" y="38" width="4" height="4"/>
-            <rect fill="#000" x="46" y="38" width="8" height="4"/>
-            <rect fill="#000" x="58" y="38" width="4" height="4"/>
-            <rect fill="#000" x="64" y="38" width="4" height="4"/>
-            <rect fill="#000" x="70" y="38" width="4" height="4"/>
-            <rect fill="#000" x="76" y="38" width="4" height="4"/>
-            <rect fill="#000" x="82" y="38" width="8" height="4"/>
-            <rect fill="#000" x="38" y="44" width="8" height="4"/>
-            <rect fill="#000" x="50" y="44" width="4" height="4"/>
-            <rect fill="#000" x="58" y="44" width="8" height="4"/>
-            <rect fill="#000" x="70" y="44" width="4" height="4"/>
-            <rect fill="#000" x="78" y="44" width="4" height="4"/>
-            <rect fill="#000" x="86" y="44" width="4" height="4"/>
-            <rect fill="#000" x="38" y="50" width="4" height="8"/>
-            <rect fill="#000" x="46" y="50" width="4" height="4"/>
-            <rect fill="#000" x="54" y="50" width="8" height="4"/>
-            <rect fill="#000" x="66" y="50" width="4" height="4"/>
-            <rect fill="#000" x="74" y="50" width="4" height="8"/>
-            <rect fill="#000" x="82" y="50" width="8" height="4"/>
-            <rect fill="#000" x="38" y="58" width="8" height="4"/>
-            <rect fill="#000" x="50" y="58" width="4" height="4"/>
-            <rect fill="#000" x="58" y="58" width="4" height="4"/>
-            <rect fill="#000" x="66" y="58" width="4" height="4"/>
-            <rect fill="#000" x="82" y="58" width="8" height="4"/>
-            <rect fill="#000" x="38" y="64" width="4" height="4"/>
-            <rect fill="#000" x="46" y="64" width="8" height="4"/>
-            <rect fill="#000" x="58" y="64" width="4" height="8"/>
-            <rect fill="#000" x="66" y="64" width="8" height="4"/>
-            <rect fill="#000" x="78" y="64" width="4" height="4"/>
-            <rect fill="#000" x="38" y="70" width="8" height="4"/>
-            <rect fill="#000" x="50" y="70" width="4" height="4"/>
-            <rect fill="#000" x="70" y="70" width="8" height="4"/>
-            <rect fill="#000" x="82" y="70" width="8" height="4"/>
-            <rect fill="#000" x="38" y="76" width="4" height="4"/>
-            <rect fill="#000" x="46" y="76" width="4" height="4"/>
-            <rect fill="#000" x="54" y="76" width="8" height="4"/>
-            <rect fill="#000" x="66" y="76" width="4" height="4"/>
-            <rect fill="#000" x="74" y="76" width="4" height="4"/>
-            <rect fill="#000" x="82" y="76" width="4" height="4"/>
-            <rect fill="#000" x="38" y="82" width="8" height="4"/>
-            <rect fill="#000" x="50" y="82" width="4" height="4"/>
-            <rect fill="#000" x="58" y="82" width="8" height="4"/>
-            <rect fill="#000" x="70" y="82" width="4" height="4"/>
-            <rect fill="#000" x="78" y="82" width="4" height="4"/>
-            <rect fill="#000" x="86" y="82" width="4" height="4"/>
+            <!-- Simplified QR pattern for visual -->
+            <rect fill="#000" x="38" y="10" width="4" height="4"/><rect fill="#000" x="44" y="10" width="4" height="4"/>
+            <rect fill="#000" x="50" y="10" width="8" height="4"/><rect fill="#000" x="60" y="10" width="4" height="4"/>
+            <rect fill="#000" x="38" y="38" width="4" height="4"/><rect fill="#000" x="46" y="38" width="8" height="4"/>
+            <rect fill="#000" x="58" y="38" width="4" height="4"/><rect fill="#000" x="70" y="38" width="4" height="4"/>
+            <rect fill="#000" x="38" y="50" width="4" height="8"/><rect fill="#000" x="54" y="50" width="8" height="4"/>
+            <rect fill="#000" x="38" y="70" width="8" height="4"/><rect fill="#000" x="50" y="70" width="4" height="4"/>
+            <rect fill="#000" x="70" y="70" width="8" height="4"/><rect fill="#000" x="82" y="70" width="8" height="4"/>
           </svg>
         </div>
         <div class="qr-meta">
@@ -1321,7 +1331,7 @@
         <label>Password</label>
         <input type="password" id="loginPass" placeholder="Your password"/>
       </div>
-      <button class="btn-full" onclick="handleLogin()">Log in to my account</button>
+      <button class="btn-full" id="loginSubmitBtn" onclick="handleLogin()">Log in to my account</button>
     </div>
 
     <!-- SIGNUP FORM -->
@@ -1342,7 +1352,7 @@
         <label>Password</label>
         <input type="password" id="signupPass" placeholder="Create a password (8+ characters)"/>
       </div>
-      <button class="btn-full" onclick="handleSignup()">Create my account</button>
+      <button class="btn-full" id="signupSubmitBtn" onclick="handleSignup()">Create my account</button>
     </div>
 
     <div class="modal-switch" id="modalSwitch">
@@ -1358,24 +1368,39 @@
 </div>
 
 <script>
-  // ── AUTH STATE ──
+  // ======================================================
+  // ⭐ API CONFIGURATION - CHANGE THIS WHEN GOING LIVE
+  // ======================================================
+  const API_BASE = "http://localhost:5000/auth";   // ← Development
+  // const API_BASE = "https://api.ablesfarm.com/auth"; // ← Production example
+
   const STORAGE_KEY = 'ablesfarm_user';
+
+  // Hide page loader when everything is ready
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      document.getElementById('pageLoader').classList.add('hidden');
+    }, 800);
+  });
 
   function getUser() {
     try { return JSON.parse(localStorage.getItem(STORAGE_KEY)); } catch { return null; }
   }
 
-  function setUser(u) { localStorage.setItem(STORAGE_KEY, JSON.stringify(u)); }
+  function setUser(u) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(u));
+  }
 
   function updateNav() {
     const user = getUser();
     const chip = document.getElementById('userChip');
     const loginBtn = document.getElementById('loginBtn');
     const signupBtn = document.getElementById('signupBtn');
+
     if (user) {
       chip.style.display = 'flex';
-      document.getElementById('userAvatar').textContent = user.name.charAt(0).toUpperCase();
-      document.getElementById('userName').textContent = user.name.split(' ')[0];
+      document.getElementById('userAvatar').textContent = (user.name || 'U').charAt(0).toUpperCase();
+      document.getElementById('userName').textContent = (user.name || 'User').split(' ')[0];
       loginBtn.style.display = 'none';
       signupBtn.style.display = 'none';
     } else {
@@ -1394,7 +1419,7 @@
     }
   }
 
-  // ── MODAL ──
+  // Modal functions
   function openModal(tab) {
     document.getElementById('authModal').classList.add('open');
     switchTab(tab || 'login');
@@ -1425,62 +1450,108 @@
       : 'Already have an account? <button onclick="switchTab(\'login\')">Log in</button>';
   }
 
-  function handleLogin() {
+  // ========== LOGIN ==========
+  async function handleLogin() {
     const id = document.getElementById('loginId').value.trim();
-    const pass = document.getElementById('loginPass').value.trim();
-    if (!id || !pass) { alert('Please enter your phone/email and password.'); return; }
-    // Simulate login — in production this hits your API
-    const stored = getUser();
-    if (stored && (stored.phone === id || stored.email === id)) {
+    const password = document.getElementById('loginPass').value.trim();
+    const btn = document.getElementById('loginSubmitBtn');
+
+    if (!id || !password) {
+      alert('Please enter your phone/email and password.');
+      return;
+    }
+
+    btn.classList.add('btn-loading');
+    btn.textContent = 'Logging in...';
+
+    try {
+      const response = await fetch(`${API_BASE}/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          identifier: id,
+          password: password
+        })
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || data.error || 'Login failed');
+      }
+
+      setUser({
+        name: data.user?.name || data.name || 'User',
+        email: data.user?.email || data.email,
+        phone: data.user?.phone || data.phone,
+        token: data.token
+      });
+
       closeModal();
       updateNav();
-      showToast('Welcome back!', `Signed in as ${stored.name}`);
-    } else {
-      alert('No account found with those details. Please sign up first.');
-      switchTab('signup');
+      showToast('Welcome back!', `Signed in as ${getUser().name}`);
+    } catch (err) {
+      console.error(err);
+      alert(err.message || 'Login failed. Please try again.');
+    } finally {
+      btn.classList.remove('btn-loading');
+      btn.textContent = 'Log in to my account';
     }
   }
 
-  function async handleSignup() {
-    const API_URL = "http://localhost:5000/auth/register";
-      try{
-
+  // ========== SIGNUP ==========
+  async function handleSignup() {
     const name = document.getElementById('signupName').value.trim();
     const phone = document.getElementById('signupPhone').value.trim();
     const email = document.getElementById('signupEmail').value.trim();
-    const pass = document.getElementById('signupPass').value.trim();
-    setUser({ name, phone, email, createdAt: Date.now() });
+    const password = document.getElementById('signupPass').value.trim();
+    const btn = document.getElementById('signupSubmitBtn');
 
-    const response = await fetch(${API_URL}/signup, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(setUser),
-        });
+    if (!name || !phone || !email || !password) {
+      alert('Please fill in all fields.');
+      return;
+    }
+    if (password.length < 8) {
+      alert('Password must be at least 8 characters.');
+      return;
+    }
 
-        const data = await response.json();
-    closeModal();
-    updateNav();
-    showToast('Account created!', `Welcome to Able\'s Farm, ${name.split(' ')[0]}!`);
-     if (!name || !phone || !email || !pass) { alert('Please fill in all fields.'); return; }
-    if (pass.length < 8) { alert('Password must be at least 8 characters.'); return; }
+    btn.classList.add('btn-loading');
+    btn.textContent = 'Creating account...';
 
-    
+    try {
+      const response = await fetch(`${API_BASE}/register`, {   // ← Uses your endpoint
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, phone, email, password })
+      });
 
+      const data = await response.json();
 
-      }catch(err){
-
-        console.error(error);
-      
-
+      if (!response.ok) {
+        throw new Error(data.message || data.error || 'Signup failed');
       }
-  
-    
-    
+
+      setUser({
+        name: data.user?.name || name,
+        email: data.user?.email || email,
+        phone: data.user?.phone || phone,
+        token: data.token
+      });
+
+      closeModal();
+      updateNav();
+      showToast('Account created!', `Welcome to Able's Farm, ${name.split(' ')[0]}!`);
+    } catch (err) {
+      console.error(err);
+      alert(err.message || 'Signup failed. Please try again.');
+    } finally {
+      btn.classList.remove('btn-loading');
+      btn.textContent = 'Create my account';
+    }
   }
 
-  // ── TOAST ──
+  // Toast
   let toastTimer;
   function showToast(title, msg) {
     const t = document.getElementById('toast');
@@ -1491,7 +1562,7 @@
     toastTimer = setTimeout(() => t.classList.remove('show'), 3500);
   }
 
-  // ── MOBILE MENU ──
+  // Mobile menu
   function toggleMobileMenu() {
     const links = document.querySelector('.nav-links');
     const isOpen = links.style.display === 'flex';
@@ -1508,14 +1579,16 @@
     links.style.zIndex = '200';
   }
 
-  // ── INIT ──
+  // Init
   updateNav();
 
-  // Smooth scroll for anchor links
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
       const target = document.querySelector(a.getAttribute('href'));
-      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
     });
   });
 </script>
